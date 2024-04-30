@@ -1,0 +1,123 @@
+/* Reset default margin and padding */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Global styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+/* Header styles */
+header {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo img {
+  height: 40px;
+}
+
+nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin-right: 20px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+nav ul li:last-child {
+  margin-right: 0;
+}
+
+/* Main layout */
+main {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 20px;
+  padding: 20px;
+}
+
+/* Box styles */
+.box {
+  background-color: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.box h2 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Footer styles */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 1rem;
+  text-align: center;
+}
+
+footer nav ul {
+  display: flex;
+  justify-content: center;
+}
+
+footer nav ul li {
+  margin: 0 10px;
+}
+
+footer nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+}
+
+/* Chart styles */
+.chart {
+  height: 200px;
+  width: 100%;
+  border-radius: 10px;
+  background-color: #f2f2f2;
+}
+
+.pie-chart {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.pie-chart div {
+  flex: 1;
+  text-align: center;
+}
+
+.pie-chart svg {
+  height: 150px;
+  margin-bottom: 10px;
+}
+
+.pie-chart p {
+  font-size: 1rem;
+  color: #666;
+}
