@@ -1,14 +1,14 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard</title>
+  <title>Manhattan, NYC Property Sales Dashboard</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
+    <div class="logo">
       <h1>Manhattan, NYC Property Sales' Growth</h1>
     </div>
     <nav>
@@ -22,35 +22,52 @@
   <main>
     <section class="box">
       <h2>Sales Growth</h2>
-      <div class="chart" id="sales-growth-chart"></div>
+      <div class="chart" id="sales-growth-chart" data-tooltip="Displays the growth of property sales in Manhattan."></div>
       <p>Total Income: 43,436,425.3976</p>
-      <p>Total Transaction: 12.851</p>
+      <p>Total Transactions: 12,851</p>
+    </section>
+    <!-- Add form section -->
+    <section class="box">
+      <h2>User Interaction</h2>
+      <form id="interaction-form">
+        <label for="input-field">Input Field:</label>
+        <input type="text" id="input-field" name="input-field"><br><br>
+        
+        <label for="dropdown">Select Dropdown:</label>
+        <select id="dropdown" name="dropdown">
+          <option value="option1">Option 1</option>
+          <option value="option2">Option 2</option>
+          <option value="option3">Option 3</option>
+        </select><br><br>
+        
+        <button type="submit" id="submit-btn">Submit</button>
+        <button type="button" id="reset-btn">Reset</button>
+      </form>
     </section>
     <section class="box">
       <h2>Year Built</h2>
-      <div class="chart" id="year-built-chart"></div>
+      <div class="chart" id="year-built-chart" data-tooltip="Displays the distribution of property sales by year built."></div>
     </section>
     <section class="box">
       <h2>Building Class Category</h2>
-      <div class="chart" id="building-class-chart"></div>
+      <div class="chart" id="building-class-chart" data-tooltip="Displays the distribution of property sales by building class category."></div>
     </section>
     <section class="box">
       <h2>Date Range</h2>
-      <div class="chart" id="date-range-chart"></div>
+      <div class="chart" id="date-range-chart" data-tooltip="Displays the distribution of property sales by date range."></div>
     </section>
     <section class="box">
       <h2>Neighborhood</h2>
-      <div class="chart" id="neighborhood-chart"></div>
+      <div class="chart" id="neighborhood-chart" data-tooltip="Displays the distribution of property sales by neighborhood."></div>
     </section>
     <section class="box">
       <h2>Tax Class</h2>
-      <div class="chart" id="tax-class-chart"></div>
+      <div class="chart" id="tax-class-chart" data-tooltip="Displays the distribution of property sales by tax class."></div>
     </section>
   </main>
   <footer>
-    2024 Dashboard. All rights reserved. Designed by  Fitrah
+    &copy; 2024 Manhattan, NYC Property Sales Dashboard. All rights reserved. 
   </footer>
+  <script src="script.js"></script>
 </body>
 </html>
-
-
