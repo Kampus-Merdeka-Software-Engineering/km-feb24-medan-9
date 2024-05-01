@@ -1,15 +1,11 @@
-/* Reset default margin and padding */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 /* Global styles */
 body {
   font-family: Arial, sans-serif;
   background-color: #f9f9f9;
   color: #333;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 /* Header styles */
@@ -22,14 +18,15 @@ header {
   align-items: center;
 }
 
-.logo img {
-  height: 40px;
+header h1 {
+  margin: 0;
+  font-size: 1.5rem;
 }
 
 nav ul {
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
 nav ul li {
@@ -37,15 +34,15 @@ nav ul li {
   margin-right: 20px;
 }
 
+nav ul li:last-child {
+  margin-right: 0;
+}
+
 nav ul li a {
   color: #fff;
   text-decoration: none;
   font-weight: bold;
   font-size: 1.2rem;
-}
-
-nav ul li:last-child {
-  margin-right: 0;
 }
 
 /* Main layout */
@@ -99,25 +96,24 @@ footer nav ul li a {
   width: 100%;
   border-radius: 10px;
   background-color: #f2f2f2;
+  position: relative;
 }
 
-.pie-chart {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
+.chart::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
 }
 
-.pie-chart div {
-  flex: 1;
-  text-align: center;
-}
-
-.pie-chart svg {
-  height: 150px;
-  margin-bottom: 10px;
-}
-
-.pie-chart p {
-  font-size: 1rem;
-  color: #666;
+.chart:hover::before {
+  opacity: 1;
 }
