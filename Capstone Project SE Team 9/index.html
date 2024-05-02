@@ -1,72 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Manhattan, NYC Property Sales Dashboard</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header>
-    <div class="logo">
-      <h1>Manhattan, NYC Property Sales' Growth</h1>
-    </div>
-    <nav>
-      <ul>
-        <li><a href="https://lookerstudio.google.com/reporting/1fb6eef3-e625-4c65-b1ed-f5a0ee2f2e8d">Dashboard</a></li>
-        <li><a href="https://docs.google.com/spreadsheets/d/1qfBnuGtLABYm_MPGIEsrIb8GrfFPrIpsN3Cr09pLPSc/edit?usp=drive_link">Dataset Overview</a></li>
-        <li><a href="https://docs.google.com/document/d/1KBSetlWBOqUJSJ1vLHK6XpbxPXYqsgySYauky-xhaqc/edit?usp=sharing">Insight</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <section class="box">
-      <h2>Sales Growth</h2>
-      <div class="chart" id="sales-growth-chart" data-tooltip="Displays the growth of property sales in Manhattan."></div>
-      <p>Total Income: 43,436,425.3976</p>
-      <p>Total Transactions: 12,851</p>
+<div class="dashboard">
+    <aside class="sidebar">
+        <!-- Sidebar content here -->
+        <div class="sidebar-item active"><a href="https://lookerstudio.google.com/reporting/1fb6eef3-e625-4c65-b1ed-f5a0ee2f2e8d">Dashboard<a/></div>
+        <div class="sidebar-item active"><a href="https://docs.google.com/spreadsheets/d/1qfBnuGtLABYm_MPGIEsrIb8GrfFPrIpsN3Cr09pLPSc/edit?usp=drive_link">Dataset Overview</a></div>
+        <div class="sidebar-item active"><a href="https://lookerstudio.google.com/reporting/1fb6eef3-e625-4c65-b1ed-f5a0ee2f2e8d">Insight</a></div>
+    </aside>
+    <main class="main-content">
+    <header class="header">
+        <h1>Manhattan, NYC Property Sales' Growth</h1>
+    </header>
+    <section class="stats">
+        <!-- Stats content here -->
+        <div class="stat-item">
+            <h2>Total Income</h2>
+            <p>$43,685,245.976</p>
+        </div>
+        <div class="stat-item">
+            <h2>Total Transaction</h2>
+            <p>12,651</p>
+        </div>
     </section>
-    <!-- Add form section -->
-    <section class="box">
-      <h2>User Interaction</h2>
-      <form id="interaction-form">
-        <label for="input-field">Input Field:</label>
-        <input type="text" id="input-field" name="input-field"><br><br>
-        
-        <label for="dropdown">Select Dropdown:</label>
-        <select id="dropdown" name="dropdown">
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
-        </select><br><br>
-        
-        <button type="submit" id="submit-btn">Submit</button>
-        <button type="button" id="reset-btn">Reset</button>
-      </form>
+    <section class="charts">
+        <!-- Charts content here -->
+        <div class="chart-item line-chart">Sale Price Graph</div>
+        <div class="chart-item pie-chart">Pie Chart</div>
+        <div class="chart-item bar-chart">Sale Price Manhattan</div>
+        <div class="chart-item line-chart">Count x Sale</div>
+        <div class="chart-item line-chart">Sale Price Graph</div>
+        <div class="chart-item pie-chart">Pie Chart</div>
+        <div class="chart-item bar-chart">Sale Price Building</div>
+        <div class="chart-item line-chart">Chart Graphic</div>
     </section>
-    <section class="box">
-      <h2>Year Built</h2>
-      <div class="chart" id="year-built-chart" data-tooltip="Displays the distribution of property sales by year built."></div>
+
+    <!-- Formulir -->
+    <section class="form">
+        <h2>Formulir Interaksi Pengguna</h2>
+        <form action="#" method="POST">
+            <label for="nama">Nama:</label><br>
+            <input type="text" id="nama" name="nama" required><br>
+
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br>
+
+            <label for="kategori">Kategori:</label><br>
+            <select id="kategori" name="kategori" required>
+                <option value="">Pilih Kategori</option>
+                <option value="Penjualan">Penjualan</option>
+                <option value="Pengeluaran">Pengeluaran</option>
+                <option value="Lainnya">Lainnya</option>
+            </select><br>
+
+            <label for="pesan">Pesan:</label><br>
+            <textarea id="pesan" name="pesan" rows="4" required></textarea><br>
+
+            <button type="submit">Kirim</button>
+            <button type="reset">Reset</button>
+        </form>
     </section>
-    <section class="box">
-      <h2>Building Class Category</h2>
-      <div class="chart" id="building-class-chart" data-tooltip="Displays the distribution of property sales by building class category."></div>
-    </section>
-    <section class="box">
-      <h2>Date Range</h2>
-      <div class="chart" id="date-range-chart" data-tooltip="Displays the distribution of property sales by date range."></div>
-    </section>
-    <section class="box">
-      <h2>Neighborhood</h2>
-      <div class="chart" id="neighborhood-chart" data-tooltip="Displays the distribution of property sales by neighborhood."></div>
-    </section>
-    <section class="box">
-      <h2>Tax Class</h2>
-      <div class="chart" id="tax-class-chart" data-tooltip="Displays the distribution of property sales by tax class."></div>
-    </section>
-  </main>
-  <footer>
-    &copy; 2024 Team 9, NYC Property Sales Dashboard. All rights reserved. 
-  </footer>
+</main>
+
+</div>
+<footer>© 2024 Team 9, NYC Property Sales Dashboard. All rights reserved. Designed by Fitrah</footer>
 </body>
 </html>
