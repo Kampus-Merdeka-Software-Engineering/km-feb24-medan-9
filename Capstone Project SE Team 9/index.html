@@ -1,74 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dashboard</title>
-<link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="dashboard">
-    <aside class="sidebar">
-        <!-- Sidebar content here -->
-        <div class="sidebar-item active"><a href="https://lookerstudio.google.com/reporting/1fb6eef3-e625-4c65-b1ed-f5a0ee2f2e8d">Dashboard<a/></div>
-        <div class="sidebar-item active"><a href="https://docs.google.com/spreadsheets/d/1qfBnuGtLABYm_MPGIEsrIb8GrfFPrIpsN3Cr09pLPSc/edit?usp=drive_link">Dataset Overview</a></div>
-        <div class="sidebar-item active"><a href="https://lookerstudio.google.com/reporting/1fb6eef3-e625-4c65-b1ed-f5a0ee2f2e8d">Insight</a></div>
-    </aside>
-    <main class="main-content">
     <header class="header">
-        <h1>Manhattan, NYC Property Sales' Growth</h1>
+        <h1>Manhattan Property Sales</h1>
     </header>
-    <section class="stats">
-        <!-- Stats content here -->
-        <div class="stat-item">
-            <h2>Total Income</h2>
-            <p>$43,685,245.976</p>
-        </div>
-        <div class="stat-item">
-            <h2>Total Transaction</h2>
-            <p>12,651</p>
-        </div>
-    </section>
-    <section class="charts">
-        <!-- Charts content here -->
-        <div class="chart-item line-chart">Sale Price Graph</div>
-        <div class="chart-item pie-chart">Pie Chart</div>
-        <div class="chart-item bar-chart">Sale Price Manhattan</div>
-        <div class="chart-item line-chart">Count x Sale</div>
-        <div class="chart-item line-chart">Sale Price Graph</div>
-        <div class="chart-item pie-chart">Pie Chart</div>
-        <div class="chart-item bar-chart">Sale Price Building</div>
-        <div class="chart-item line-chart">Chart Graphic</div>
-    </section>
 
-    <!-- Formulir -->
-    <section class="form">
-        <h2>Formulir Interaksi Pengguna</h2>
-        <form action="#" method="POST">
-            <label for="nama">Nama:</label><br>
-            <input type="text" id="nama" name="nama" required><br>
+    <div class="dashboard">
+        <aside class="sidebar">
+            <nav>
+                <ul>
+                    <li class="active"><a href="#">Overview</a></li>
+                    <li><a href="#">Sales</a></li>
+                    <li><a href="#">Customers</a></li>
+                    <li><a href="#">Analytics</a></li>
+                    <li><a href="#">Settings</a></li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <main class="main-content">
+            <section class="stats">
+                <article class="stat-item">
+                    <h2>Total Income</h2>
+                    <p>$43,685,245.98</p>
+                </article>
+                <article class="stat-item">
+                    <h2>Total Transactions</h2>
+                    <p>12,651</p>
+                </article>
+            </section>
+            <section class="dropdowns">
+                <div class="dropdown">
+                    <select>
+                        <option value="1">Dropdown 1</option>
+                        <option value="2">Dropdown 2</option>
+                        <option value="3">Dropdown 3</option>
+                    </select>
+                </div>
+                <div class="dropdown">
+                    <select>
+                        <option value="1">Dropdown 4</option>
+                        <option value="2">Dropdown 5</option>
+                        <option value="3">Dropdown 6</option>
+                    </select>
+                </div>
+                <div class="dropdown">
+                    <select>
+                        <option value="1">Dropdown 7</option>
+                        <option value="2">Dropdown 8</option>
+                        <option value="3">Dropdown 9</option>
+                    </select>
+                </div>
+                <div class="dropdown">
+                    <select>
+                        <option value="1">Dropdown 10</option>
+                        <option value="2">Dropdown 11</option>
+                        <option value="3">Dropdown 12</option>
+                    </select>
+                </div>
+            </section>
 
-            <label for="email">Email:</label><br>
-            <input type="email" id="email" name="email" required><br>
+            <section class="charts">
+                <article class="chart-item">Sale Price Graph</article>
+                <article class="chart-item">Pie Chart</article>
+                <article class="chart-item">Bar Chart</article>
+                <article class="chart-item">Count x Sale</article>
+                <article class="chart-item">Sales by Region</article>
+                <article class="chart-item">Customer Demographics</article>
+                <article class="chart-item">Product Sales</article>
+                <article class="chart-item">Revenue Growth</article>
+            </section>
 
-            <label for="kategori">Kategori:</label><br>
-            <select id="kategori" name="kategori" required>
-                <option value="">Pilih Kategori</option>
-                <option value="Penjualan">Penjualan</option>
-                <option value="Pengeluaran">Pengeluaran</option>
-                <option value="Lainnya">Lainnya</option>
-            </select><br>
 
-            <label for="pesan">Pesan:</label><br>
-            <textarea id="pesan" name="pesan" rows="4" required></textarea><br>
+        </main>
+    </div>
 
-            <button type="submit">Kirim</button>
-            <button type="reset">Reset</button>
-        </form>
-    </section>
-</main>
-
-</div>
-<footer>© 2024 Team 9, NYC Property Sales Dashboard. All rights reserved. Designed by FE </footer>
+    <footer class="footer">
+        <p>© 2024 Team 9 ,Manhattan Property Sales Dashboard. All rights reserved.</p>
+    </footer>
 </body>
 </html>
