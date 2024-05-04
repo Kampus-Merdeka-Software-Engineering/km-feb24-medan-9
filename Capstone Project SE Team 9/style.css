@@ -90,8 +90,8 @@ body {
 }
 
 .picture {
-    width: 100px; /* Adjust as needed */
-    height: 100px; /* Adjust as needed */
+    width: 100px; 
+    height: 100px; 
     background-color: #ddd;
 }
 
@@ -101,7 +101,8 @@ body {
     color: #fff;
     text-align: center;
     padding: 20px 0;
-}
+    
+
 
 /* Media queries */
 @media screen and (max-width: 768px) {
@@ -130,4 +131,6 @@ body {
         width: 80px;
         height: 80px;
     }
+}
+
 }
