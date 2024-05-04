@@ -1,158 +1,133 @@
-
-body, html {
+/* General styles */
+body {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f7f6;
+    font-family: Arial, sans-serif;
+    background-color: #f0f5ff;
+    color: #333;
 }
 
-/* Dashboard layout */
-.dashboard {
+.container {
     display: grid;
-    grid-template-columns: 250px 1fr;
-    min-height: 100vh;
+    grid-template-columns: 300px 1fr;
+    grid-gap: 20px;
+    padding: 20px;
 }
 
 /* Header */
 .header {
-    background-color: #2980b9;
-    color: white;
-    padding: 20px;
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
+    background-color: #007bff;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+.header h1 {
+    margin: 0;
 }
 
 /* Sidebar */
 .sidebar {
-    background-color: #34495e;
-    color: white;
+    background-color: #007bff;
+    color: #fff;
     padding: 20px;
-    border-bottom-left-radius: 8px;
+    border-radius: 8px;
 }
 
-.sidebar nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-.sidebar nav ul li {
+.sidebar label {
+    display: block;
     margin-bottom: 10px;
 }
 
-.sidebar nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 18px;
-    transition: color 0.3s ease;
+.sidebar select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
 }
 
-.sidebar nav ul li a:hover {
-    color: #ecf0f1;
-}
-
-/* Main Content */
-.main-content {
+/* Main content */
+.content {
     padding: 20px;
 }
 
-/* Stats */
-.stats {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-}
-
-.stat-item {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    width: calc(50% - 10px);
-    margin-right: 10px; /* Adjusted margin for better spacing */
-}
-
-/* Charts */
-.charts {
+.cards {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-gap: 20px;
 }
 
-.chart-item {
-    background-color: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    height: 200px;
+.card {
+    background-color: #fff;
+    border-radius: 20px;
+    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+    text-align: center;
+    font-size: 24px;
+    height: 300px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    font-size: 1em;
-    color: #7f8c8d;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Dropdowns */
-.dropdowns {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 20px; /* Menambahkan jarak antara dropdowns */
+.card:hover,
+.card:focus {
+    transform: scale(1.05);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
 }
 
-.dropdown {
-    width: 100%;
+.frame {
+    width: 80%;
+    height: 60%;
+    border: 2px dashed #ddd;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.dropdown select {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-    background-color: white;
-    margin-bottom: 10px; /* Menambahkan jarak bawah antara dropdowns */
+.picture {
+    width: 100px; /* Adjust as needed */
+    height: 100px; /* Adjust as needed */
+    background-color: #ddd;
 }
 
 /* Footer */
-footer {
-    background-color: #34495e;
-    color: white;
-    padding: 20px;
+.footer {
+    background-color: #007bff;
+    color: #fff;
     text-align: center;
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    padding: 20px 0;
 }
 
-/* Media Queries */
+/* Media queries */
 @media screen and (max-width: 768px) {
-    .dashboard {
+    .container {
         grid-template-columns: 1fr;
     }
 
     .sidebar {
-        width: 100%;
-        margin: 20px 0; /* Adjusted margin for better spacing */
-    }
-
-    .stat-item {
-        width: 100%;
-        margin-right: 0; /* Adjusted margin for better spacing */
-    }
-
-    .charts {
-        grid-template-columns: repeat(2, 1fr);
+        grid-column: span 2;
+        margin-bottom: 20px;
     }
 }
 
 @media screen and (max-width: 480px) {
-    .sidebar nav ul li a {
-        font-size: 16px;
+    .card {
+        font-size: 20px;
+        height: 250px;
     }
 
-    .stat-item {
-        font-size: 14px;
+    .frame {
+        width: 90%;
+        height: 50%;
     }
 
-    .chart-item {
-        font-size: 0.8em;
+    .picture {
+        width: 80px;
+        height: 80px;
     }
 }
