@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>Interactive Dashboard</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -11,76 +11,108 @@
         <h1>Manhattan Property Sales</h1>
     </header>
 
-    <div class="dashboard">
+    <div class="container">
         <aside class="sidebar">
-            <nav>
-                <ul>
-                    <li class="active"><a href="#">Overview</a></li>
-                    <li><a href="#">Insight</a></li>
-                    <li><a href="#">Dataset</a></li>
-                </ul>
-            </nav>
+            <div class="filter">
+                <label for="filter-select">Filter:</label>
+                <select id="filter-select">
+                    <option value="all">All</option>
+                    <option value="category1">Category 1</option>
+                    <option value="category2">Category 2</option>
+                    <option value="category3">Category 3</option>
+                </select>
+            </div>
+            <div class="dropdown">
+                <label for="dropdown-select">Dropdown:</label>
+                <select id="dropdown-select">
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                    <option value="option3">Option 3</option>
+                </select>
+            </div>
+            <div class="search">
+                <label for="search-input">Search:</label>
+                <input type="text" id="search-input" placeholder="Search...">
+
+                <button id="search-btn">Search</button>
+            </div>
+            <div class="date">
+                <label for="date-input">Date:</label>
+                <input type="date" id="date-input">
+            </div>
         </aside>
-        
-        <main class="main-content">
-            <section class="stats">
-                <article class="stat-item">
-                    <h2>Total Income</h2>
-                    <p>$43,685,245.98</p>
-                </article>
-                <article class="stat-item">
-                    <h2>Total Transactions</h2>
-                    <p>12,651</p>
-                </article>
-            </section>
-            <section class="dropdowns">
-                <div class="dropdown">
-                    <select>
-                        <option value="1">Dropdown 1</option>
-                        <option value="2">Dropdown 2</option>
-                        <option value="3">Dropdown 3</option>
-                    </select>
-                </div>
-                <div class="dropdown">
-                    <select>
-                        <option value="1">Dropdown 4</option>
-                        <option value="2">Dropdown 5</option>
-                        <option value="3">Dropdown 6</option>
-                    </select>
-                </div>
-                <div class="dropdown">
-                    <select>
-                        <option value="1">Dropdown 7</option>
-                        <option value="2">Dropdown 8</option>
-                        <option value="3">Dropdown 9</option>
-                    </select>
-                </div>
-                <div class="dropdown">
-                    <select>
-                        <option value="1">Dropdown 10</option>
-                        <option value="2">Dropdown 11</option>
-                        <option value="3">Dropdown 12</option>
-                    </select>
-                </div>
-            </section>
 
-            <section class="charts">
-                <article class="chart-item">Sale Price Graph</article>
-                <article class="chart-item">Pie Chart</article>
-                <article class="chart-item">Bar Chart</article>
-                <article class="chart-item">Count x Sale</article>
-                <article class="chart-item">Sales by Region</article>
-                <article class="chart-item">Customer Demographics</article>
-                <article class="chart-item">Product Sales</article>
-                <article class="chart-item">Revenue Growth</article>
+        <main class="content">
+            <section class="cards">
+                <div class="card category1">
+                    <div class="frame">
+                        <div class="picture"></div>
+                    </div>
+                    <div class="description">Description for Card 1.</div>
+                    Card 1
+                </div>
+                <!-- Repeat for other cards -->
+                <div class="card category2">
+                    <div class="frame">
+                        <div class="picture"></div>
+                    </div>
+                    <div class="description">Description for Card 2.</div>
+                    Card 2
+                </div>
+                <div class="card category3">
+                    <div class="frame">
+                        <div class="picture"></div>
+                    </div>
+                    <div class="description">Description for Card 3.</div>
+                    Card 3
+                </div>
+                <div class="card category3">
+                    <div class="frame">
+                        <div class="picture"></div>
+                    </div>
+                    <div class="description">Description for Card 3.</div>
+                    Card 4
+                </div>
+                <div class="card category3">
+                    <div class="frame">
+                        <div class="picture"></div>
+                    </div>
+                    <div class="description">Description for Card 3.</div>
+                    Card 5
+                </div>
+                <div class="card category3">
+                    <div class="frame">
+                        <div class="picture"></div>
+                    </div>
+                    <div class="description">Description for Card 3.</div>
+                    Card 6
+                </div>
+                <div class="card category3">
+                    <div class="frame">
+                        <div class="picture"></div>
+                    </div>
+                    <div class="description">Description for Card 3.</div>
+                    Card 7
+                </div>
+                <div class="card category3">
+                    <div class="frame">
+                        <div class="picture"></div>
+                    </div>
+                    <div class="description">Description for Card 3.</div>
+                    Card 8
+                </div>
             </section>
-
-
         </main>
     </div>
 
     <footer class="footer">
-        <p>© 2024 Manhattan Property Sales Dashboard. All rights reserved.</p>
+        <p>&copy;  2024 Manhattan Property Sales Dashboard. All rights reserved.</p>
     </footer>
+
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <div class="popup-content" id="popup-content"></div>
+        <button class="close-btn" id="close-btn">&times;</button>
+    </div>
 </body>
 </html>
