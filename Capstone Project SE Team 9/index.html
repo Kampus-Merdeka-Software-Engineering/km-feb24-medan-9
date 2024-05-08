@@ -14,52 +14,42 @@
     <div class="container">
         <aside class="sidebar">
             <!-- Sidebar content -->
-            <div class="sidebar-content">
-                <h2>Filters</h2>
-                <form id="filter-form">
-                    <!-- Filter form fields -->
-                    <label for="borough">Borough</label>
-                    <select name="borough" id="borough">
-                        <option value="Manhattan">Manhattan</option>
-                        <option value="Bronx">Bronx</option>
-                        <option value="Brooklyn">Brooklyn</option>
-                        <option value="Queens">Queens</option>
-                        <option value="Staten Island">Staten Island</option>
+            <div class="filter">
+                <h2>Filter</h2>
+                <div class="filter-group">
+                    <label for="top-product">Top Product</label>
+                    <select name="top-product" id="top-product">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
                     </select>
-
-                </form>
+                </div>
+                <div class="filter-group">
+                    <label for="bottom-product">Bottom Product</label>
+                    <select name="bottom-product" id="bottom-product">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
             </div>
-
-            <div class="sidebar-content">
-                <h2>Sort</h2>
-                <form id="sort-form">
-                    <!-- Sort form fields -->
-                    <label for="sort-by">Sort By</label>
-                    <select name="sort-by" id="sort-by">
-                        <option value="borough">Borough</option>
-                        <option value="neighborhood">Neighborhood</option>
-                        <option value="building-class-category">Building Class Category</option>
-                        <option value="sale-price">Sale Price</option>
-                    </select>
-
-                    <label for="sort-order">Sort Order</label>
-                    <select name="sort-order" id="sort-order">
-                        <option value="asc">Ascending</option>
-                        <option value="desc">Descending</option>
-                    </select>
-
-                </form>
-            </div>
-            <div class="sidebar-content">
-                <h2>Filter by Date</h2>
-                <form id="date-form">
-                    <!-- Date form fields -->
+            <div class="date">
+                <h2>Date</h2>
+                <div class="date-group">
                     <label for="start-date">Start Date</label>
                     <input type="date" name="start-date" id="start-date">
+                </div>
+                <div class="date-group
 
+                ">
                     <label for="end-date">End Date</label>
                     <input type="date" name="end-date" id="end-date">
-                </form>
+                </div>
+            </div> 
         </aside>
 
         <main class="content">
