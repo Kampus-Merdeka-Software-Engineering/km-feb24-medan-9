@@ -14,16 +14,74 @@ body {
     padding: 20px;
 }
 
-/* Header */
 .header {
     background-color: #007bff;
     color: #fff;
     text-align: center;
-    padding: 20px 0;
+    padding: 40px 0; 
+    font-size: 24px; 
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
 }
 
 .header h1 {
     margin: 0;
+}
+
+/* Navbar */
+.navbar {
+    background-color: rgb(255, 255, 255);
+    color: #fff;
+    display: flex;
+    justify-content: flex-start; /* Align items to the left */
+    align-items: center; /* Center vertically */
+    padding: 10px 20px; /* Adjusted padding */
+    flex-wrap: wrap; /* Allow items to wrap to the next line if needed */
+}
+
+.navbar .dropdown {
+    margin-right: 20px;
+}
+
+.navbar .dropbtn {
+    background-color: #007bff;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    font-weight: bold; /* Added bold font weight */
+    border: 2px solid transparent; /* Added border */
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+.navbar .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+    top: 40px; /* Adjust dropdown position */
+}
+
+.navbar .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.navbar .dropdown-content a:hover {
+    background-color: #ddd;
+}
+
+.navbar .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.navbar .dropdown:hover .dropbtn {
+    background-color: #0056b3;
 }
 
 /* Sidebar */
@@ -90,7 +148,6 @@ body {
     align-items: center;
 }
 
-/* Update frame for image */
 .frame img {
     max-width: 100%;
     max-height: 100%;
@@ -102,6 +159,9 @@ body {
     color: #fff;
     text-align: center;
     padding: 20px 0;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
 }
 
 /* pop-up styles */
@@ -183,5 +243,14 @@ body {
         width: 90%;
         height: 50%;
     }
-}
 
+    .sidebar {
+        padding: 10px;
+    }
+
+    .sidebar select,
+    .sidebar input[type="date"] {
+        width: calc(100% - 16px);
+        margin-bottom: 10px;
+    }
+}
