@@ -11,6 +11,23 @@
         <h1>Welcome to Manhattan Property Sales Dashboard</h1>
     </header>
 
+    <nav class="navbar">
+        <div class="dropdown">
+            <button class="dropbtn">Dashboard Chart Items</button>
+            <div class="dropdown-content">
+                <a href="#total-monthly-sales">Total Monthly Sales Price</a>
+                <a href="#neighborhood-sales">Neighborhood Sales Transaction</a>
+                <a href="#top-building-transaction">Top Building Transaction</a>
+                <a href="#4">4</a>
+                <a href="#5">5</a>
+                <a href="#6">6</a>
+                <a href="#7">7</a>
+                <a href="#8">8</a>
+            </div>
+        </div>
+    </nav>
+    
+
     <div class="container">
         <aside class="sidebar">
             <!-- Sidebar content -->
@@ -43,9 +60,7 @@
                     <label for="start-date">Start Date</label>
                     <input type="date" name="start-date" id="start-date">
                 </div>
-                <div class="date-group
-
-                ">
+                <div class="date-group">
                     <label for="end-date">End Date</label>
                     <input type="date" name="end-date" id="end-date">
                 </div>
@@ -54,21 +69,21 @@
 
         <main class="content">
             <section class="cards">
-                <div class="card category1">
+                <div id="total-monthly-sales" class="card category1">
                     <div class="frame">
                         <img src="image1.jpg" alt="Image 1">
                     </div>
-                    <div class="description"> Total Monthly Sales Price</div>
+                    <div class="description">Total Monthly Sales Price</div>
                     <div class="insight">Deskripsi Insight 1</div>
                 </div>
-                <div class="card category1">
+                <div id="neighborhood-sales" class="card category1">
                     <div class="frame">
                         <img src="image2.jpg" alt="Image 2">
                     </div>
                     <div class="description">Neighborhood Sales Transaction</div>
                     <div class="insight">Deskripsi Insight 2</div>
                 </div>
-                <div class="card category1">
+                <div id="top-building-transaction" class="card category1">
                     <div class="frame">
                         <img src="image3.jpg" alt="Image 3">
                     </div>
@@ -109,6 +124,7 @@
                     </div>
                     <div class="description">8</div>
                     <div class="insight">Deskripsi Insight 8</div>
+                </div>
             </section>
         </main>
     </div>
