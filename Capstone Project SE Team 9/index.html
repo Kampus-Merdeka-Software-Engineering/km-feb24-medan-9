@@ -1,143 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manhattan Property Sales Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <header class="header">
-        <h1>Welcome to Manhattan Property Sales Dashboard</h1>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="header" id="header-dashboard">
+      <h1>Welcome to Manhattan Property Sales Dashboard</h1>
     </header>
 
     <nav class="navbar">
-        <div class="dropdown">
-            <button class="dropbtn">Dashboard Chart Items</button>
-            <div class="dropdown-content">
-                <a href="#total-monthly-sales">Total Monthly Sales Price</a>
-                <a href="#neighborhood-sales">Neighborhood Sales Transaction</a>
-                <a href="#top-building-transaction">Top Building Transaction</a>
-                <a href="#4">4</a>
-                <a href="#5">5</a>
-                <a href="#6">6</a>
-                <a href="#7">7</a>
-                <a href="#8">8</a>
-            </div>
+      <div class="dropdown">
+        <button class="dropbtn">Dashboard Chart Items</button>
+        <div class="dropdown-content">
+          <a href="#total-monthly-sales">Total Monthly Sales Price</a>
+          <a href="#neighborhood-sales">Neighborhood Sales Transaction</a>
+          <a href="#top-building-transaction">Top Building Transaction</a>
+          <a href="#4">4</a>
+          <a href="#5">5</a>
+          <a href="#6">6</a>
+          <a href="#7">7</a>
+          <a href="#8">8</a>
         </div>
+      </div>
+      <button class="btn" id="filter-btn" onclick="changeHeader()">Change header</button>
     </nav>
-    
 
     <div class="container">
-        <aside class="sidebar">
-            <!-- Sidebar content -->
-            <div class="filter">
-                <h2>Filter</h2>
-                <div class="filter-group">
-                    <label for="top-product">Top Product</label>
-                    <select name="top-product" id="top-product">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="bottom-product">Bottom Product</label>
-                    <select name="bottom-product" id="bottom-product">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                </div>
-            </div>
-            <div class="date">
-                <h2>Date</h2>
-                <div class="date-group">
-                    <label for="start-date">Start Date</label>
-                    <input type="date" name="start-date" id="start-date">
-                </div>
-                <div class="date-group">
-                    <label for="end-date">End Date</label>
-                    <input type="date" name="end-date" id="end-date">
-                </div>
-            </div> 
-        </aside>
+      <aside class="sidebar">
+        <!-- Sidebar content -->
+        <div class="filter">
+          <h2>Filter</h2>
+          <div class="filter-group">
+            <label for="top-product" id="top-product-label">Top Product</label>
+            <select name="top-product" id="top-product">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+          <div class="filter-group">
+            <label for="bottom-product">Bottom Product</label>
+            <select name="bottom-product" id="bottom-product">
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+            </select>
+          </div>
+        </div>
+        <div class="date">
+          <h2>Date</h2>
+          <div class="date-group">
+            <label for="start-date">Start Date</label>
+            <input type="date" name="start-date" id="start-date" />
+          </div>
+          <div class="date-group">
+            <label for="end-date">End Date</label>
+            <input type="date" name="end-date" id="end-date" />
+          </div>
+        </div>
+      </aside>
 
-        <main class="content">
-            <section class="cards">
-                <div id="total-monthly-sales" class="card category1">
-                    <div class="frame">
-                        <img src="image1.jpg" alt="Image 1">
-                    </div>
-                    <div class="description">Total Monthly Sales Price</div>
-                    <div class="insight">Deskripsi Insight 1</div>
-                </div>
-                <div id="neighborhood-sales" class="card category1">
-                    <div class="frame">
-                        <img src="image2.jpg" alt="Image 2">
-                    </div>
-                    <div class="description">Neighborhood Sales Transaction</div>
-                    <div class="insight">Deskripsi Insight 2</div>
-                </div>
-                <div id="top-building-transaction" class="card category1">
-                    <div class="frame">
-                        <img src="image3.jpg" alt="Image 3">
-                    </div>
-                    <div class="description">Top Building Transaction</div>
-                    <div class="insight">Deskripsi Insight 3</div>
-                </div>
-                <div class="card category2">
-                    <div class="frame">
-                        <img src="image4.jpg" alt="Image 4">
-                    </div>
-                    <div class="description">4</div>
-                    <div class="insight">Deskripsi Insight 4</div>
-                </div>
-                <div class="card category2">
-                    <div class="frame">
-                        <img src="image5.jpg" alt="Image 5">
-                    </div>
-                    <div class="description">5</div>
-                    <div class="insight">Deskripsi Insight 5</div>
-                </div>
-                <div class="card category3">
-                    <div class="frame">
-                        <img src="image6.jpg" alt="Image 6">
-                    </div>
-                    <div class="description">6</div>
-                    <div class="insight">Deskripsi Insight 6</div>
-                </div>
-                <div class="card category3">
-                    <div class="frame">
-                        <img src="image7.jpg" alt="Image 7">
-                    </div>
-                    <div class="description">7</div>
-                    <div class="insight">Deskripsi Insight 7</div>
-                </div>
-                <div class="card category3">
-                    <div class="frame">
-                        <img src="image8.jpg" alt="Image 8">
-                    </div>
-                    <div class="description">8</div>
-                    <div class="insight">Deskripsi Insight 8</div>
-                </div>
-            </section>
-        </main>
+      <main class="content">
+        <section class="cards">
+          <div id="total-monthly-sales" class="card category1">
+            <div class="frame">
+              <img src="image1.jpg" alt="Image 1" />
+            </div>
+            <div class="description">Total Monthly Sales Price</div>
+            <div class="insight">Deskripsi Insight 1</div>
+          </div>
+          <div id="neighborhood-sales" class="card category1">
+            <div class="frame">
+              <img src="image2.jpg" alt="Image 2" />
+            </div>
+            <div class="description">Neighborhood Sales Transaction</div>
+            <div class="insight">Deskripsi Insight 2</div>
+          </div>
+          <div id="top-building-transaction" class="card category1">
+            <div class="frame">
+              <img src="image3.jpg" alt="Image 3" />
+            </div>
+            <div class="description">Top Building Transaction</div>
+            <div class="insight">Deskripsi Insight 3</div>
+          </div>
+          <div class="card category2">
+            <div class="frame">
+              <img src="image4.jpg" alt="Image 4" />
+            </div>
+            <div class="description">4</div>
+            <div class="insight">Deskripsi Insight 4</div>
+          </div>
+          <div class="card category2">
+            <div class="frame">
+              <img src="image5.jpg" alt="Image 5" />
+            </div>
+            <div class="description">5</div>
+            <div class="insight">Deskripsi Insight 5</div>
+          </div>
+          <div class="card category3">
+            <div class="frame">
+              <img src="image6.jpg" alt="Image 6" />
+            </div>
+            <div class="description">6</div>
+            <div class="insight">Deskripsi Insight 6</div>
+          </div>
+          <div class="card category3">
+            <div class="frame">
+              <img src="image7.jpg" alt="Image 7" />
+            </div>
+            <div class="description">7</div>
+            <div class="insight">Deskripsi Insight 7</div>
+          </div>
+          <div class="card category3">
+            <div class="frame">
+              <img src="image8.jpg" alt="Image 8" />
+            </div>
+            <div class="description">8</div>
+            <div class="insight">Deskripsi Insight 8</div>
+          </div>
+        </section>
+      </main>
     </div>
 
     <footer class="footer">
-        <p>&copy;  2024 Manhattan Property Sales Dashboard. All rights reserved.</p>
+      <p>
+        &copy; 2024 Manhattan Property Sales Dashboard. All rights reserved.
+      </p>
     </footer>
 
     <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup">
-        <div class="popup-content" id="popup-content"></div>
+      <div class="popup-content" id="popup-content"></div>
     </div>
 
     <script src="scripts.js"></script>
-</body>
+    <script type="text/javascript">
+        function changeHeader() {
+            //Bagian deklarasi variabel -->  'let textTopProduct'
+            //Bagian isi variabel --> '= document.getElementById("top-product-label").textContent'
+            //kalau pakai let hanya 1 kali deklarasi, diisi (=) bisa berkali kali
+            //kalau pakai const hanya 1 kali deklarasi dan 1 kali isi
+            //kalau pakai var bisa berkali kali deklarasi dan isi
+            let textTopProduct = document.getElementById("top-product-label").textContent;
+            document.getElementById("header-dashboard").innerText = textTopProduct;
+        }
+    </script>
+  </body>
 </html>
