@@ -152,9 +152,8 @@ body {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
     padding: 20px;
     z-index: 1001;
-    width: 80%; 
-    max-width: 400px; 
-    max-height: calc(100vh - 40px); 
+    width: 80%;
+    max-width: 400px;
     overflow: auto;
 }
 
@@ -179,22 +178,7 @@ body {
     color: #666;
     font-size: 18px;
     line-height: 1.5;
-}
-
-.overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-}
-
-.popup.show,
-.overlay.show {
-    display: block;
+    margin: 0;
 }
 
 /* Media queries */
