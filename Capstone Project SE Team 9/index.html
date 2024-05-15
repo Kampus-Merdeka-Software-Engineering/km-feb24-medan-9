@@ -4,94 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manhattan Property Sales Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header class="header">
-        <div class="header-left"> <!-- Added a new div for left-aligned header -->
-            <h1> Manhattan Property Sales Dashboard</h1>
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
         </div>
-         <div id="logo-perusahaan">
-            <img src="Logo - Company - Manhattan.png"
-            width="100px"
-            height="100px"/>
+        <div class="title">
+            <h1>Manhattan Property Sales Dashboard</h1>
         </div>
     </header>
     <nav class="navbar">
-            <div class="dropdown" id="topProductDropdown">
-                <button class="dropbtn">Top Product</button>
-                <div class="dropdown-content">
-                    <a href="#">Product 1</a>
-                    <a href="#">Product 2</a>
-                    <a href="#">Product 3</a>
-                    <a href="#">Product 4</a>
-                    <a href="#">Product 5</a>
-                </div>
+        <div class="dropdown" id="topProductDropdown">
+            <button class="dropbtn" onclick="toggleDropdown('topProductDropdown')">Top Product</button>
+            <div class="dropdown-content">
+                <a href="#">Product 1</a>
+                <a href="#">Product 2</a>
+                <a href="#">Product 3</a>
+                <a href="#">Product 4</a>
+                <a href="#">Product 5</a>
             </div>
-            <div class="dropdown" id="growthChartDropdown">     
-                <button class="dropbtn">Growth Chart</button>
-                <div class="dropdown-content">
-                    <a href="#">Growth Chart 1</a>
-                    <a href="#">Growth Chart 2</a>
-                    <a href="#">Growth Chart 3</a>
-                    <a href="#">Growth Chart 4</a>
-                    <a href="#">Growth Chart 5</a>
-                </div>
+        </div>
+        <div class="dropdown" id="growthChartDropdown">     
+            <button class="dropbtn" onclick="toggleDropdown('growthChartDropdown')">Growth Chart</button>
+            <div class="dropdown-content">
+                <a href="#">Growth Chart 1</a>
+                <a href="#">Growth Chart 2</a>
+                <a href="#">Growth Chart 3</a>
+                <a href="#">Growth Chart 4</a>
+                <a href="#">Growth Chart 5</a>
             </div>
+        </div>
     </nav>
-        <main class="content">
-            <section class="cards">
-                <!-- Updated order to place the Growth Chart card below the Top Product card -->
-                <div class="card" id="topProductCard">
-                    <div class="card-body-right"> <!-- Added class to align body text to the right -->
-                        <img src="images/product1.jpg" alt="Top Product">
-                    </div>
-                    <div class="card-header">
-                        <p>Description</p>
-                    </div>
-                   
+    <main class="content">
+        <section class="top-product-property">
+            <div class="residential-unit">
+                <h2>Residential Unit</h2>
+                <div class="products">
                 </div>
-                <div class="card" id="growthChartCard">
-                    <div class="card-body-left">
-                        <img src="images/growth-chart.jpg" alt="Total Monthly Sales Price"> 
-                    </div>
-                    <div class="card-header">
-                        <p>description</p>
-                    </div>
+            </div>
+            <div class="commercial-unit">
+                <h2>Commercial Unit</h2>
+                <div class="products">
                 </div>
-                <div class="card" id="growthChartCard">
-                    <div class="card-body-left">
-                        <img src="images/growth-chart.jpg" alt="Total Monthly Transaction"> 
-                    </div>
-                    <div class="card-header">
-                        <p>description</p>
-                    </div>
-                </div>
-                <div class="card" id="growthChartCard">
-                    <div class="card-body-left">
-                        <img src="images/growth-chart.jpg" alt="Top Building Transaction"> 
-                    </div>
-                    <div class="card-header">
-                        <p>description</p>
-                    </div>
-                </div>
-                <div class="card" id="growthChartCard">
-                    <div class="card-body-left">
-                        <img src="images/growth-chart.jpg" alt="Neighborhood Sales Transaction"> 
-                    </div>
-                    <div class="card-header">
-                        <p>description</p>
-                   </div>
-                </div>
-            </section>
-        </main>
-        
-    </div>
-
+            </div>
+            <div class="building-image">
+                <img src="building.jpg" alt="Building">
+            </div>
+        </section>
+        <section class="total-monthly-sales">
+            <h2>Total Monthly Sales Price</h2>
+            <button class="filter-date">Filter By Date</button>
+            <div class="chart">
+            </div>
+            <div class="insight">
+                <p>Key Insights</p>
+            </div>
+        </section>
+        <section class="neighborhood-sales">
+            <h2>Neighborhood Sales Transaction</h2>
+            <div class="chart">
+             <p> Chart Image</p>
+              <p>Chart Description</p>
+            </div>
+        </section>
+    </main>
     <footer class="footer">
-        <p>&copy;  2024 Manhattan Property Sales Dashboard. All rights reserved.</p>
+        <p>&copy; 2024 Manhattan Property Sales Dashboard. All rights reserved.</p>
     </footer>
-
     <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup">
         <div class="popup-content" id="popup-content"></div>
