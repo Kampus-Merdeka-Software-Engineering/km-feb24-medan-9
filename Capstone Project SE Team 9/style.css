@@ -9,7 +9,7 @@ body {
 
 .container {
     display: grid;
-    grid-template-columns: 300px 1fr;
+    grid-template-columns: 1fr;
     grid-gap: 20px;
     padding: 20px;
 }
@@ -17,19 +17,21 @@ body {
 .header {
     background-color: #8CB9BD;
     color: #fff;
-    text-align: left;
-    padding: 40px 20px;
-    font-size: 24px; 
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    padding: 20px;
 }
 
-.header h1 {
-    margin: 0;
+.header .logo img {
+    height: 50px;
 }
 
-/* Navbar */
+.header .title {
+    text-align: center;
+    flex: 1;
+}
+
 .navbar {
     background-color: #ECB159;
     color: #fff;
@@ -46,7 +48,7 @@ body {
 
 .navbar .dropbtn {
     background-color: transparent;
-    color: rgb(255, 255, 255);
+    color: #fff;
     font-size: 16px;
     font-weight: bold;
     border: none;
@@ -87,60 +89,52 @@ body {
     display: block;
 }
 
-/* Main content */
 .content {
     padding: 20px;
 }
 
-.cards {
+.top-product-property {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 20px;
 }
 
-.card {
+.top-product-property .residential-unit,
+.top-product-property .commercial-unit {
     background-color: #fff;
-    border-radius: 20px;
-    box-shadow: 0 12px 24px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.top-product-property .building-image {
     text-align: center;
-    font-size: 24px;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.total-monthly-sales,
+.neighborhood-sales {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.total-monthly-sales .filter-date {
+    background-color: #8CB9BD;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
     cursor: pointer;
+    margin-bottom: 20px;
 }
 
-.card:hover,
-.card:focus {
-    transform: scale(1.05);
-    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-}
-
-.card-body-right {
-    text-align: right;
-}
-
-.card-body-left {
-    text-align: left;
-}
-
-/* Footer */
 .footer {
     background-color: #8CB9BD;
     color: #fff;
     text-align: center;
     padding: 20px 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-/* pop-up styles */
 .popup {
     display: none;
     position: fixed;
@@ -181,16 +175,16 @@ body {
     margin: 0;
 }
 
-/* Media queries */
 @media screen and (max-width: 768px) {
-    .container {
+    .top-product-property {
         grid-template-columns: 1fr;
     }
 }
 
 @media screen and (max-width: 480px) {
-    .card {
-        font-size: 20px;
-        height: 250px;
+    .top-product-property .residential-unit,
+    .top-product-property .commercial-unit,
+    .top-product-property .building-image {
+        padding: 10px;
     }
 }
