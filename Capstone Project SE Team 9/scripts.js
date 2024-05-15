@@ -49,3 +49,32 @@ document.addEventListener('DOMContentLoaded', function() {
         showPopup('<h2>Filter By Date</h2><p>Content for filtering by date goes here.</p>');
     });
 });
+
+// Seperti melakukan penarikan data lewat API tapi dalam bentuk file
+// Bisa menggunakan fetch() juga
+var request = new XMLHttpRequest();
+request.open("GET", "./team-9-medan.json", false);
+request.send(null);
+
+var objPropertyParsed = JSON.parse(request.responseText);
+
+objPropertyParsed.sort((a, b) => b.RESIDENTIAL_UNITS - a.RESIDENTIAL_UNITS);
+
+for (var i = 0; i < 10; i++) {
+    var objTable = document.getElementById("top-sales-residential");
+    var row = document.createElement("tr");
+    var cell1 = document.createElement("td");
+    var cell2 = document.createElement("td");
+    var cell3 = document.createElement("td");
+
+    cell1.innerHTML = objPropertyParsed[i].NEIGHBORHOOD;
+    cell2.innerHTML = objPropertyParsed[i].BUILDING_CLASS_CATEGORY;
+    cell3.innerHTML = objPropertyParsed[i].RESIDENTIAL_UNITS;
+
+    row.appendChild(cell1);
+    row.appendChild(cell2);
+    row.appendChild(cell3);
+    objTable.appendChild(row);
+}
+
+console.log(objPropertyParsed);
