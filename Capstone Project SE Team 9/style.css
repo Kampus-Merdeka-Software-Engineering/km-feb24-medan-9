@@ -7,13 +7,6 @@ body {
     color: #333;
 }
 
-.container {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 20px;
-    padding: 20px;
-}
-
 .header {
     background-color: #8CB9BD;
     color: #fff;
@@ -110,15 +103,24 @@ body {
     text-align: center;
 }
 
+.top-product-property .building-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
 .total-monthly-sales,
-.neighborhood-sales {
+.neighborhood-sales,
+.monthly-transaction,
+.top-building-transaction {
     background-color: #fff;
     border-radius: 8px;
     padding: 20px;
     margin-top: 20px;
 }
 
-.total-monthly-sales .filter-date {
+.total-monthly-sales .filter-date,
+.monthly-transaction .filter-date {
     background-color: #8CB9BD;
     color: #fff;
     border: none;
@@ -173,6 +175,17 @@ body {
     font-size: 18px;
     line-height: 1.5;
     margin: 0;
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
 }
 
 @media screen and (max-width: 768px) {
