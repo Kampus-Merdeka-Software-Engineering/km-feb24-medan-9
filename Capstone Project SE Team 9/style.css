@@ -238,6 +238,7 @@ body {
     z-index: 1000;
 }
 
+/* Media queries for responsiveness */
 @media screen and (max-width: 768px) {
     .top-product-property {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -249,5 +250,40 @@ body {
     .top-product-property .commercial-unit,
     .top-product-property .building-image {
         padding: 10px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .top-product-property .residential-unit table,
+    .top-product-property .commercial-unit table {
+        font-size: 14px; 
+    }
+
+    .top-product-property .residential-unit table th,
+    .top-product-property .residential-unit table td,
+    .top-product-property .commercial-unit table th,
+    .top-product-property .commercial-unit table td {
+        padding: 8px; 
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .top-product-property .residential-unit table th,
+    .top-product-property .residential-unit table td,
+    .top-product-property .commercial-unit table th,
+    .top-product-property .commercial-unit table td {
+        font-size: 12px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .top-product-title {
+        width: 97%; 
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .top-product-title {
+        width: 95%; 
     }
 }
