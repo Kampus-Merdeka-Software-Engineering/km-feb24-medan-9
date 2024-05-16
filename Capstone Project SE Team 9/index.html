@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manhattan Property Sales Dashboard</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header class="header">
@@ -19,8 +19,8 @@
         <div class="dropdown" id="topProductDropdown">
             <button class="dropbtn" onclick="toggleDropdown('topProductDropdown')">Top Product</button>
             <div class="dropdown-content">
-                <a href="#">Product 1</a>
-                <a href="#">Product 2</a>
+                <a href="#residential-unit">residential unit</a>
+                <a href="#commercial-unit">commercial unit</a>
                 <a href="#">Product 3</a>
                 <a href="#">Product 4</a>
                 <a href="#">Product 5</a>
@@ -38,15 +38,34 @@
         </div>
     </nav>
     <main class="content">
+        <h1 class="top-product-title">Top Product</h1> 
         <section class="top-product-property">
             <div class="residential-unit">
                 <h2>Residential Unit</h2>
                 <div class="products">
+                    <table id="top-sales-residential">
+                        <thead>
+                            <tr>
+                                <th>Neighborhood</th>
+                                <th>Building Class</th>
+                                <th>Units</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
             <div class="commercial-unit">
                 <h2>Commercial Unit</h2>
                 <div class="products">
+                    <table id="top-sales-commercial">
+                        <thead>
+                            <tr>
+                                <th>TEST</th>
+                                <th>TEST</th>
+                                <th>Units</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
             </div>
             <div class="building-image">
@@ -102,3 +121,5 @@
     <script src="scripts.js"></script>
 </body>
 </html>
+
+
