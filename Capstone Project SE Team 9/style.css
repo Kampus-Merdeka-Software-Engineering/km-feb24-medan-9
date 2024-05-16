@@ -86,9 +86,21 @@ body {
     padding: 20px;
 }
 
+.top-product-title {
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    width: 65%;
+    padding: 10px;
+    background-color: #fff;
+    border-radius: 8px;
+    font-size: 24px;
+    color: #333;
+}
+
 .top-product-property {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-gap: 20px;
 }
 
@@ -97,6 +109,33 @@ body {
     background-color: #fff;
     border-radius: 8px;
     padding: 20px;
+}
+
+.top-product-property .residential-unit table,
+.top-product-property .commercial-unit table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.top-product-property .residential-unit table th,
+.top-product-property .residential-unit table td,
+.top-product-property .commercial-unit table th,
+.top-product-property .commercial-unit table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.top-product-property .residential-unit table th,
+.top-product-property .commercial-unit table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+    color: #333;
+}
+
+.top-product-property .residential-unit table tr:nth-child(even),
+.top-product-property .commercial-unit table tr:nth-child(even) {
+    background-color: #f9f9f9;
 }
 
 .top-product-property .building-image {
@@ -190,7 +229,7 @@ body {
 
 @media screen and (max-width: 768px) {
     .top-product-property {
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 }
 
