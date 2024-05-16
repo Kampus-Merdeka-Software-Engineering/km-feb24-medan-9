@@ -46,3 +46,26 @@ for (var i = 0; i < 10; i++) {
     row.appendChild(cell3);
     objTable.appendChild(row);
 }
+
+// Get the popup and overlay elements by their IDs
+var popup = document.getElementById("popup");
+var overlay = document.getElementById("overlay");
+
+// Get the "Insights" buttons by their class name
+var showInsightButtons = document.getElementsByClassName("show-insight-btn");
+
+// Loop through each "Insights" button and add a click event listener
+for (var i = 0; i < showInsightButtons.length; i++) {
+    showInsightButtons[i].addEventListener("click", function() {
+        // Toggle the display of the popup and overlay
+        popup.style.display = (popup.style.display === "block") ? "none" : "block";
+        overlay.style.display = (overlay.style.display === "block") ? "none" : "block";
+    });
+}
+
+// Add a click event listener to the overlay to close the popup when clicked
+overlay.addEventListener("click", function() {
+    popup.style.display = "none";
+    overlay.style.display = "none";
+});
+
