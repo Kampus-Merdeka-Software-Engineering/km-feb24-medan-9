@@ -1,104 +1,130 @@
-// Fetch JSON data
-fetch('./team-9-medan.json')
-    .then(response => response.json()) // Mengubah response menjadi JSON
-    .then(initializeDashboard) // Memanggil fungsi initializeDashboard dengan data JSON
-    .catch(error => console.error('Error fetching data:', error)); // Menangkap dan menampilkan error jika gagal mengambil data
+// Write JavaScript to load and parse a local JSON file.
+var request = new XMLHttpRequest();
+request.open("GET", "./team-9-medan.json", false);
+	@@ -11,41 +10,50 @@ var objPropertyParsed = JSON.parse(request.responseText);
+objPropertyParsed.sort((a, b) => b.RESIDENTIAL_UNITS - a.RESIDENTIAL_UNITS);
 
-// Function to initialize the dashboard
-function initializeDashboard(data) {
-    // Inisialisasi DataTable untuk 10 unit residensial teratas
-    const tableResidential = initializeDataTable('#top-sales-residential', data, 'RESIDENTIAL_UNITS');
+for (var i = 0; i < 10; i++) {
+  var objTable = document.getElementById("top-sales-residential");
+  var row = document.createElement("tr");
+  var cell1 = document.createElement("td");
+  var cell2 = document.createElement("td");
+  var cell3 = document.createElement("td");
 
-    // Inisialisasi DataTable untuk 10 unit komersial teratas
-    const tableCommercial = initializeDataTable('#top-sales-commercial', data, 'COMMERCIAL_UNITS');
+  cell1.innerHTML = objPropertyParsed[i].NEIGHBORHOOD;
+  cell2.innerHTML = objPropertyParsed[i].BUILDING_CLASS_CATEGORY;
+  cell3.innerHTML = objPropertyParsed[i].RESIDENTIAL_UNITS;
 
-    // Inisialisasi elemen popup dan overlay
-    const popup = document.getElementById("popup");
-    const overlay = document.getElementById("overlay");
-
-    // Menambahkan event listener klik ke tombol "Insights"
-    document.querySelectorAll(".show-insight-btn")
-        .forEach(button => button.addEventListener("click", togglePopup));
-
-    // Menambahkan event listener klik ke overlay untuk menutup popup
-    overlay.addEventListener("click", () => togglePopup());
-
-    // Menghitung transaksi berdasarkan lingkungan
-    const neighborhoodTransactions = calculateNeighborhoodTransactions(data);
-
-    // Membuat bar chart untuk menampilkan total transaksi per lingkungan
-    const chart = createNeighborhoodSalesChart(neighborhoodTransactions);
-
-    // Menambahkan event listener klik ke tombol sort
-    document.querySelector('.sort-btn').addEventListener('click', toggleSortOptions);
-
-    // Menambahkan event listener klik ke opsi sort
-    document.querySelectorAll('.sort-option')
-        .forEach(option => option.addEventListener('click', event => sortChartData(event.target.dataset.sortType)));
-
-    // Function untuk menginisialisasi DataTable
-    function initializeDataTable(selector, data, unitsKey) {
-        return new DataTable(selector, {
-            data: data,
-            columns: [
-                { data: 'NEIGHBORHOOD' }, // Kolom untuk lingkungan
-                { data: 'BUILDING_CLASS_CATEGORY' }, // Kolom untuk kategori kelas bangunan
-                { data: unitsKey } // Kolom untuk jumlah unit (residensial/komersial)
-            ]
-        });
-    }
-
-    // Function untuk menampilkan atau menyembunyikan popup
-    function togglePopup() {
-        popup.style.display = popup.style.display === "block" ? "none" : "block";
-        overlay.style.display = overlay.style.display === "block" ? "none" : "block";
-    }
-
-    // Function untuk menghitung transaksi berdasarkan lingkungan
-    function calculateNeighborhoodTransactions(data) {
-        const neighborhoodTransactions = {};
-        data.forEach(property => {
-            neighborhoodTransactions[property.NEIGHBORHOOD] = (neighborhoodTransactions[property.NEIGHBORHOOD] || 0) + 1;
-        });
-        return Object.entries(neighborhoodTransactions)
-            .sort((a, b) => a[1] - b[1])
-            .reduce((obj, [neighborhood, count]) => ({ ...obj, [neighborhood]: count }), {});
-    }
-
-    // Function untuk membuat bar chart transaksi per lingkungan
-    function createNeighborhoodSalesChart(neighborhoodTransactions) {
-        const ctx = document.getElementById("neighborhood-sales-chart").getContext("2d");
-        return new Chart(ctx, {
-            type: "bar",
-            data: {
-                labels: Object.keys(neighborhoodTransactions), // Label untuk lingkungan
-                datasets: [{
-                    label: "Total Transactions by Neighborhood",
-                    data: Object.values(neighborhoodTransactions), // Data jumlah transaksi per lingkungan
-                    borderWidth: 1,
-                }]
-            },
-            options: {
-                scales: {
-                    y: { beginAtZero: true } // Sumbu y dimulai dari nol
-                }
-            }
-        });
-    }
-
-    // Function untuk menampilkan atau menyembunyikan opsi sort
-    function toggleSortOptions() {
-        const sortOptions = document.querySelector('.sort-options');
-        sortOptions.style.display = sortOptions.style.display === "block" ? "none" : "block";
-    }
-
-    // Function untuk mengurutkan data chart
-    function sortChartData(sortType) {
-        const sortedData = Object.entries(neighborhoodTransactions)
-            .sort((a, b) => sortType === 'asc' ? a[1] - b[1] : b[1] - a[1]); // Mengurutkan data berdasarkan jenis sort
-        chart.data.labels = sortedData.map(([neighborhood]) => neighborhood); // Mengatur label chart dengan data terurut
-        chart.data.datasets[0].data = sortedData.map(([, count]) => count); // Mengatur data chart dengan data terurut
-        chart.update(); // Mengupdate chart dengan data terbaru
-    }
+  row.appendChild(cell1);
+  row.appendChild(cell2);
+  row.appendChild(cell3);
+  objTable.appendChild(row);
 }
-s
+// top 10 sales by commercial unit
+
+// objPropertyParsed.sort((a, b) => b.COMMERCIAL_UNITS - a.COMMERCIAL_UNITS);
+
+// for (var i = 0; i < 10; i++) {
+//   var objTable = document.getElementById("top-sales-commercial");
+//   var row = document.createElement("tr");
+//   var cell1 = document.createElement("td");
+//   var cell2 = document.createElement("td");
+//   var cell3 = document.createElement("td");
+
+//   cell1.innerHTML = objPropertyParsed[i].NEIGHBORHOOD;
+//   cell2.innerHTML = objPropertyParsed[i].BUILDING_CLASS_CATEGORY;
+//   cell3.innerHTML = objPropertyParsed[i].COMMERCIAL_UNITS;
+
+//   row.appendChild(cell1);
+//   row.appendChild(cell2);
+//   row.appendChild(cell3);
+//   objTable.appendChild(row);
+// }
+
+let table = new DataTable('#top-sales-commercial', {
+    data: objPropertyParsed,
+    columns: [
+        { data: 'NEIGHBORHOOD' },
+        { data: 'BUILDING_CLASS_CATEGORY' },
+        { data: 'COMMERCIAL_UNITS' }
+    ]
+});
+
+// Get the popup and overlay elements by their IDs
+var popup = document.getElementById("popup");
+	@@ -56,16 +64,75 @@ var showInsightButtons = document.getElementsByClassName("show-insight-btn");
+
+// Loop through each "Insights" button and add a click event listener
+for (var i = 0; i < showInsightButtons.length; i++) {
+  showInsightButtons[i].addEventListener("click", function () {
+    // Toggle the display of the popup and overlay
+    popup.style.display = popup.style.display === "block" ? "none" : "block";
+    overlay.style.display =
+      overlay.style.display === "block" ? "none" : "block";
+  });
+}
+
+// Add a click event listener to the overlay to close the popup when clicked
+overlay.addEventListener("click", function () {
+  popup.style.display = "none";
+  overlay.style.display = "none";
+});
+
+var arrNeighborhoods = [];
+var arrCountTransactionsByNeighborhoods = [];
+
+objPropertyParsed.forEach((property) => {
+    if(!arrNeighborhoods.includes(property.NEIGHBORHOOD)){
+        arrNeighborhoods.push(property.NEIGHBORHOOD);
+    }
+    else{
+        let index = arrNeighborhoods.indexOf(property.NEIGHBORHOOD);
+        if(arrCountTransactionsByNeighborhoods[index]){
+            arrCountTransactionsByNeighborhoods[index] += 1;
+        }
+        else{
+            arrCountTransactionsByNeighborhoods[index] = 1;
+        }
+    }
+});
+
+var objArrTransactionByNeighborhoods = [];
+for(var i = 0; i < arrNeighborhoods.length; i++){
+    objArrTransactionByNeighborhoods[i] = {
+        neighborhood: arrNeighborhoods[i],
+        count: arrCountTransactionsByNeighborhoods[i]
+    };
+}
+
+// kondisi sekarang objArrTransactionByNeighborhoods belum ke sort
+objArrTransactionByNeighborhoods.sort((a, b) => a.count - b.count);
+
+// kondisi sekarang objArrTransactionByNeighborhoods udah ke sort, 
+// tapi arrNeighborhoods dan arrCountTransactionsByNeighborhoods belum
+for (var i = 0; i < objArrTransactionByNeighborhoods.length; i++) {
+    arrNeighborhoods[i] = objArrTransactionByNeighborhoods[i].neighborhood;
+    arrCountTransactionsByNeighborhoods[i] = objArrTransactionByNeighborhoods[i].count;
+}
+
+const ctx = document.getElementById("neighborhood-sales-chart");
+
+new Chart(ctx, {
+  type: "bar",
+  data: {
+    labels: arrNeighborhoods,
+    datasets: [
+      {
+        label: "Total Transactions by Neighborhoods",
+        data: arrCountTransactionsByNeighborhoods,
+        borderWidth: 1,
+      },
+    ],
+  },
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true,
+      },
+    },
+  },
+});
