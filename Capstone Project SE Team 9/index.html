@@ -1,132 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Manhattan Property Sales Dashboard</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css">
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css"
+    />
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
     <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <header class="header">
-        <div class="logo">
-            <img src="Logo - Company - Manhattan.png" alt="Logo">
-        </div>
-        <div class="title">
-            <h1>Manhattan Property Sales Dashboard</h1>
-        </div>
+      <div class="logo">
+        <img src="Logo - Company - Manhattan.png" alt="Logo" />
+      </div>
+      <div class="title">
+        <h1>Manhattan Property Sales Dashboard</h1>
+      </div>
     </header>
     <nav class="navbar">
-        <div class="dropdown" id="topProductDropdown">
-            <button class="dropbtn">Top Product</button>
-            <div class="dropdown-content">
-                <a href="#residential-unit">Residential Unit</a>
-                <a href="#commercial-unit">Commercial Unit</a>
-            </div>
+      <div class="dropdown" id="topProductDropdown">
+        <button class="dropbtn">Top Product</button>
+        <div class="dropdown-content">
+          <a href="#residential-unit">Residential Unit</a>
+          <a href="#commercial-unit">Commercial Unit</a>
         </div>
-        <div class="dropdown" id="growthChartDropdown">
-            <button class="dropbtn">Growth Chart</button>
-            <div class="dropdown-content">
-                <a href="#growth-chart-1">Total Monthly Sales Price</a>
-                <a href="#growth-chart-2">Neighborhood Sales Transaction</a>
-                <a href="#growth-chart-3">Total Monthly Transaction</a>
-                <a href="#growth-chart-4">Top Building Transaction</a>
-            </div>
+      </div>
+      <div class="dropdown" id="growthChartDropdown">
+        <button class="dropbtn">Growth Chart</button>
+        <div class="dropdown-content">
+          <a href="#growth-chart-1">Total Monthly Sales Price</a>
+          <a href="#growth-chart-2">Neighborhood Sales Transaction</a>
+          <a href="#growth-chart-3">Total Monthly Transaction</a>
+          <a href="#growth-chart-4">Top Building Transaction</a>
         </div>
+      </div>
     </nav>
     <main class="content">
-        <h1 class="top-product-title">Top Product</h1>
-        <section id="residential-unit" class="top-product-property">
-            <div class="residential-unit">
-                <h2>Residential Unit</h2>
-                <div class="products">
-                    <table id="top-sales-residential">
-                        <thead>
-                            <tr>
-                                <th>Neighborhood</th>
-                                <th>Building Class</th>
-                                <th>Total Units</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
-            <div id="commercial-unit" class="commercial-unit">
-                <h2>Commercial Unit</h2>
-                <div class="products">
-                    <table id="top-sales-commercial">
-                        <thead>
-                            <tr>
-                                <th>Neighborhood</th>
-                                <th>Building Class</th>
-                                <th>Total Units</th>
-                            </tr>
-                        </thead>
-                    </table>
-                </div>
-            </div>
-            <div class="building-image">
-                <img src="building.jpeg" alt="Building">
-                <img src="building2.jpeg" alt="Building">
-                <img src="building3.jpeg" alt="Building">
-            </div>
-        </section>
-        <section id="growth-chart-1" class="total-monthly-sales">
-            <h2>Total Monthly Sales Price</h2>
-            <button class="filter-date">Filter By Date</button>
-            <div class="chart">
-                <p>Chart Image</p>
-            </div>
-            <div class="insight">
-                <button class="show-insight-btn">Insights</button>
-            </div>
-        </section>
-        <section id="growth-chart-2" class="neighborhood-sales">
-            <h2>Neighborhood Sales Transaction</h2>
-            <div class="sort-buttons">
-                <button class="sort-btn">Sort</button>
-                <div class="sort-options" style="display: none;">
-                    <button class="sort-option" data-sort-type="asc">Ascending</button>
-                    <button class="sort-option" data-sort-type="desc">Descending</button>
-                </div>
-            </div>
-            <div class="chart">
-                <canvas id="neighborhood-sales-chart"></canvas>
-            </div>
-            <div class="insight">
-                <button class="show-insight-btn">Insights</button>
-            </div>
-        </section>
-        <section id="growth-chart-3" class="monthly-transaction">
-            <h2>Total Monthly Transaction</h2>
-            <button class="filter-date">Filter By Date</button>
-            <div class="chart">
-                <p>Chart Image</p>
-            </div>
-            <div class="insight">
-                <button class="show-insight-btn">Insights</button>
-            </div>
-        </section>
-        <section id="growth-chart-4" class="top-building-transaction">
-            <h2>Top Building Transaction</h2>
-            <div class="chart">
-                <p>Chart Image</p>
-            </div>
-            <div class="insight">
-                <button class="show-insight-btn">Insights</button>
-            </div>
-        </section>
+      <h1 class="top-product-title">Top Product</h1>
+      <section id="residential-unit" class="top-product-property">
+        <div class="residential-unit">
+          <h2>Residential Unit</h2>
+          <div class="products">
+            <table id="top-sales-residential">
+              <thead>
+                <tr>
+                  <th>Neighborhood</th>
+                  <th>Building Class</th>
+                  <th>Total Units</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+        <div id="commercial-unit" class="commercial-unit">
+          <h2>Commercial Unit</h2>
+          <div class="products">
+            <table id="top-sales-commercial">
+              <thead>
+                <tr>
+                  <th>Neighborhood</th>
+                  <th>Building Class</th>
+                  <th>Total Units</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+        <div class="building-image">
+          <img src="building.jpeg" alt="Building" />
+          <img src="building2.jpeg" alt="Building" />
+          <img src="building3.jpeg" alt="Building" />
+        </div>
+      </section>
+      <section id="growth-chart-1" class="total-monthly-sales">
+        <h2>Total Monthly Sales Price</h2>
+        <button class="filter-date">Filter By Date</button>
+        <div class="chart">
+          <p>Chart Image</p>
+        </div>
+        <div class="insight">
+          <button class="show-insight-btn">Insights</button>
+        </div>
+      </section>
+      <section id="growth-chart-2" class="neighborhood-sales">
+        <h2>Neighborhood Sales Transaction</h2>
+        <div class="chart">
+          <canvas id="neighborhood-sales-chart"></canvas>
+        </div>
+        <div class="insight">
+          <button class="show-insight-btn">Insights</button>
+        </div>
+      </section>
+      <section id="growth-chart-3" class="monthly-transaction">
+        <h2>Total Monthly Transaction</h2>
+        <button class="filter-date">Filter By Date</button>
+        <div class="chart">
+          <p>Chart Image</p>
+        </div>
+        <div class="insight">
+          <button class="show-insight-btn">Insights</button>
+        </div>
+      </section>
+      <section id="growth-chart-4" class="top-building-transaction">
+        <h2>Top Building Transaction</h2>
+        <div class="chart">
+          <p>Chart Image</p>
+        </div>
+        <div class="insight">
+          <button class="show-insight-btn">Insights</button>
+        </div>
+      </section>
     </main>
     <footer class="footer">
-        <p>&copy; 2024 Manhattan Property Sales Dashboard. All rights reserved.</p>
+      <p>
+        &copy; 2024 Manhattan Property Sales Dashboard. All rights reserved.
+      </p>
     </footer>
     <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup">
-        <div class="popup-content" id="popup-content"></div>
+      <div class="popup-content" id="popup-content"></div>
     </div>
     <script src="scripts.js"></script>
-</body>
+  </body>
 </html>
