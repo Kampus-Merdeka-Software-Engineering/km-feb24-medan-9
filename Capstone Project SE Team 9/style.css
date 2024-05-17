@@ -7,10 +7,12 @@ body {
     color: #333;
 }
 
+/* Enable smooth scrolling for HTML */
 html {
-            scroll-behavior: smooth;
-        }
+    scroll-behavior: smooth;
+}
 
+/* Header styles */
 .header {
     background-color: #8CB9BD;
     color: #fff;
@@ -29,6 +31,7 @@ html {
     flex: 1;
 }
 
+/* Navbar styles */
 .navbar {
     background-color: #ECB159;
     color: #fff;
@@ -86,15 +89,17 @@ html {
     display: block;
 }
 
+/* Content styles */
 .content {
     padding: 20px;
 }
 
+/* Title styles for top product section */
 .top-product-title {
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 65%;
+    width: 65%; /* Adjusted width for better responsiveness */
     padding: 10px;
     background-color: #fff;
     border-radius: 8px;
@@ -102,12 +107,14 @@ html {
     color: #333;
 }
 
+/* Grid layout for top product properties */
 .top-product-property {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-gap: 20px;
 }
 
+/* Table styles for residential and commercial units */
 .top-product-property .residential-unit,
 .top-product-property .commercial-unit {
     background-color: #fff;
@@ -142,6 +149,7 @@ html {
     background-color: #f9f9f9;
 }
 
+/* Center-align image in building-image section */
 .top-product-property .building-image {
     text-align: center;
 }
@@ -152,6 +160,7 @@ html {
     border-radius: 8px;
 }
 
+/* Styles for other sections */
 .total-monthly-sales,
 .neighborhood-sales,
 .monthly-transaction,
@@ -162,6 +171,7 @@ html {
     margin-top: 20px;
 }
 
+/* Button styles */
 .total-monthly-sales .filter-date,
 .monthly-transaction .filter-date {
     background-color: #8CB9BD;
@@ -172,7 +182,6 @@ html {
     cursor: pointer;
     margin-bottom: 20px;
 }
-
 .show-insight-btn {
     background-color: #8CB9BD;
     color: #fff;
@@ -183,7 +192,7 @@ html {
     margin-bottom: 20px;
 }
 
-
+/* Footer styles */
 .footer {
     background-color: #8CB9BD;
     color: #fff;
@@ -191,6 +200,7 @@ html {
     padding: 20px 0;
 }
 
+/* Popup and overlay styles */
 .popup {
     display: none;
     position: fixed;
@@ -244,20 +254,12 @@ html {
 
 /* Media queries for responsiveness */
 @media screen and (max-width: 768px) {
+    /* Adjust grid layout for smaller screens */
     .top-product-property {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
-}
 
-@media screen and (max-width: 480px) {
-    .top-product-property .residential-unit,
-    .top-product-property .commercial-unit,
-    .top-product-property .building-image {
-        padding: 10px;
-    }
-}
-
-@media screen and (max-width: 768px) {
+    /* Adjust font size and padding for tables */
     .top-product-property .residential-unit table,
     .top-product-property .commercial-unit table {
         font-size: 14px; 
@@ -269,25 +271,33 @@ html {
     .top-product-property .commercial-unit table td {
         padding: 8px; 
     }
-}
 
-@media screen and (max-width: 480px) {
-    .top-product-property .residential-unit table th,
-    .top-product-property .residential-unit table td,
-    .top-product-property .commercial-unit table th,
-    .top-product-property .commercial-unit table td {
-        font-size: 12px;
-    }
-}
-
-@media screen and (max-width: 768px) {
+    /* Adjust width for top product title */
     .top-product-title {
         width: 97%; 
     }
 }
 
 @media screen and (max-width: 480px) {
+    /* Adjust padding for tables */
+    .top-product-property .residential-unit,
+    .top-product-property .commercial-unit,
+    .top-product-property .building-image {
+        padding: 10px;
+    }
+
+    /* Adjust font size for tables */
+    .top-product-property .residential-unit table th,
+    .top-product-property .residential-unit table td,
+    .top-product-property .commercial-unit table th,
+    .top-product-property .commercial-unit table td {
+        font-size: 12px;
+    }
+
+    /* Adjust width for top product title */
     .top-product-title {
         width: 95%; 
     }
 }
+
+   
