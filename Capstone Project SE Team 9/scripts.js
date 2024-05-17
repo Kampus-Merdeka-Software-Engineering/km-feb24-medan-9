@@ -1,138 +1,109 @@
-// Write JavaScript to load and parse a local JSON file.
-var request = new XMLHttpRequest();
-request.open("GET", "./team-9-medan.json", false);
-request.send(null);
+// Fetch JSON data
+fetch('./team-9-medan.json')
+    .then(response => response.json())
+    .then(initializeDashboard)
+    .catch(error => console.error('Error fetching data:', error));
 
-var objPropertyParsed = JSON.parse(request.responseText);
+// Function to initialize the dashboard
+function initializeDashboard(data) {
+    // Initialize DataTable for top 10 residential units
+    const tableResidential = initializeDataTable('#top-sales-residential', data, 'RESIDENTIAL_UNITS');
 
-// top 10 sales by residential unit
+    // Initialize DataTable for top 10 commercial units
+    const tableCommercial = initializeDataTable('#top-sales-commercial', data, 'COMMERCIAL_UNITS');
 
-objPropertyParsed.sort((a, b) => b.RESIDENTIAL_UNITS - a.RESIDENTIAL_UNITS);
+    // Initialize popup and overlay elements
+    const popup = document.getElementById("popup");
+    const overlay = document.getElementById("overlay");
 
-for (var i = 0; i < 10; i++) {
-  var objTable = document.getElementById("top-sales-residential");
-  var row = document.createElement("tr");
-  var cell1 = document.createElement("td");
-  var cell2 = document.createElement("td");
-  var cell3 = document.createElement("td");
+    // Add click event listeners to "Insights" buttons
+    document.querySelectorAll(".show-insight-btn")
+        .forEach(button => button.addEventListener("click", togglePopup));
 
-  cell1.innerHTML = objPropertyParsed[i].NEIGHBORHOOD;
-  cell2.innerHTML = objPropertyParsed[i].BUILDING_CLASS_CATEGORY;
-  cell3.innerHTML = objPropertyParsed[i].RESIDENTIAL_UNITS;
+    // Add click event listener to overlay to close popup
+    overlay.addEventListener("click", () => togglePopup());
 
-  row.appendChild(cell1);
-  row.appendChild(cell2);
-  row.appendChild(cell3);
-  objTable.appendChild(row);
-}
-// top 10 sales by commercial unit
+    // Calculate transactions by neighborhood
+    const neighborhoodTransactions = calculateNeighborhoodTransactions(data);
 
-// objPropertyParsed.sort((a, b) => b.COMMERCIAL_UNITS - a.COMMERCIAL_UNITS);
+    // Create bar chart to display total transactions by neighborhood
+    const chart = createNeighborhoodSalesChart(neighborhoodTransactions);
 
-// for (var i = 0; i < 10; i++) {
-//   var objTable = document.getElementById("top-sales-commercial");
-//   var row = document.createElement("tr");
-//   var cell1 = document.createElement("td");
-//   var cell2 = document.createElement("td");
-//   var cell3 = document.createElement("td");
+    // Add click event listener to sort button
+    document.querySelector('.sort-btn').addEventListener('click', toggleSortOptions);
 
-//   cell1.innerHTML = objPropertyParsed[i].NEIGHBORHOOD;
-//   cell2.innerHTML = objPropertyParsed[i].BUILDING_CLASS_CATEGORY;
-//   cell3.innerHTML = objPropertyParsed[i].COMMERCIAL_UNITS;
+    // Add click event listeners to sort options
+    document.querySelectorAll('.sort-option')
+        .forEach(option => option.addEventListener('click', event => sortChartData(event.target.dataset.sortType)));
 
-//   row.appendChild(cell1);
-//   row.appendChild(cell2);
-//   row.appendChild(cell3);
-//   objTable.appendChild(row);
-// }
-
-let table = new DataTable('#top-sales-commercial', {
-    data: objPropertyParsed,
-    columns: [
-        { data: 'NEIGHBORHOOD' },
-        { data: 'BUILDING_CLASS_CATEGORY' },
-        { data: 'COMMERCIAL_UNITS' }
-    ]
-});
-
-// Get the popup and overlay elements by their IDs
-var popup = document.getElementById("popup");
-var overlay = document.getElementById("overlay");
-
-// Get the "Insights" buttons by their class name
-var showInsightButtons = document.getElementsByClassName("show-insight-btn");
-
-// Loop through each "Insights" button and add a click event listener
-for (var i = 0; i < showInsightButtons.length; i++) {
-  showInsightButtons[i].addEventListener("click", function () {
-    // Toggle the display of the popup and overlay
-    popup.style.display = popup.style.display === "block" ? "none" : "block";
-    overlay.style.display =
-      overlay.style.display === "block" ? "none" : "block";
-  });
-}
-
-// Add a click event listener to the overlay to close the popup when clicked
-overlay.addEventListener("click", function () {
-  popup.style.display = "none";
-  overlay.style.display = "none";
-});
-
-var arrNeighborhoods = [];
-var arrCountTransactionsByNeighborhoods = [];
-
-objPropertyParsed.forEach((property) => {
-    if(!arrNeighborhoods.includes(property.NEIGHBORHOOD)){
-        arrNeighborhoods.push(property.NEIGHBORHOOD);
+    // Functions
+    function initializeDataTable(selector, data, unitsKey) {
+        return new DataTable(selector, {
+            data: data,
+            columns: [
+                { data: 'NEIGHBORHOOD' },
+                { data: 'BUILDING_CLASS_CATEGORY' },
+                { data: unitsKey }
+            ]
+        });
     }
-    else{
-        let index = arrNeighborhoods.indexOf(property.NEIGHBORHOOD);
-        if(arrCountTransactionsByNeighborhoods[index]){
-            arrCountTransactionsByNeighborhoods[index] += 1;
-        }
-        else{
-            arrCountTransactionsByNeighborhoods[index] = 1;
-        }
+
+    function togglePopup() {
+        popup.style.display = popup.style.display === "block" ? "none" : "block";
+        overlay.style.display = overlay.style.display === "block" ? "none" : "block";
     }
-});
 
-var objArrTransactionByNeighborhoods = [];
-for(var i = 0; i < arrNeighborhoods.length; i++){
-    objArrTransactionByNeighborhoods[i] = {
-        neighborhood: arrNeighborhoods[i],
-        count: arrCountTransactionsByNeighborhoods[i]
-    };
+    function calculateNeighborhoodTransactions(data) {
+        const neighborhoodTransactions = {};
+        data.forEach(property => {
+            neighborhoodTransactions[property.NEIGHBORHOOD] = (neighborhoodTransactions[property.NEIGHBORHOOD] || 0) + 1;
+        });
+        return Object.entries(neighborhoodTransactions)
+            .sort((a, b) => a[1] - b[1])
+            .reduce((obj, [neighborhood, count]) => ({ ...obj, [neighborhood]: count }), {});
+    }
+
+    function createNeighborhoodSalesChart(neighborhoodTransactions) {
+        const ctx = document.getElementById("neighborhood-sales-chart").getContext("2d");
+        return new Chart(ctx, {
+            type: "bar",
+            data: {
+                labels: Object.keys(neighborhoodTransactions),
+                datasets: [{
+                    label: "Total Transactions by Neighborhood",
+                    data: Object.values(neighborhoodTransactions),
+                    borderWidth: 1,
+                }]
+            },
+            options: {
+                scales: {
+                    y: { beginAtZero: true }
+                }
+            }
+        });
+    }
+
+    function toggleSortOptions() {
+        const sortOptions = document.querySelector('.sort-options');
+        sortOptions.style.display = sortOptions.style.display === "block" ? "none" : "block";
+    }
+
+    function sortChartData(sortType) {
+        const sortedData = Object.entries(neighborhoodTransactions)
+            .sort((a, b) => sortType === 'asc' ? a[1] - b[1] : b[1] - a[1]);
+        chart.data.labels = sortedData.map(([neighborhood]) => neighborhood);
+        chart.data.datasets[0].data = sortedData.map(([, count]) => count);
+        chart.update();
+    }
 }
 
-// kondisi sekarang objArrTransactionByNeighborhoods belum ke sort
-objArrTransactionByNeighborhoods.sort((a, b) => a.count - b.count);
 
-// kondisi sekarang objArrTransactionByNeighborhoods udah ke sort, 
-// tapi arrNeighborhoods dan arrCountTransactionsByNeighborhoods belum
-for (var i = 0; i < objArrTransactionByNeighborhoods.length; i++) {
-    arrNeighborhoods[i] = objArrTransactionByNeighborhoods[i].neighborhood;
-    arrCountTransactionsByNeighborhoods[i] = objArrTransactionByNeighborhoods[i].count;
-}
 
-const ctx = document.getElementById("neighborhood-sales-chart");
 
-new Chart(ctx, {
-  type: "bar",
-  data: {
-    labels: arrNeighborhoods,
-    datasets: [
-      {
-        label: "Total Transactions by Neighborhoods",
-        data: arrCountTransactionsByNeighborhoods,
-        borderWidth: 1,
-      },
-    ],
-  },
-  options: {
-    scales: {
-      y: {
-        beginAtZero: true,
-      },
-    },
-  },
-});
+
+
+
+
+
+
+   
