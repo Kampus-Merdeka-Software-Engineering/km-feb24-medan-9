@@ -172,8 +172,12 @@ html {
 }
 
 /* Button styles */
-.total-monthly-sales .filter-date,
-.monthly-transaction .filter-date {
+.filter-date-btn,
+.show-insight-btn,
+.apply-filter-btn,
+.clear-filter-btn,
+.sort-btn,
+.sort-option {
     background-color: #8CB9BD;
     color: #fff;
     border: none;
@@ -181,16 +185,18 @@ html {
     border-radius: 4px;
     cursor: pointer;
     margin-bottom: 20px;
+    transition: background-color 0.3s; /* Tambahkan efek transisi saat hover */
 }
-.show-insight-btn {
-    background-color: #8CB9BD;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-bottom: 20px;
+
+.filter-date-btn:hover,
+.show-insight-btn:hover,
+.apply-filter-btn:hover,
+.clear-filter-btn:hover,
+.sort-btn:hover,
+.sort-option:hover {
+    background-color: #6c9196; /* Ganti warna saat hover */
 }
+
 
 /* Footer styles */
 .footer {
