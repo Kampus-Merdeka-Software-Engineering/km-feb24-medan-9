@@ -270,7 +270,7 @@ function initializeDashboard(data) {
             data: {
                 labels: data.map(property => property.BUILDING_CLASS_CATEGORY), // Use property.BUILDING_CLASS_CATEGORY as label
                 datasets: [{
-                    label: "Sale Price",
+                    label: "Top Building Transaction",
                     data: data.map(property => parseFloat(property.SALE_PRICE)), // Use parseFloat(property.SALE_PRICE) as data
                     borderWidth: 1,
                 }]
