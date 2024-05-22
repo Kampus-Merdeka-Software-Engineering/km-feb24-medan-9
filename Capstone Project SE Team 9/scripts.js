@@ -4,7 +4,6 @@ fetch('./team-9-medan.json')
     .then(initializeDashboard)
     .catch(error => console.error('Error fetching data:', error));
 
-// Function to initialize the dashboard
 function initializeDashboard(data) {
     // Initialize DataTables
     const tableResidential = initializeDataTable('#top-sales-residential', data, 'RESIDENTIAL_UNITS');
@@ -20,8 +19,15 @@ function initializeDashboard(data) {
     document.querySelectorAll(".show-insight-btn").forEach(button => button.addEventListener("click", toggleDescription));
     overlay.addEventListener("click", togglePopup);
     document.querySelectorAll('.sort-btn').forEach(button => button.addEventListener('click', toggleSortOptions));
-    document.querySelectorAll('.sort-option').forEach(option => option.addEventListener('click', event => sortNeighborhoodChartData(event.target.dataset.sortType)));
-    document.querySelectorAll('.sort-option-building').forEach(option => option.addEventListener('click', event => sortBuildingTransactionChartData(event.target.dataset.sortType)));
+    document.querySelectorAll('.sort-option').forEach(option => option.addEventListener('click', event => {
+        const chartType = event.target.dataset.chartType;
+        const sortType = event.target.dataset.sortType;
+        if (chartType === 'neighborhood') {
+            sortNeighborhoodChartData(sortType);
+        } else if (chartType === 'building') {
+            sortBuildingChartData(sortType);
+        }
+    }));
     document.querySelector('.filter-date-btn').addEventListener('click', toggleDateFilter);
     document.querySelector('.apply-filter-btn').addEventListener('click', applyFilter);
     document.querySelector('.clear-filter-btn').addEventListener('click', clearFilter);
@@ -135,7 +141,7 @@ function initializeDashboard(data) {
     }
 
     // Function to sort chart data for the Top Building Transaction chart
-    function sortBuildingTransactionChartData(sortType) {
+    function sortBuildingChartData(sortType) {
         const sortedData = data.slice(0, 10).sort((a, b) => {
             if (sortType === 'asc') {
                 return parseFloat(a.SALE_PRICE) - parseFloat(b.SALE_PRICE);
@@ -162,24 +168,54 @@ function initializeDashboard(data) {
             const saleDate = new Date(property.SALE_DATE);
             return saleDate >= startDate && saleDate <= endDate;
         });
-        updateMonthlySalesChart(filteredData);
+        updateChartsWithFilteredData(filteredData);
     }
 
     // Function to clear filter and reset the total monthly sales chart and total monthly sales price
     function clearFilter() {
         document.getElementById('start-date').value = '';
         document.getElementById('end-date').value = '';
-        updateMonthlySalesChart(data);
+        updateChartsWithFilteredData(data);
     }
 
-    // Function to update total monthly sales chart with filtered data
-    function updateMonthlySalesChart(data) {
-        const { monthlySales, monthlyTransactions } = calculateDataStatistics(data);
-        tableMonthlySalesPrice.updateData(data);
+    // Function to update all charts and DataTables with filtered data
+    function updateChartsWithFilteredData(filteredData) {
+        const { neighborhoodTransactions, monthlySales, monthlyTransactions } = calculateDataStatistics(filteredData);
+
+        updateNeighborhoodSalesChart(neighborhoodTransactions);
+        updateTotalMonthlySalesChart(monthlySales, monthlyTransactions);
+        updateTopBuildingTransactionChart(filteredData.slice(0, 10));
+        updateDataTables(filteredData);
+    }
+
+    // Function to update neighborhood sales chart
+    function updateNeighborhoodSalesChart(neighborhoodTransactions) {
+        chartNeighborhoodSales.data.labels = Object.keys(neighborhoodTransactions);
+        chartNeighborhoodSales.data.datasets[0].data = Object.values(neighborhoodTransactions);
+        chartNeighborhoodSales.update();
+    }
+
+    // Function to update total monthly sales chart
+    function updateTotalMonthlySalesChart(monthlySales, monthlyTransactions) {
         chartTotalMonthlySales.data.labels = Object.keys(monthlySales);
         chartTotalMonthlySales.data.datasets[0].data = Object.values(monthlySales);
         chartTotalMonthlySales.data.datasets[1].data = Object.values(monthlyTransactions);
         chartTotalMonthlySales.update();
+    }
+
+    // Function to update top building transaction chart
+    function updateTopBuildingTransactionChart(data) {
+        chartTopBuildingTransaction.data.labels = data.map(property => property.BUILDING_CLASS_CATEGORY);
+        chartTopBuildingTransaction.data.datasets[0].data = data.map(property => parseFloat(property.SALE_PRICE));
+        chartTopBuildingTransaction.update();
+    }
+
+    // Function to update DataTables with filtered data
+    function updateDataTables(filteredData) {
+        tableResidential.clear().rows.add(filteredData).draw();
+        tableCommercial.clear().rows.add(filteredData).draw();
+        tableMonthlySalesPrice.clear().rows.add(filteredData).draw();
+        tableTopBuildingTransaction.clear().rows.add(filteredData.slice(0, 10)).draw();
     }
 
     // Function to create total monthly sales chart
