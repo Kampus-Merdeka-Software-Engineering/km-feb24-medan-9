@@ -10,16 +10,18 @@ function initializeDashboard(data) {
     const tableResidential = initializeDataTable('#top-sales-residential', data, 'RESIDENTIAL_UNITS');
     const tableCommercial = initializeDataTable('#top-sales-commercial', data, 'COMMERCIAL_UNITS');
     const tableMonthlySalesPrice = initializeDataTablePrice('#top-sales-monthly-price', data);
+    const tableTopBuildingTransaction = initializeDataTableBuildingTransaction('#top-building-transaction', data);
 
     // Initialize popup and overlay elements
     const popup = document.getElementById("popup");
     const overlay = document.getElementById("overlay");
 
     // Event listeners
-    document.querySelectorAll(".show-insight-btn").forEach(button => button.addEventListener("click", togglePopup));
+    document.querySelectorAll(".show-insight-btn").forEach(button => button.addEventListener("click", toggleDescription));
     overlay.addEventListener("click", togglePopup);
-    document.querySelector('.sort-btn').addEventListener('click', toggleSortOptions);
-    document.querySelectorAll('.sort-option').forEach(option => option.addEventListener('click', event => sortChartData(event.target.dataset.sortType)));
+    document.querySelectorAll('.sort-btn').forEach(button => button.addEventListener('click', toggleSortOptions));
+    document.querySelectorAll('.sort-option').forEach(option => option.addEventListener('click', event => sortNeighborhoodChartData(event.target.dataset.sortType)));
+    document.querySelectorAll('.sort-option-building').forEach(option => option.addEventListener('click', event => sortBuildingTransactionChartData(event.target.dataset.sortType)));
     document.querySelector('.filter-date-btn').addEventListener('click', toggleDateFilter);
     document.querySelector('.apply-filter-btn').addEventListener('click', applyFilter);
     document.querySelector('.clear-filter-btn').addEventListener('click', clearFilter);
@@ -30,7 +32,7 @@ function initializeDashboard(data) {
     // Create charts
     const chartNeighborhoodSales = createNeighborhoodSalesChart(neighborhoodTransactions);
     const chartTotalMonthlySales = createTotalMonthlySalesChart(monthlySales, monthlyTransactions);
-    const chartTopBuildingTransaction = createTopBuildingTransactionChart(data.slice(0, 10));
+    const chartTopBuildingTransaction = createTopBuildingTransactionChart(data.slice(0, 10)); // Use top 10 data for the chart
 
     // Function to initialize DataTable
     function initializeDataTable(selector, data, unitsKey) {
@@ -55,10 +57,27 @@ function initializeDashboard(data) {
         });
     }
 
+    // Function to initialize DataTable for top building transaction chart data
+    function initializeDataTableBuildingTransaction(selector, data) {
+        return new DataTable(selector, {
+            data: data.slice(0, 10),
+            columns: [
+                { data: 'BUILDING_CLASS_CATEGORY' },
+                { data: 'SALE_PRICE' }
+            ]
+        });
+    }
+
     // Function to toggle the display of the popup
     function togglePopup() {
         popup.style.display = popup.style.display === "block" ? "none" : "block";
         overlay.style.display = overlay.style.display === "block" ? "none" : "block";
+    }
+
+    // Function to toggle the display of the description
+    function toggleDescription(event) {
+        const description = event.target.nextElementSibling;
+        description.style.display = description.style.display === "none" ? "block" : "none";
     }
 
     // Function to calculate data statistics
@@ -101,18 +120,32 @@ function initializeDashboard(data) {
     }
 
     // Function to toggle the display of the sort options
-    function toggleSortOptions() {
-        const sortOptions = document.querySelector('.sort-options');
+    function toggleSortOptions(event) {
+        const sortOptions = event.target.nextElementSibling;
         sortOptions.style.display = sortOptions.style.display === "block" ? "none" : "block";
     }
 
-    // Function to sort chart data
-    function sortChartData(sortType) {
+    // Function to sort chart data for NEIGHBORHOOD SALES CHART
+    function sortNeighborhoodChartData(sortType) {
         const sortedData = Object.entries(neighborhoodTransactions)
-            .sort((a, b) => sortType === 'asc' ? a[1] - b[1] : b[1] - a[1]);
+            .sort(([, a], [, b]) => sortType === 'asc' ? a - b : b - a);
         chartNeighborhoodSales.data.labels = sortedData.map(([neighborhood]) => neighborhood);
         chartNeighborhoodSales.data.datasets[0].data = sortedData.map(([, count]) => count);
         chartNeighborhoodSales.update();
+    }
+
+    // Function to sort chart data for the Top Building Transaction chart
+    function sortBuildingTransactionChartData(sortType) {
+        const sortedData = data.slice(0, 10).sort((a, b) => {
+            if (sortType === 'asc') {
+                return parseFloat(a.SALE_PRICE) - parseFloat(b.SALE_PRICE);
+            } else {
+                return parseFloat(b.SALE_PRICE) - parseFloat(a.SALE_PRICE);
+            }
+        });
+        chartTopBuildingTransaction.data.labels = sortedData.map(property => property.BUILDING_CLASS_CATEGORY); // Use property.BUILDING_CLASS_CATEGORY as label
+        chartTopBuildingTransaction.data.datasets[0].data = sortedData.map(property => parseFloat(property.SALE_PRICE));
+        chartTopBuildingTransaction.update();
     }
 
     // Function to toggle date filter
@@ -121,7 +154,7 @@ function initializeDashboard(data) {
         dateFilter.style.display = dateFilter.style.display === 'none' ? 'block' : 'none';
     }
 
-    // Function to apply filter by Date
+    // Function to apply filter by date and update the total monthly sales chart and total monthly sales price with filtered data
     function applyFilter() {
         const startDate = new Date(document.getElementById('start-date').value);
         const endDate = new Date(document.getElementById('end-date').value);
@@ -132,11 +165,11 @@ function initializeDashboard(data) {
         updateMonthlySalesChart(filteredData);
     }
 
-    // Function to clear filter
+    // Function to clear filter and reset the total monthly sales chart and total monthly sales price
     function clearFilter() {
         document.getElementById('start-date').value = '';
         document.getElementById('end-date').value = '';
-        updateMonthlySalesChart(data); // Reset to original data
+        updateMonthlySalesChart(data);
     }
 
     // Function to update total monthly sales chart with filtered data
@@ -171,7 +204,7 @@ function initializeDashboard(data) {
                         data: Object.values(monthlyTransactions),
                         borderWidth: 1,
                         borderColor: "rgba(255, 99, 132, 1)",
-                        backgroundColor: "rgba(255, 99, 132,                        0.2)",
+                        backgroundColor: "rgba(255, 99, 132, 0.2)",
                         fill: true,
                         yAxisID: 'y1',
                     }
@@ -200,16 +233,16 @@ function initializeDashboard(data) {
         });
     }
 
-    // Function to create the top building transaction chart munculkan  bar chart untuk top 10 building transaction
+    // Function to create the top building transaction chart
     function createTopBuildingTransactionChart(data) {
         const ctx = document.getElementById("top-building-transaction-chart").getContext("2d");
         return new Chart(ctx, {
             type: "bar",
             data: {
-                labels: data.map(property => property.BUILDING_CLASS_CATEGORY),
+                labels: data.map(property => property.BUILDING_CLASS_CATEGORY), // Use property.BUILDING_CLASS_CATEGORY as label
                 datasets: [{
-                    label: "Top 10 Building Transactions",
-                    data: data.map(property => property.COMMERCIAL_UNITS + property.RESIDENTIAL_UNITS),
+                    label: "Sale Price",
+                    data: data.map(property => parseFloat(property.SALE_PRICE)), // Use parseFloat(property.SALE_PRICE) as data
                     borderWidth: 1,
                 }]
             },
@@ -221,7 +254,3 @@ function initializeDashboard(data) {
         });
     }
 }
-
-
-
-                            
