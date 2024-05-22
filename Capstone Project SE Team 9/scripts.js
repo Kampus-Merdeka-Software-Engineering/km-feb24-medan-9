@@ -28,17 +28,16 @@ function initializeDashboard(data) {
             sortBuildingChartData(sortType);
         }
     }));
-    document.querySelector('.filter-date-btn').addEventListener('click', toggleDateFilter);
     document.querySelector('.apply-filter-btn').addEventListener('click', applyFilter);
     document.querySelector('.clear-filter-btn').addEventListener('click', clearFilter);
 
     // Calculate statistics
-    const { neighborhoodTransactions, monthlySales, monthlyTransactions } = calculateDataStatistics(data);
+    let { neighborhoodTransactions, monthlySales, monthlyTransactions } = calculateDataStatistics(data);
 
     // Create charts
-    const chartNeighborhoodSales = createNeighborhoodSalesChart(neighborhoodTransactions);
-    const chartTotalMonthlySales = createTotalMonthlySalesChart(monthlySales, monthlyTransactions);
-    const chartTopBuildingTransaction = createTopBuildingTransactionChart(data.slice(0, 10)); // Use top 10 data for the chart
+    let chartNeighborhoodSales = createNeighborhoodSalesChart(neighborhoodTransactions);
+    let chartTotalMonthlySales = createTotalMonthlySalesChart(monthlySales, monthlyTransactions);
+    let chartTopBuildingTransaction = createTopBuildingTransactionChart(data.slice(0, 10)); // Use top 10 data for the chart
 
     // Function to initialize DataTable
     function initializeDataTable(selector, data, unitsKey) {
@@ -154,13 +153,7 @@ function initializeDashboard(data) {
         chartTopBuildingTransaction.update();
     }
 
-    // Function to toggle date filter
-    function toggleDateFilter() {
-        const dateFilter = document.querySelector('.date-filter');
-        dateFilter.style.display = dateFilter.style.display === 'none' ? 'block' : 'none';
-    }
-
-    // Function to apply filter by date and update the total monthly sales chart and total monthly sales price with filtered data
+    // Function to apply filter by date and update the charts with filtered data
     function applyFilter() {
         const startDate = new Date(document.getElementById('start-date').value);
         const endDate = new Date(document.getElementById('end-date').value);
@@ -171,7 +164,7 @@ function initializeDashboard(data) {
         updateChartsWithFilteredData(filteredData);
     }
 
-    // Function to clear filter and reset the total monthly sales chart and total monthly sales price
+    // Function to clear filter and reset the charts
     function clearFilter() {
         document.getElementById('start-date').value = '';
         document.getElementById('end-date').value = '';
