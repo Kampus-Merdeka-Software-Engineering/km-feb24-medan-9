@@ -176,6 +176,8 @@ html {
 .show-insight-btn,
 .apply-filter-btn,
 .clear-filter-btn,
+.sort-btn-building,
+.sort-option-building,
 .sort-btn,
 .sort-option {
     background-color: #8CB9BD;
@@ -192,6 +194,8 @@ html {
 .show-insight-btn:hover,
 .apply-filter-btn:hover,
 .clear-filter-btn:hover,
+.sort-btn-building:hover,
+.sort-option-building:hover,
 .sort-btn:hover,
 .sort-option:hover {
     background-color: #6c9196; /* Ganti warna saat hover */
@@ -304,6 +308,28 @@ html {
     .top-product-title {
         width: 95%; 
     }
+
+    /* Media queries untuk responsivitas grafik */
+@media screen and (max-width: 768px) {
+    /* Atur ulang ukuran font dan ketebalan garis untuk layar tablet */
+    #total-monthly-sales-chart,
+    #neighborhood-sales-chart,
+    #top-building-transaction-chart {
+        font-size: 14px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Atur ulang ukuran font dan ketebalan garis untuk layar mobile */
+    #total-monthly-sales-chart,
+    #neighborhood-sales-chart,
+    #top-building-transaction-chart {
+        font-size: 12px;
+    }
+}
+
+
+    
 }
 
    
