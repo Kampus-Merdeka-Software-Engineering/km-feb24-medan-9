@@ -79,12 +79,14 @@
             <h2>Total Monthly Sales Price & Transaction</h2>
             <div class="filter-date">
                 <button class="filter-date-btn">Filter By Date</button>
-                <div class="date-filter" style="display: none;">
-                    <input type="date" id="start-date" name="start-date">
-                    <input type="date" id="end-date" name="end-date">
+                <div class="date-filter">
+                    <label for="start-date">Start Date:</label>
+                    <input type="date" id="start-date">
+                    <label for="end-date">End Date:</label>
+                    <input type="date" id="end-date">
                     <button class="apply-filter-btn">Apply</button>
-                    <button class="clear-filter-btn">Clear Filter</button>
-                </div>
+                    <button class="clear-filter-btn">Clear</button>
+                </div>                
             </div>
             <div class="chart">
                 <canvas id="total-monthly-sales-chart"></canvas>
