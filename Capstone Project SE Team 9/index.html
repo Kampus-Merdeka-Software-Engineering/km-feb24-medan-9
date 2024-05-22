@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +10,6 @@
     <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
     <header class="header">
         <div class="logo">
@@ -80,13 +78,11 @@
             <div class="filter-date">
                 <button class="filter-date-btn">Filter By Date</button>
                 <div class="date-filter">
-                    <label for="start-date">Start Date:</label>
                     <input type="date" id="start-date">
-                    <label for="end-date">End Date:</label>
                     <input type="date" id="end-date">
                     <button class="apply-filter-btn">Apply</button>
                     <button class="clear-filter-btn">Clear</button>
-                </div>                
+                </div>              
             </div>
             <div class="chart">
                 <canvas id="total-monthly-sales-chart"></canvas>
@@ -107,11 +103,11 @@
         </section>        
         <section id="growth-chart-2" class="neighborhood-sales">
             <h2>Neighborhood Sales Transaction</h2>
-            <div class="sort-buttons">
-                <button class="sort-btn">Sort</button>
-                <div class="sort-options" style="display: none;">
-                    <button class="sort-option" data-sort-type="asc">Ascending</button>
-                    <button class="sort-option" data-sort-type="desc">Descending</button>
+            <div class="sort-options">
+                <button class="sort-btn" data-chart-type="neighborhood">Sort Neighborhood Transactions</button>
+                <div class="sort-menu" style="display:none;">
+                    <button class="sort-option" data-sort-type="asc" data-chart-type="neighborhood">Ascending</button>
+                    <button class="sort-option" data-sort-type="desc" data-chart-type="neighborhood">Descending</button>
                 </div>
             </div>
             <div class="chart">
@@ -126,11 +122,11 @@
         </section>
         <section id="growth-chart-3" class="top-building-transaction">
             <h2>Top Building Transaction</h2>
-            <div class="sort-buttons">
-                <button class="sort-btn">Sort</button>
-                <div class="sort-options" id="sort-options-building" style="display: none;">
-                    <button class="sort-option sort-option-building" data-sort-type="asc">Ascending</button>
-                    <button class="sort-option sort-option-building" data-sort-type="desc">Descending</button>
+            <div class="sort-options">
+                <button class="sort-btn" data-chart-type="building">Sort Building Transactions</button>
+                <div class="sort-menu" style="display:none;">
+                    <button class="sort-option" data-sort-type="asc" data-chart-type="building">Ascending</button>
+                    <button class="sort-option" data-sort-type="desc" data-chart-type="building">Descending</button>
                 </div>
             </div>
             <div class="chart">
