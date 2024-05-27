@@ -97,17 +97,18 @@ function initializeDashboard(data) {
     dataForTopBuildingTransaction.slice(0, 10)
   ); // Use top 10 data for the chart
 
-  // Function to initialize DataTable
-  function initializeDataTable(selector, data, unitsKey) {
-    return new DataTable(selector, {
-      data: data,
-      columns: [
-        { data: "NEIGHBORHOOD" },
-        { data: "BUILDING_CLASS_CATEGORY" },
-        { data: unitsKey },
-      ],
-    });
-  }
+   // Function to initialize DataTable
+function initializeDataTable(selector, data, unitsKey) {
+  return new DataTable(selector, {
+    data: data,
+    columns: [
+      { data: "NEIGHBORHOOD" },
+      { data: "BUILDING_CLASS_CATEGORY" },
+      { data: unitsKey },
+    ],
+    order: [[2, 'desc']] // Menentukan urutan default berdasarkan kolom total unit secara descending
+  });
+}
 
   // Function to initialize DataTable for total monthly sales price
   function initializeDataTablePrice(selector, data) {
