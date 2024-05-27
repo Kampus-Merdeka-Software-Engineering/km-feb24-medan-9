@@ -77,7 +77,6 @@
         <section id="growth-chart-1" class="total-monthly-sales">
             <h2>Total Monthly Sales Price & Transaction</h2>
             <div class="filter-date">
-                <button class="filter-date-btn">Filter By Date</button>
                 <div class="date-filter">
                     <input type="date" id="start-date">
                     <input type="date" id="end-date">
@@ -105,11 +104,16 @@
         <section id="growth-chart-2" class="neighborhood-sales">
             <h2>Neighborhood Sales Transaction</h2>
             <div class="sort-options">
-                <button class="sort-btn" data-chart-type="neighborhood">Sort Neighborhood Transactions</button>
-                <div class="sort-menu" style="display:none;">
-                    <button class="sort-option" data-sort-type="asc" data-chart-type="neighborhood">Ascending</button>
-                    <button class="sort-option" data-sort-type="desc" data-chart-type="neighborhood">Descending</button>
-                </div>
+                <button class="sort-option" data-sort-type="asc" data-chart-type="neighborhood">Ascending</button>
+                <button class="sort-option" data-sort-type="desc" data-chart-type="neighborhood">Descending</button>
+            </div>
+            <div class="filter-sales">
+                <label for="min-transaction">Minimum Sales Transactions:</label>
+                <input type="number" id="min-transaction" min="0">
+                <label for="max-transaction">Maximum Sales Transactions:</label>
+                <input type="number" id="max-transaction" min="0">
+                <button id="apply-transaction-filter">Apply Filter</button>
+                
             </div>
             <div class="chart">
                 <canvas id="neighborhood-sales-chart"></canvas>
@@ -124,11 +128,8 @@
         <section id="growth-chart-3" class="top-building-transaction">
             <h2>Top Building Transaction</h2>
             <div class="sort-options">
-                <button class="sort-btn" data-chart-type="building">Sort Building Transactions</button>
-                <div class="sort-menu" style="display:none;">
-                    <button class="sort-option" data-sort-type="asc" data-chart-type="building">Ascending</button>
-                    <button class="sort-option" data-sort-type="desc" data-chart-type="building">Descending</button>
-                </div>
+                <button class="sort-option" data-sort-type="asc" data-chart-type="building">Ascending</button>
+                <button class="sort-option" data-sort-type="desc" data-chart-type="building">Descending</button>
             </div>
             <div class="chart">
                 <canvas id="top-building-transaction-chart"></canvas>
