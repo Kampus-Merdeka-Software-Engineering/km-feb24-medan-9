@@ -5,7 +5,7 @@ fetch("./team-9-medan.json")
   .catch((error) => console.error("Error fetching data:", error));
 
 function initializeDashboard(data) {
-  // Initialize DataTables
+  // Inisialisasi DataTables
   const tableResidential = initializeDataTable(
     "#top-sales-residential",
     data,
@@ -25,18 +25,18 @@ function initializeDashboard(data) {
     data
   );
 
-  // Initialize popup and overlay elements
+  // Inisialisasi elemen popup dan overlay
   const popup = document.getElementById("popup");
   const overlay = document.getElementById("overlay");
 
   // Event listeners
-  document
-    .querySelectorAll(".show-insight-btn")
-    .forEach((button) => button.addEventListener("click", toggleDescription));
+  document.querySelectorAll(".show-insight-btn").forEach((button) =>
+    button.addEventListener("click", toggleDescription)
+  );
   overlay.addEventListener("click", togglePopup);
-  document
-    .querySelectorAll(".sort-btn")
-    .forEach((button) => button.addEventListener("click", toggleSortOptions));
+  document.querySelectorAll(".sort-btn").forEach((button) =>
+    button.addEventListener("click", toggleSortOptions)
+  );
   document.querySelectorAll(".sort-option").forEach((option) =>
     option.addEventListener("click", (event) => {
       const chartType = event.target.dataset.chartType;
@@ -55,11 +55,26 @@ function initializeDashboard(data) {
     .querySelector(".clear-filter-btn")
     .addEventListener("click", clearFilter);
 
-  // Calculate statistics
+  // Event listener untuk tombol "Apply Filter"
+  document
+    .getElementById("apply-transaction-filter")
+    .addEventListener("click", applyTransactionFilter);
+
+  // Fungsi untuk filter max min sesuai range total transaction by neighborhood   
+  function applyTransactionFilter() {
+    const min = parseInt(document.getElementById("min-transaction").value);
+    const max = parseInt(document.getElementById("max-transaction").value);
+    const filteredData = data.filter((property) => {
+      const transaction = neighborhoodTransactions[property.NEIGHBORHOOD];
+      return transaction >= min && transaction <= max;
+    });
+    updateChartsWithFilteredData(filteredData);
+  }
+  // Hitung statistik data
   let { neighborhoodTransactions, monthlySales, monthlyTransactions } =
     calculateDataStatistics(data);
 
-  // Create charts
+  // Buat chart
   let chartNeighborhoodSales = createNeighborhoodSalesChart(
     neighborhoodTransactions
   );
@@ -95,9 +110,9 @@ function initializeDashboard(data) {
 
   let chartTopBuildingTransaction = createTopBuildingTransactionChart(
     dataForTopBuildingTransaction.slice(0, 10)
-  ); // Use top 10 data for the chart
+  ); // Gunakan top 10 data untuk chart
 
-  // Function to initialize DataTable
+  // Fungsi untuk inisialisasi DataTable
   function initializeDataTable(selector, data, unitsKey) {
     return new DataTable(selector, {
       data: data,
@@ -106,11 +121,11 @@ function initializeDashboard(data) {
         { data: "BUILDING_CLASS_CATEGORY" },
         { data: unitsKey },
       ],
-      order: [[2, 'desc']] // Default sort by total units descending
+      order: [[2, "desc"]], // Default sort by total units descending
     });
   }
 
-  // Function to initialize DataTable for total monthly sales price
+  // Fungsi untuk inisialisasi DataTable untuk total monthly sales price
   function initializeDataTablePrice(selector, data) {
     return new DataTable(selector, {
       data: data,
@@ -118,7 +133,7 @@ function initializeDashboard(data) {
     });
   }
 
-  // Function to initialize DataTable for top building transaction chart data
+  // Fungsi untuk inisialisasi DataTable untuk top building transaction chart data
   function initializeDataTableBuildingTransaction(selector, data) {
     return new DataTable(selector, {
       data: data.slice(0, 10),
@@ -126,21 +141,21 @@ function initializeDashboard(data) {
     });
   }
 
-  // Function to toggle the display of the popup
+  // Fungsi untuk toggle display popup
   function togglePopup() {
     popup.style.display = popup.style.display === "block" ? "none" : "block";
     overlay.style.display =
       overlay.style.display === "block" ? "none" : "block";
   }
 
-  // Function to toggle the display of the description
+  // Fungsi untuk toggle display deskripsi
   function toggleDescription(event) {
     const description = event.target.nextElementSibling;
     description.style.display =
       description.style.display === "none" ? "block" : "none";
   }
 
-  // Function to calculate data statistics
+  // Fungsi untuk hitung statistik data
   function calculateDataStatistics(data) {
     const neighborhoodTransactions = {};
     const monthlySales = {};
@@ -156,13 +171,14 @@ function initializeDashboard(data) {
         (neighborhoodTransactions[property.NEIGHBORHOOD] || 0) + 1;
       monthlySales[month] =
         (monthlySales[month] || 0) + parseFloat(property.SALE_PRICE) || 0;
-      monthlyTransactions[month] = (monthlyTransactions[month] || 0) + 1;
+      monthlyTransactions[month] =
+        (monthlyTransactions[month] || 0) + 1;
     });
 
     return { neighborhoodTransactions, monthlySales, monthlyTransactions };
   }
 
-  // Function to create a bar chart for neighborhood sales transactions
+  // Fungsi untuk buat chart bar untuk neighborhood sales transactions
   function createNeighborhoodSalesChart(neighborhoodTransactions) {
     const ctx = document
       .getElementById("neighborhood-sales-chart")
@@ -187,14 +203,14 @@ function initializeDashboard(data) {
     });
   }
 
-  // Function to toggle the display of the sort options
+  // Fungsi untuk toggle display sort options
   function toggleSortOptions(event) {
     const sortOptions = event.target.nextElementSibling;
     sortOptions.style.display =
       sortOptions.style.display === "block" ? "none" : "block";
   }
 
-  // Function to sort chart data for NEIGHBORHOOD SALES CHART
+  // Fungsi untuk sort chart data untuk NEIGHBORHOOD SALES CHART
   function sortNeighborhoodChartData(sortType) {
     const sortedData = Object.entries(neighborhoodTransactions).sort(
       ([, a], [, b]) => (sortType === "asc" ? a - b : b - a)
@@ -211,27 +227,27 @@ function initializeDashboard(data) {
   function sortBuildingChartData(sortType) {
     const chart = Chart.getChart("top-building-transaction-chart");
     if (chart) {
-        const data = chart.data.datasets[0].data;
-        const labels = chart.data.labels;
+      const data = chart.data.datasets[0].data;
+      const labels = chart.data.labels;
 
-        const sortedData = labels.map((label, index) => ({
-            label: label,
-            value: data[index],
-        }));
+      const sortedData = labels.map((label, index) => ({
+        label: label,
+        value: data[index],
+      }));
 
-        if (sortType === "asc") {
-            sortedData.sort((a, b) => a.value - b.value);
-        } else {
-            sortedData.sort((a, b) => b.value - a.value);
-        }
+      if (sortType === "asc") {
+        sortedData.sort((a, b) => a.value - b.value);
+      } else {
+        sortedData.sort((a, b) => b.value - a.value);
+      }
 
-        chart.data.labels = sortedData.map((item) => item.label);
-        chart.data.datasets[0].data = sortedData.map((item) => item.value);
-        chart.update();
+      chart.data.labels = sortedData.map((item) => item.label);
+      chart.data.datasets[0].data = sortedData.map((item) => item.value);
+      chart.update();
     }
   }
 
-  // Function to apply filter by date and update the charts with filtered data
+  // Fungsi untuk apply filter by date dan update charts dengan filtered data
   function applyFilter() {
     const startDate = new Date(document.getElementById("start-date").value);
     const endDate = new Date(document.getElementById("end-date").value);
@@ -242,14 +258,13 @@ function initializeDashboard(data) {
     updateChartsWithFilteredData(filteredData);
   }
 
-  // Function to clear filter and reset the charts
+  // Fungsi untuk clear filter dan reset charts
   function clearFilter() {
     document.getElementById("start-date").value = "";
     document.getElementById("end-date").value = "";
     updateChartsWithFilteredData(data);
   }
-
-  // Function to update all charts and DataTables with filtered data
+  // Fungsi untuk update semua charts dan DataTables dengan filtered data
   function updateChartsWithFilteredData(filteredData) {
     const { neighborhoodTransactions, monthlySales, monthlyTransactions } =
       calculateDataStatistics(filteredData);
@@ -260,7 +275,7 @@ function initializeDashboard(data) {
     updateDataTables(filteredData);
   }
 
-  // Function to update neighborhood sales chart
+  // Fungsi untuk update neighborhood sales chart
   function updateNeighborhoodSalesChart(neighborhoodTransactions) {
     chartNeighborhoodSales.data.labels = Object.keys(neighborhoodTransactions);
     chartNeighborhoodSales.data.datasets[0].data = Object.values(
@@ -269,7 +284,7 @@ function initializeDashboard(data) {
     chartNeighborhoodSales.update();
   }
 
-  // Function to update total monthly sales chart
+  // Fungsi untuk update total monthly sales chart
   function updateTotalMonthlySalesChart(monthlySales, monthlyTransactions) {
     chartTotalMonthlySales.data.labels = Object.keys(monthlySales);
     chartTotalMonthlySales.data.datasets[0].data = Object.values(monthlySales);
@@ -278,7 +293,7 @@ function initializeDashboard(data) {
     chartTotalMonthlySales.update();
   }
 
-  // Function to update top building transaction chart
+  // Fungsi untuk update top building transaction chart
   function updateTopBuildingTransactionChart(data) {
     chartTopBuildingTransaction.data.labels = data.map(
       (property) => property.BUILDING_CLASS_CATEGORY
@@ -289,7 +304,7 @@ function initializeDashboard(data) {
     chartTopBuildingTransaction.update();
   }
 
-  // Function to update DataTables with filtered data
+  // Fungsi untuk update DataTables dengan filtered data
   function updateDataTables(filteredData) {
     tableResidential.clear().rows.add(filteredData).draw();
     tableCommercial.clear().rows.add(filteredData).draw();
@@ -300,7 +315,7 @@ function initializeDashboard(data) {
       .draw();
   }
 
-  // Function to create total monthly sales chart
+  // Fungsi untuk buat total monthly sales chart
   function createTotalMonthlySalesChart(monthlySales, monthlyTransactions) {
     const ctx = document
       .getElementById("total-monthly-sales-chart")
@@ -353,50 +368,52 @@ function initializeDashboard(data) {
     });
   }
 
-  // Function to create the top building transaction chart
+  // Fungsi untuk buat top building transaction chart
   function createTopBuildingTransactionChart(data) {
-    const ctx = document.getElementById("top-building-transaction-chart").getContext("2d");
+    const ctx = document
+      .getElementById("top-building-transaction-chart")
+      .getContext("2d");
     const labels = data.map((item) => item.BUILDING_CLASS_CATEGORY);
     const salesData = data.map((item) => item.SALE_PRICE);
 
     return new Chart(ctx, {
-        type: "bar",
-        data: {
-            labels: labels,
-            datasets: [
-                {
-                    label: "Sales",
-                    data: salesData,
-                    backgroundColor: "rgba(75, 192, 192, 0.2)",
-                    borderColor: "rgba(75, 192, 192, 1)",
-                    borderWidth: 1,
-                },
-            ],
-        },
-        options: {
-          scales: {
-            y: { beginAtZero: true },
+      type: "bar",
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: "Sales",
+            data: salesData,
+            backgroundColor: "rgba(75, 192, 192, 0.2)",
+            borderColor: "rgba(75, 192, 192, 1)",
+            borderWidth: 1,
           },
-          plugins: {
-            tooltip: {
-              callbacks: {
-                label: function (context) {
-                  let label = context.dataset.label || "";
-                  if (label) {
-                    label += ": ";
-                  }
-                  if (context.parsed.y !== null) {
-                    label += new Intl.NumberFormat("en-US", {
-                      style: "currency",
-                      currency: "USD",
-                    }).format(context.parsed.y);
-                  }
-                  return label;
-                },
+        ],
+      },
+      options: {
+        scales: {
+          y: { beginAtZero: true },
+        },
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: function (context) {
+                let label = context.dataset.label || "";
+                if (label) {
+                  label += ": ";
+                }
+                if (context.parsed.y !== null) {
+                  label += new Intl.NumberFormat("en-US", {
+                    style: "currency",
+                    currency: "USD",
+                  }).format(context.parsed.y);
+                }
+                return label;
               },
             },
           },
         },
+      },
     });
   }
 }
