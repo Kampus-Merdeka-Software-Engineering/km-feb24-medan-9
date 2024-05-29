@@ -203,7 +203,7 @@ function initializeDashboard(data) {
       document.getElementById("min-transaction").value = "";
       document.getElementById("max-transaction").value = "";
       updateNeighborhoodSalesChart(data);
-      updateInsights(data,);
+      updateInsights2(data);
   }
       
 
@@ -221,7 +221,7 @@ function initializeDashboard(data) {
       updateNeighborhoodSalesChart(filteredData);
 
       // Perbarui insight dengan data yang telah difilter
-      updateInsights(filteredData,min,max);
+      updateInsights2(filteredData,min,max);
   }
 
   function updateNeighborhoodSalesChart(filteredData) {
@@ -261,7 +261,7 @@ function initializeDashboard(data) {
 
   }
 
-    function updateInsights(filteredData, min, max) {
+    function updateInsights2(filteredData, min, max) {
       // Hitung statistik berdasarkan data yang difilter
       const { neighborhoodTransactions } = calculateDataStatistics(filteredData);
 
