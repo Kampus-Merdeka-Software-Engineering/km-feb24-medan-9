@@ -6,13 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function initializeDashboard(data) {
-  // Initialize DataTables
+  // Inisialisasi DataTables
   const tableResidential = initializeDataTable("#top-sales-residential", data, "RESIDENTIAL_UNITS");
   const tableCommercial = initializeDataTable("#top-sales-commercial", data, "COMMERCIAL_UNITS");
   const tableMonthlySalesPrice = initializeDataTablePrice("#top-sales-monthly-price", data);
   const tableTopBuildingTransaction = initializeDataTableBuildingTransaction("#top-building-transaction", data);
 
-  // Initialize popup and overlay elements
+  // Inisialisasi elemen popup dan overlay
   const popup = document.getElementById("popup");
   const overlay = document.getElementById("overlay");
 
@@ -35,8 +35,9 @@ function initializeDashboard(data) {
           }
       })
   );
-    // Event listeners for show-insight-btn2 and show-insight-btn3
-    document.querySelectorAll(".show-insight-btn2").forEach(button =>
+
+  // Event listeners untuk show-insight-btn2 dan show-insight-btn3
+  document.querySelectorAll(".show-insight-btn2").forEach(button =>
       button.addEventListener("click", toggleDescription2)
   );
 
@@ -46,6 +47,7 @@ function initializeDashboard(data) {
   document.querySelector(".apply-filter-btn").addEventListener("click", applyFilter);
   document.querySelector(".clear-filter-btn").addEventListener("click", clearFilter);
   document.getElementById("apply-transaction-filter").addEventListener("click", applyTransactionFilter);
+  document.getElementById("clear-transaction-filter").addEventListener("click", clearTransactionFilter);
 
   let { neighborhoodTransactions, monthlySales, monthlyTransactions } = calculateDataStatistics(data);
 
@@ -53,7 +55,7 @@ function initializeDashboard(data) {
   let chartTotalMonthlySales = createTotalMonthlySalesChart(monthlySales, monthlyTransactions);
   let chartTopBuildingTransaction = createTopBuildingTransactionChart(data);
 
-  // Add event listener for chart clicks
+  // Tambahkan event listener untuk klik chart
   document.getElementById("total-monthly-sales-chart").onclick = event => handleChartClick(event, chartTotalMonthlySales);
   document.getElementById("neighborhood-sales-chart").onclick = event => handleChartClick(event, chartNeighborhoodSales);
   document.getElementById("top-building-transaction-chart").onclick = event => handleChartClick(event, chartTopBuildingTransaction);
@@ -95,11 +97,10 @@ function initializeDashboard(data) {
   }
 
   function toggleDescription2(event) {
-    const description = document.querySelector("#growth-chart-2 .description2");
-    description.style.display = description.style.display === "none" ? "block" : "none";
-}
+      const description = document.querySelector("#growth-chart-2 .description2");
+      description.style.display = description.style.display === "none" ? "block" : "none";
+  }
 
-// Function to toggle description for show-insight-btn3
   function toggleDescription3(event) {
       const description = document.querySelector("#growth-chart-3 .description3");
       description.style.display = description.style.display === "none" ? "block" : "none";
@@ -130,7 +131,7 @@ function initializeDashboard(data) {
               labels: Object.keys(neighborhoodTransactions),
               datasets: [
                   {
-                      label: "Total Transactions by Neighborhood",
+                      label: "Total Transaction by Neighborhood",
                       data: Object.values(neighborhoodTransactions),
                       borderWidth: 1,
                   },
@@ -147,7 +148,7 @@ function initializeDashboard(data) {
   function toggleSortOptions(event) {
       const sortOptions = event.target.nextElementSibling;
       sortOptions.style.display = sortOptions.style.display === "block" ? "none" : "block";
-  } 
+  }
 
   function sortNeighborhoodChartData(sortType) {
       const sortedData = Object.entries(neighborhoodTransactions).sort(
@@ -198,40 +199,47 @@ function initializeDashboard(data) {
       updateChartsWithFilteredData(data);
       updateInsights(data);
   }
+  function clearTransactionFilter() {
+      document.getElementById("min-transaction").value = "";
+      document.getElementById("max-transaction").value = "";
+      updateNeighborhoodSalesChart(data);
+      updateInsights(data,);
+  }
+      
 
   function applyTransactionFilter() {
-    const min = parseInt(document.getElementById("min-transaction").value);
-    const max = parseInt(document.getElementById("max-transaction").value);
+      const min = parseInt(document.getElementById("min-transaction").value);
+      const max = parseInt(document.getElementById("max-transaction").value);
 
-    // Filter data based on transaction range
-    const filteredData = data.filter(property => {
-        const transaction = neighborhoodTransactions[property.NEIGHBORHOOD] || 0;
-        return transaction >= min && transaction <= max;
-    });
+      // Filter data berdasarkan rentang transaksi
+      const filteredData = data.filter(property => {
+          const transaction = neighborhoodTransactions[property.NEIGHBORHOOD] || 0;
+          return transaction >= min && transaction <= max;
+      });
 
-    // Update Neighborhood Sales Chart with filtered data
-    updateNeighborhoodSalesChart(filteredData);
-}
+      // Perbarui Grafik Penjualan Neighborhood dengan data yang telah difilter
+      updateNeighborhoodSalesChart(filteredData);
 
-function updateNeighborhoodSalesChart(filteredData) {
-    // Recalculate neighborhood transactions for the filtered data
-    const { neighborhoodTransactions } = calculateDataStatistics(filteredData);
+      // Perbarui insight dengan data yang telah difilter
+      updateInsights(filteredData,min,max);
+  }
 
-    // Update the chart
-    const labels = Object.keys(neighborhoodTransactions);
-    const data = Object.values(neighborhoodTransactions);
+  function updateNeighborhoodSalesChart(filteredData) {
+      // Hitung ulang transaksi Neighborhood untuk data yang telah difilter
+      const { neighborhoodTransactions } = calculateDataStatistics(filteredData);
 
-    chartNeighborhoodSales.data.labels = labels;
-    chartNeighborhoodSales.data.datasets[0].data = data;
-    chartNeighborhoodSales.update();
-}
+      // Perbarui grafik
+      const labels = Object.keys(neighborhoodTransactions);
+      const data = Object.values(neighborhoodTransactions);
 
-
+      chartNeighborhoodSales.data.labels = labels;
+      chartNeighborhoodSales.data.datasets[0].data = data;
+      chartNeighborhoodSales.update();
+  }
 
   function updateChartsWithFilteredData(filteredData) {
       const { monthlySales, monthlyTransactions } = calculateDataStatistics(filteredData);
 
-      // Update Total Monthly Sales Chart
       const labels = Object.keys(monthlySales).sort();
       chartTotalMonthlySales.data.labels = labels;
       chartTotalMonthlySales.data.datasets[0].data = labels.map(label => monthlySales[label]);
@@ -240,31 +248,57 @@ function updateNeighborhoodSalesChart(filteredData) {
   }
 
   function updateInsights(filteredData, startDate, endDate) {
-      // Calculate statistics based on filtered data
-      const { monthlySales, monthlyTransactions } = calculateDataStatistics(filteredData);
+      // Hitung statistik berdasarkan data yang difilter
+      const { monthlySales, monthlyTransactions, neighborhoodTransactions } = calculateDataStatistics(filteredData);
 
-      // Generate insights
-      let insightText = `Filtered Data from ${startDate.toDateString()} to ${endDate.toDateString()}:
-      Total Transactions: ${filteredData.length}`;
+      // Generate insight
+      let insightText = `Data yang Difilter dari ${startDate.toDateString()} hingga ${endDate.toDateString()}:
+      Total Transaction: ${filteredData.length}`;
 
       document.querySelectorAll('.description').forEach(description => {
           description.innerHTML = generateInsights(monthlySales, monthlyTransactions);
       });
+
   }
+
+    function updateInsights(filteredData, min, max) {
+      // Hitung statistik berdasarkan data yang difilter
+      const { neighborhoodTransactions } = calculateDataStatistics(filteredData);
+
+      // Generate insight
+      let insightText = `Data yang Difilter dari ${min} hingga ${max}:
+      Total Transaction: ${filteredData.length}`;
+
+      document.querySelectorAll('.description2').forEach(description => {
+          description.innerHTML = generateNeighborhoodInsights(neighborhoodTransactions);
+      });
+  }
+
 
   function generateInsights(monthlySales, monthlyTransactions) {
       let insights = "";
 
-      // Generate insights based on monthly sales price
-      insights += `<h3>Monthly Sales Price</h3>`;
+      // Generate insight berdasarkan harga penjualan bulanan
+      insights += `<h3>Total Monthly Sales Price</h3>`;
       for (let month in monthlySales) {
           insights += `<p>${month}: $${monthlySales[month]}</p>`;
       }
 
-      // Generate insights based on monthly transactions
-      insights += `<h3>Monthly Transactions</h3>`;
+      // Generate insight berdasarkan transaksi bulanan
+      insights += `<h3>Total Monthly Transaction</h3>`;
       for (let month in monthlyTransactions) {
-          insights += `<p>${month}: ${monthlyTransactions[month]} transactions</p>`;
+          insights += `<p>${month}: ${monthlyTransactions[month]} Transaction</p>`;
+      }
+
+      return insights;
+  }
+
+  function generateNeighborhoodInsights(neighborhoodTransactions) {
+      let insights = "<h3>Neighborhood Sales Transaction</h3>";
+
+      // Generate insight berdasarkan transaksi per neighborhood
+      for (let neighborhood in neighborhoodTransactions) {
+          insights += `<p>${neighborhood}: ${neighborhoodTransactions[neighborhood]} Transaction</p>`;
       }
 
       return insights;
@@ -280,7 +314,7 @@ function updateNeighborhoodSalesChart(filteredData) {
               labels: labels,
               datasets: [
                   {
-                      label: "Total Sales",
+                      label: "Total Sales Price",
                       data: labels.map(label => monthlySales[label]),
                       borderColor: "rgba(75, 192, 192, 1)",
                       backgroundColor: "rgba(75, 192, 192, 0.2)",
@@ -289,7 +323,7 @@ function updateNeighborhoodSalesChart(filteredData) {
                       yAxisID: 'sales', // Penjualan menggunakan sumbu Y utama
                   },
                   {
-                      label: "Total Transactions",
+                      label: "Total Transaction",
                       data: labels.map(label => monthlyTransactions[label]),
                       borderColor: "rgba(153, 102, 255, 1)",
                       backgroundColor: "rgba(153, 102, 255, 0.2)",
@@ -334,39 +368,57 @@ function updateNeighborhoodSalesChart(filteredData) {
               scales: {
                   y: { beginAtZero: true },
               },
+              plugins: {
+                  tooltip: {
+                      callbacks: {
+                          label: function (context) {
+                              let label = context.dataset.label || "";
+
+                              if (label) {
+                                  label += ": ";
+                              }
+                              if (context.parsed.y !== null) {
+                                  label += new Intl.NumberFormat("en-US", {
+                                      style: "currency",
+                                      currency: "USD",
+                                  }).format(context.parsed.y);
+                              }
+                              return label;
+                          },
+                      },
+                  },
+              },
           },
       });
   }
 
+
   function calculateBuildingTransactions(data) {
-    const buildingTransactions = {};
+      const buildingTransactions = {};
 
-    // Hitung total penjualan untuk setiap kategori kelas bangunan
-    data.forEach(property => {
-        if (!buildingTransactions[property.BUILDING_CLASS_CATEGORY]) {
-            buildingTransactions[property.BUILDING_CLASS_CATEGORY] = 0;
-        }
-        buildingTransactions[property.BUILDING_CLASS_CATEGORY] += parseFloat(property.SALE_PRICE) || 0;
-    });
+      // Hitung total penjualan untuk setiap kategori kelas bangunan
+      data.forEach(property => {
+          if (!buildingTransactions[property.BUILDING_CLASS_CATEGORY]) {
+              buildingTransactions[property.BUILDING_CLASS_CATEGORY] = 0;
+          }
+          buildingTransactions[property.BUILDING_CLASS_CATEGORY] += parseFloat(property.SALE_PRICE) || 0;
+      });
 
-    // Ubah objek menjadi array dan urutkan berdasarkan total penjualan
-    const sortedTransactions = Object.entries(buildingTransactions)
-        .map(([category, sales]) => ({
-            BUILDING_CLASS_CATEGORY: category,
-            SALE_PRICE: sales,
-        }))
-        .sort((a, b) => b.SALE_PRICE - a.SALE_PRICE);
+      // Ubah objek menjadi array dan urutkan berdasarkan total penjualan
+      const sortedTransactions = Object.entries(buildingTransactions)
+          .map(([category, sales]) => ({
+              BUILDING_CLASS_CATEGORY: category,
+              SALE_PRICE: sales,
+          }))
+          .sort((a, b) => b.SALE_PRICE - a.SALE_PRICE);
 
-    // Ambil 10 kategori kelas bangunan dengan total penjualan tertinggi
-    const top10 = sortedTransactions.slice(0, 10);
+      // Ambil 10 kategori kelas bangunan dengan total penjualan tertinggi
+      const top10 = sortedTransactions.slice(0, 10);
 
-    return top10;
-}
-
-
+      return top10;
+  }
 
   function handleChartClick(event, chart) {
-
       const activeElement = chart.getElementAtEvent(event)[0];
       if (activeElement) {
           const label = chart.data.labels[activeElement.index];
@@ -377,4 +429,3 @@ function updateNeighborhoodSalesChart(filteredData) {
 
   updateInsights(data, new Date(0), new Date());
 }
-
