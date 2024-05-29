@@ -200,15 +200,33 @@ function initializeDashboard(data) {
   }
 
   function applyTransactionFilter() {
-      const min = parseInt(document.getElementById("min-transaction").value);
-      const max = parseInt(document.getElementById("max-transaction").value);
-      const filteredData = data.filter(property => {
-          const transaction = neighborhoodTransactions[property.NEIGHBORHOOD];
-          return transaction >= min && transaction <= max;
-      });
-      updateChartsWithFilteredData(filteredData);
-      updateInsights(filteredData);
-  }
+    const min = parseInt(document.getElementById("min-transaction").value);
+    const max = parseInt(document.getElementById("max-transaction").value);
+
+    // Filter data based on transaction range
+    const filteredData = data.filter(property => {
+        const transaction = neighborhoodTransactions[property.NEIGHBORHOOD] || 0;
+        return transaction >= min && transaction <= max;
+    });
+
+    // Update Neighborhood Sales Chart with filtered data
+    updateNeighborhoodSalesChart(filteredData);
+}
+
+function updateNeighborhoodSalesChart(filteredData) {
+    // Recalculate neighborhood transactions for the filtered data
+    const { neighborhoodTransactions } = calculateDataStatistics(filteredData);
+
+    // Update the chart
+    const labels = Object.keys(neighborhoodTransactions);
+    const data = Object.values(neighborhoodTransactions);
+
+    chartNeighborhoodSales.data.labels = labels;
+    chartNeighborhoodSales.data.datasets[0].data = data;
+    chartNeighborhoodSales.update();
+}
+
+
 
   function updateChartsWithFilteredData(filteredData) {
       const { monthlySales, monthlyTransactions } = calculateDataStatistics(filteredData);
@@ -321,18 +339,31 @@ function initializeDashboard(data) {
   }
 
   function calculateBuildingTransactions(data) {
-      const buildingTransactions = {};
-      data.forEach(property => {
-          if (!buildingTransactions[property.BUILDING_CLASS_CATEGORY]) {
-              buildingTransactions[property.BUILDING_CLASS_CATEGORY] = 0;
-          }
-          buildingTransactions[property.BUILDING_CLASS_CATEGORY] += parseFloat(property.SALE_PRICE) || 0;
-      });
-      return Object.entries(buildingTransactions).map(([category, sales]) => ({
-          BUILDING_CLASS_CATEGORY: category,
-          SALE_PRICE: sales,
-      })).sort((a, b) => b.SALE_PRICE - a.SALE_PRICE);
-  }
+    const buildingTransactions = {};
+
+    // Hitung total penjualan untuk setiap kategori kelas bangunan
+    data.forEach(property => {
+        if (!buildingTransactions[property.BUILDING_CLASS_CATEGORY]) {
+            buildingTransactions[property.BUILDING_CLASS_CATEGORY] = 0;
+        }
+        buildingTransactions[property.BUILDING_CLASS_CATEGORY] += parseFloat(property.SALE_PRICE) || 0;
+    });
+
+    // Ubah objek menjadi array dan urutkan berdasarkan total penjualan
+    const sortedTransactions = Object.entries(buildingTransactions)
+        .map(([category, sales]) => ({
+            BUILDING_CLASS_CATEGORY: category,
+            SALE_PRICE: sales,
+        }))
+        .sort((a, b) => b.SALE_PRICE - a.SALE_PRICE);
+
+    // Ambil 10 kategori kelas bangunan dengan total penjualan tertinggi
+    const top10 = sortedTransactions.slice(0, 10);
+
+    return top10;
+}
+
+
 
   function handleChartClick(event, chart) {
 
