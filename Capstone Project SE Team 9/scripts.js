@@ -428,4 +428,5 @@ function initializeDashboard(data) {
   }
 
   updateInsights(data, new Date(0), new Date());
+  updateInsights2(data, 0, 1000);
 }
