@@ -189,7 +189,7 @@ html {
     border-radius: 4px;
     cursor: pointer;
     margin-bottom: 20px;
-    transition: background-color 0.3s; /* Tambahkan efek transisi saat hover */
+    transition: background-color 0.3s; /* Add transition effect on hover */
 }
 
 .filter-date-btn:hover,
@@ -202,7 +202,7 @@ html {
 .sort-option-building:hover,
 .sort-btn:hover,
 .sort-option:hover {
-    background-color: #6c9196; /* Ganti warna saat hover */
+    background-color: #6c9196; /* Change color on hover */
 }
 
 /* Footer styles */
@@ -266,6 +266,38 @@ html {
 }
 
 /* Media queries for responsiveness */
+@media screen and (max-width: 1024px) {
+    .header {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .header .logo img {
+        height: 100px;
+    }
+
+    .header .title {
+        font-size: 20px;
+        text-align: center;
+    }
+
+    .navbar {
+        justify-content: center;
+    }
+
+    .navbar .dropdown {
+        margin-left: 0;
+    }
+
+    .navbar .dropbtn {
+        font-size: 14px;
+    }
+
+    .navbar .dropdown-content {
+        top: 30px;
+    }
+}
+
 @media screen and (max-width: 768px) {
     /* Adjust grid layout for smaller screens */
     .top-product-property {
@@ -323,52 +355,24 @@ html {
     .navbar .dropdown-content {
         top: 30px;
     }
-}
 
-@media screen and (max-width: 480px) {
-    /* Adjust padding for tables */
-    .top-product-property .residential-unit,
-    .top-product-property .commercial-unit,
-    .top-product-property .building-image {
-        padding: 10px;
+    /* Responsive chart */
+    .chart {
+        width: 100%;
     }
 
-    /* Adjust font size for tables */
-    .top-product-property .residential-unit table th,
-    .top-product-property .residential-unit table td,
-    .top-product-property .commercial-unit table th,
-    .top-product-property .commercial-unit table td {
-        font-size: 12px;
+    .chart canvas {
+        width: 100%;
     }
 
-    /* Adjust width for top product title */
-    .top-product-title {
-        width: 95%; 
+    /* Responsive filters */
+    .filter-date,
+    .filter-sales {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    /* Adjust header and navbar layout */
-    .header {
-        padding: 10px;
-    }
-
-    .header .logo img {
-        height: 80px;
-    }
-
-    .header .title {
-        font-size: 18px;
-    }
-
-    .navbar {
-        padding: 5px 10px;
-    }
-
-    .navbar .dropbtn {
-        font-size: 12px;
-        padding: 8px 10px;
-    }
-
-    /* Adjust button sizes */
     .filter-date-btn,
     .show-insight-btn,
     .show-insight-btn2,
@@ -379,44 +383,53 @@ html {
     .sort-option-building,
     .sort-btn,
     .sort-option {
-        padding: 8px 15px;
-        font-size: 14px;
+        width: 80%;
+        margin-bottom: 10px;
     }
 
-/* Media queries untuk responsivitas */
-@media screen and (max-width: 768px) {
-    /* Penyesuaian umum untuk layar berukuran sedang */
+    /* Responsive popups */
+    .popup {
+        width: 90%;
+        max-width: 300px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Adjust grid layout for smaller screens */
     .top-product-property {
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
 
+    /* Adjust font size and padding for tables */
     .top-product-property .residential-unit table,
     .top-product-property .commercial-unit table {
-        font-size: 14px; 
+        font-size: 12px;
     }
 
     .top-product-property .residential-unit table th,
     .top-product-property .residential-unit table td,
     .top-product-property .commercial-unit table th,
     .top-product-property .commercial-unit table td {
-        padding: 8px; 
+        padding: 5px;
     }
 
+    /* Adjust width for top product title */
     .top-product-title {
-        width: 97%; 
+        width: 97%;
     }
 
+    /* Adjust header and navbar layout */
     .header {
         flex-direction: column;
         align-items: flex-start;
     }
 
     .header .logo img {
-        height: 100px;
+        height: 80px;
     }
 
     .header .title {
-        font-size: 20px;
+        font-size: 18px;
         text-align: left;
         margin-top: 10px;
     }
@@ -432,14 +445,14 @@ html {
     }
 
     .navbar .dropbtn {
-        font-size: 14px;
+        font-size: 12px;
     }
 
     .navbar .dropdown-content {
         top: 30px;
     }
 
-    /* Responsivitas grafik */
+    /* Responsive chart */
     .chart {
         width: 100%;
     }
@@ -447,98 +460,8 @@ html {
     .chart canvas {
         width: 100%;
     }
-}
 
-@media screen and (max-width: 480px) {
-    /* Penyesuaian untuk layar berukuran kecil */
-    .top-product-property .residential-unit,
-    .top-product-property .commercial-unit,
-    .top-product-property .building-image {
-        padding: 10px;
-    }
-
-    .top-product-property .residential-unit table th,
-    .top-product-property .residential-unit table td,
-    .top-product-property .commercial-unit table th,
-    .top-product-property .commercial-unit table td {
-        font-size: 12px;
-    }
-
-    .top-product-title {
-        width: 95%; 
-    }
-
-    .header {
-        padding: 10px;
-    }
-
-    .header .logo img {
-        height: 80px;
-    }
-
-    .header .title {
-        font-size: 18px;
-    }
-
-    .navbar {
-        padding: 5px 10px;
-    }
-
-    .navbar .dropbtn {
-        font-size: 12px;
-        padding: 8px 10px;
-    }
-
-    /* Responsivitas grafik */
-    .chart {
-        padding: 10px;
-    }
-
-    .chart canvas {
-        max-width: 100%;
-    }
-}
-
-@media screen and (max-width: 360px) {
-    /* Penyesuaian untuk layar sangat kecil */
-    .top-product-property .residential-unit,
-    .top-product-property .commercial-unit {
-        padding: 5px;
-    }
-
-    .top-product-property .residential-unit table th,
-    .top-product-property .residential-unit table td,
-    .top-product-property .commercial-unit table th,
-    .top-product-property .commercial-unit table td {
-        font-size: 10px;
-        padding: 5px;
-    }
-
-    .top-product-title {
-        width: 90%; 
-    }
-
-    .header .logo img {
-        height: 60px;
-    }
-
-    .header .title {
-        font-size: 16px;
-    }
-
-    .navbar .dropbtn {
-        font-size: 10px;
-        padding: 5px 8px;
-    }
-
-    /* Responsivitas grafik */
-    .chart {
-        padding: 5px;
-    }
-}
-/* Media queries untuk responsivitas input */
-@media screen and (max-width: 768px) {
-    /* Penyesuaian untuk layar berukuran sedang */
+    /* Responsive filters */
     .filter-date,
     .filter-sales {
         display: flex;
@@ -546,61 +469,23 @@ html {
         align-items: center;
     }
 
-    .filter-date label,
-    .filter-sales label {
-        margin-bottom: 5px;
-    }
-
-    .filter-date input,
-    .filter-sales input {
+    .filter-date-btn,
+    .show-insight-btn,
+    .show-insight-btn2,
+    .show-insight-btn3,
+    .apply-filter-btn,
+    .clear-filter-btn,
+    .sort-btn-building,
+    .sort-option-building,
+    .sort-btn,
+    .sort-option {
         width: 100%;
         margin-bottom: 10px;
-        padding: 8px;
-        border-radius: 4px;
-        border: 1px solid #ccc;
-        box-sizing: border-box; /* Pastikan padding tidak memperbesar lebar input */
     }
 
-    .filter-date button,
-    .filter-sales button {
-        width: 100%;
+    /* Responsive popups */
+    .popup {
+        width: 95%;
+        max-width: 250px;
     }
-
-    .filter-date button.apply-filter-btn,
-    .filter-sales button#apply-transaction-filter {
-        margin-bottom: 10px;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    /* Penyesuaian untuk layar berukuran kecil */
-    .filter-date input,
-    .filter-sales input {
-        padding: 6px;
-        font-size: 14px;
-    }
-
-    .filter-date button,
-    .filter-sales button {
-        padding: 8px;
-        font-size: 14px;
-    }
-}
-
-@media screen and (max-width: 360px) {
-    /* Penyesuaian untuk layar sangat kecil */
-    .filter-date input,
-    .filter-sales input {
-        padding: 4px;
-        font-size: 12px;
-    }
-
-    .filter-date button,
-    .filter-sales button {
-        padding: 6px;
-        font-size: 12px;
-    }
-}
-
-
 }
