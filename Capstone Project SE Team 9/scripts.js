@@ -151,13 +151,30 @@ function initializeDashboard(data) {
   }
 
   function sortNeighborhoodChartData(sortType) {
-      const sortedData = Object.entries(neighborhoodTransactions).sort(
-          ([, a], [, b]) => (sortType === "asc" ? a - b : b - a)
-      );
-      chartNeighborhoodSales.data.labels = sortedData.map(([neighborhood]) => neighborhood);
-      chartNeighborhoodSales.data.datasets[0].data = sortedData.map(([, count]) => count);
-      chartNeighborhoodSales.update();
-  }
+    // Sort neighborhoodTransactions based on the sortType ('asc' or 'desc')
+    const sortedData = Object.entries(neighborhoodTransactions).sort(
+        ([, a], [, b]) => (sortType === "asc" ? a - b : b - a)
+    );
+
+    // Update chart data with sorted labels and data
+    chartNeighborhoodSales.data.labels = sortedData.map(([neighborhood]) => neighborhood);
+    chartNeighborhoodSales.data.datasets[0].data = sortedData.map(([, count]) => count);
+    chartNeighborhoodSales.update();
+
+    // Define descriptions for ascending and descending sort types
+    const ascDescription = `Ascending: Transaksi tiga penjualan paling rendah terdapat pada properti daerah Little Italy sebesar 22 unit, Javits Center sebesar 27 unit dan Harlem-West sebesar 29 unit. 
+                            Harga jual bangunan terendah di Manhattan terdapat di Midtown East dan Civic Center, dimana tipe bangunannya adalah komersil dengan kategori bangunan 21 Office Building dan 45 Condo Hotels.`;
+    
+    const descDescription = `Descending: Transaksi tiga penjualan paling tertinggi terdapat pada properti daerah Upper East Side (59-79) sebesar 1.329 unit, Upper East Side (79-96) sebesar 1.206 unit dan Midtown East sebesar 1.009 unit. 
+                            Harga jual bangunan tertinggi di Manhattan terdapat di Midtown CBD dan Financial, dimana tipe bangunannya adalah residential dengan kategori bangunan 10 Coops - Elevator Apartments dan 13 Condos - Elevator Apartments.`;
+
+    // Update the description based on the sortType  dibwah button insight
+    document.querySelectorAll('.description2').forEach(description => {
+        description.innerHTML = sortType === "asc" ? ascDescription : descDescription;
+    });
+    
+}
+
 
   function sortBuildingChartData(sortType) {
       const chart = Chart.getChart("top-building-transaction-chart");
@@ -180,6 +197,19 @@ function initializeDashboard(data) {
           chart.data.datasets[0].data = sortedData.map((item) => item.value);
           chart.update();
       }
+      // Define descriptions for ascending and descending sort types akan muncul dibawah button insight
+        const ascDescription =  `Ascending: Tipe bangunan residential dengan kategori bangunan 10 Coops - Elevator Apartments menjadi pilihan utama dengan nilai total harga jual yang paling tinggi selama 12 bulan sebesar 2.044.235.794,
+                                kemudian disusul dengan kategori bangunan yaitu 13 Condos - Elevator Apartments dengan nilai total harga jual sebesar 918.105.569. Kategori bangunan residential juga manjadi bangunan yang paling sering dibeli di wilayah Manhattan, 
+                                sehingga  merupakan salah satu faktor yang dapat meningkatkan revenue penjualan properti di Manhattan.`;
+        const descDescription = `Descending: Tipe bangunan komersil dengan kategori bangunan 45 Condo Hotels menjadi bangunan dengan nilai total harga jual yang paling rendah selama 12 bulan sebesar 4.850.175, 
+                                kemudian disusul dengan kategori bangunan yaitu 21 Office Building dengan nilai total harga jual sebesar 4.908.197. Kategori bangunan komersil manjadi bangunan yang paling jarang dibeli di wilayah Manhattan.`;
+
+        // Update the description based on the sortType
+        document.querySelectorAll('.description3').forEach(description => {
+            description.innerHTML = sortType === "asc" ? ascDescription : descDescription;
+        });
+        
+
   }
 
   function applyFilter() {
