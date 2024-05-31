@@ -276,22 +276,35 @@ function initializeDashboard(data) {
 
 
   function generateInsights(monthlySales, monthlyTransactions) {
-      let insights = "";
+    let insights = "";
 
-      // Generate insight berdasarkan harga penjualan bulanan
-      insights += `<h3>Total Monthly Sales Price</h3>`;
-      for (let month in monthlySales) {
-          insights += `<p>${month}: $${monthlySales[month]}</p>`;
-      }
+    // Daftar bulan dalam setahun
+    const months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ];
 
-      // Generate insight berdasarkan transaksi bulanan
-      insights += `<h3>Total Monthly Transaction</h3>`;
-      for (let month in monthlyTransactions) {
-          insights += `<p>${month}: ${monthlyTransactions[month]} Transaction</p>`;
-      }
+    // Mengurutkan tahun dan bulan
+    const sortedMonths = Object.keys(monthlySales).sort((a, b) => {
+        const [yearA, monthA] = a.split("-");
+        const [yearB, monthB] = b.split("-");
+        return new Date(yearA, monthA - 1) - new Date(yearB, monthB - 1);
+    });
 
-      return insights;
-  }
+    // Generate insight berdasarkan harga penjualan bulanan
+    insights += `<h3>Total Monthly Sales Price</h3>`;
+    sortedMonths.forEach(month => {
+        insights += `<p>${month}: $${monthlySales[month]}</p>`;
+    });
+
+    // Generate insight berdasarkan transaksi bulanan
+    insights += `<h3>Total Monthly Transaction</h3>`;
+    sortedMonths.forEach(month => {
+        insights += `<p>${month}: ${monthlyTransactions[month]} Transaction</p>`;
+    });
+
+    return insights;
+}
 
   function generateNeighborhoodInsights(neighborhoodTransactions) {
       let insights = "<h3>Neighborhood Sales Transaction</h3>";
