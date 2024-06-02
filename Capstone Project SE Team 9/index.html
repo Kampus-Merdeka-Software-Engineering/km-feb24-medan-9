@@ -9,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="scripts.js" defer></script>
+    <script src="scripts.js"></script>
 </head>
 <body>
     <header class="header">
@@ -38,9 +38,8 @@
         </div>
     </nav>
     <main class="content">
-        <h1 class="top-product-title">Top Product</h1>
-        <section id="residential-unit" class="top-product-property">
-            <div class="residential-unit">
+        <div class="card-container">
+            <section id="residential-unit" class="card">
                 <h2>Residential Unit</h2>
                 <div class="products">
                     <table id="top-sales-residential">
@@ -53,8 +52,8 @@
                         </thead>
                     </table>
                 </div>
-            </div>
-            <div id="commercial-unit" class="commercial-unit">
+            </section>
+            <section id="commercial-unit" class="card">
                 <h2>Commercial Unit</h2>
                 <div class="products">
                     <table id="top-sales-commercial">
@@ -67,82 +66,73 @@
                         </thead>
                     </table>
                 </div>
-            </div>
-            <div class="building-image">
-                <img src="building.jpeg" alt="Building">
-                <img src="building2.jpeg" alt="Building">
-                <img src="building3.jpeg" alt="Building">
-            </div>
-        </section>
-        <section id="growth-chart-1" class="total-monthly-sales">
-            <h2>Total Monthly Sales Price & Transaction</h2>
-            <div class="filter-date">
-                <div class="filters">
-                    <label for="start-date">Start Date :</label>
-                    <input type="text" id="start-date" placeholder="2016-09-01">
-                    <label for="end-date">End Date :</label>
-                    <input type="text" id="end-date" placeholder="2017-08-31">
-                    <button class="apply-filter-btn">Apply Filter</button>
-                    <button class="clear-filter-btn">Clear Filter</button>
-                </div>             
-            </div>
-            <p class="note">Note: Input tanggal untuk melihat  insight yang diinginkan !</p>
-            <div class="chart">
-                <canvas id="total-monthly-sales-chart"></canvas>
-            </div>
-            <div class="insight">
-                <button class="show-insight-btn">Insights</button>
-                <div class="description" style="display: none;">
-                </div>                
-            </div>
-            <p>
-                Pada grafik total transaksi penjualan properti dari bulan September 2016 sampai Agustus 2017, terdapat kenaikan yang cukup signifikan di bulan Juni 2017. Saat menganalisis lebih lanjut pada bulan tersebut, ditemukan bahwa transaksi paling banyak dilakukan pada unit apartemen, terutama pada unit bangunan 10 Coops - Elevator Apartment. Namun, transaksi lainnya juga masih didominasi oleh unit apartemen atau bangunan jenis residential.
-            </p>
-            <p>
-                Pada grafik total sales price penjualan properti, kami melakukan analisis tren pada periode waktu tertentu untuk mencari pola peningkatan pendapatan. Kami membandingkan dan mencari overlap yang terjadi pada periode-periode tersebut. Terdapat dua periode waktu yang kami analisis, yaitu bulan Oktober - Desember 2016 dan Maret - Mei 2017, dengan fokus utama pada bulan Mei 2017 sebagai bulan dengan pendapatan tertinggi.
-            </p>
-        </section>        
-        <section id="growth-chart-2" class="neighborhood-sales">
-            <h2>Neighborhood Sales Transaction</h2>
-            <div class="sort-options">
-                <button class="sort-option" data-sort-type="asc" data-chart-type="neighborhood">Ascending</button>
-                <button class="sort-option" data-sort-type="desc" data-chart-type="neighborhood">Descending</button>
-            </div>
-            <div class="filter-sales">
-                <label for="min-transaction">Minimum Sales Transactions:</label>
-                <input type="number" id="min-transaction" min="0">
-                <label for="max-transaction">Maximum Sales Transactions:</label>
-                <input type="number" id="max-transaction" min="0">
-                <button id="apply-transaction-filter">Apply Transaction Filter</button>
-                <button id="clear-transaction-filter">Clear Transaction Filter</button>
-            </div>
-            <p class="note">Note: Input untuk melihat  insight yang diinginkan saja !</p>
-            <div class="chart">
-                <canvas id="neighborhood-sales-chart"></canvas>
-            </div>
-            <div class="insight">
-                <button class="show-insight-btn2">Insights</button> 
-                <div class="description2" style="display: none;">
+            </section>
+            <section id="growth-chart-1" class="card">
+                <h2>Total Monthly Sales Price & Transaction</h2>
+                <div class="filter-date">
+                    <div class="filters">
+                        <label for="start-date">Start Date :</label>
+                        <input type="text" id="start-date" placeholder="2016-09-01">
+                        <label for="end-date">End Date :</label>
+                        <input type="text" id="end-date" placeholder="2017-12-31">
+                        <button class="apply-filter-btn">Apply Filter</button>
+                        <button class="clear-filter-btn">Clear Filter</button>
+                    </div>             
                 </div>
+                <p class="note">Note: Input tanggal untuk melihat insight yang diinginkan!</p>
+                <div class="chart">
+                    <canvas id="total-monthly-sales-chart"></canvas>
                 </div>
-            </div>
-        </section>
-        <section id="growth-chart-3" class="top-building-transaction">
-            <h2>Top Building Transaction</h2>
-            <div class="sort-options">
-                <button class="sort-option" data-sort-type="asc" data-chart-type="building">Ascending</button>
-                <button class="sort-option" data-sort-type="desc" data-chart-type="building">Descending</button>
-            </div>
-            <div class="chart">
-                <canvas id="top-building-transaction-chart"></canvas>
-            </div>
-            <div class="insight">
-                <button class="show-insight-btn3">Insights</button>
-                <div class="description3" style="display: none;">
+                <div class="insight">
+                    <button class="show-insight-btn">Insights</button>
+                    <div class="description" style="display: none;"></div>                
                 </div>
-            </div>
-            <p class="note">Note: Insight akan bisa di klik setelah memilih filter ascending dan descending!</p>
-        </section>
+                <p>
+                    Pada grafik total transaksi penjualan properti dari bulan September 2016 sampai Agustus 2017, terdapat kenaikan yang cukup signifikan di bulan Juni 2017. Saat menganalisis lebih lanjut pada bulan tersebut, ditemukan bahwa transaksi paling banyak dilakukan pada unit apartemen, terutama pada unit bangunan 10 Coops - Elevator Apartment. Namun, transaksi lainnya juga masih didominasi oleh unit apartemen atau bangunan jenis residential.
+                </p>
+                <p>
+                    Pada grafik total sales price penjualan properti, kami melakukan analisis tren pada periode waktu tertentu untuk mencari pola peningkatan pendapatan. Kami membandingkan dan mencari overlap yang terjadi pada periode-periode tersebut. Terdapat dua periode waktu yang kami analisis, yaitu bulan Oktober - Desember 2016 dan Maret - Mei 2017, dengan fokus utama pada bulan Mei 2017 sebagai bulan dengan pendapatan tertinggi.
+                </p>
+            </section>
+            <section id="growth-chart-2" class="card">
+                <h2>Neighborhood Sales Transaction</h2>
+                <div class="sort-options">
+                    <button class="sort-option" data-sort-type="asc" data-chart-type="neighborhood">Ascending</button>
+                    <button class="sort-option" data-sort-type="desc" data-chart-type="neighborhood">Descending</button>
+                </div>
+                <div class="filter-sales">
+                    <label for="min-transaction">Minimum Sales Transactions:</label>
+                    <input type="number" id="min-transaction" min="22" max="1329">
+                    <label for="max-transaction">Maximum Sales Transactions:</label>
+                    <input type="number" id="max-transaction" min="22" max="1329">
+                    <button id="apply-transaction-filter">Apply Transaction Filter</button>
+                    <button id="clear-transaction-filter">Clear Transaction Filter</button>
+                </div>
+                <p class="note">Note: Input untuk melihat insight yang diinginkan saja!</p>
+                <div class="chart">
+                    <canvas id="neighborhood-sales-chart"></canvas>
+                </div>
+                <div class="insight">
+                    <button class="show-insight-btn2">Insights</button> 
+                    <div class="description2" style="display: none;"></div>
+                </div>
+            </section>
+            <section id="growth-chart-3" class="card">
+                <h2>Top Building Transaction</h2>
+                <div class="sort-options">
+                    <button class="sort-option" data-sort-type="asc" data-chart-type="building">Ascending</button>
+                    <button class="sort-option" data-sort-type="desc" data-chart-type="building">Descending</button>
+                </div>
+                <div class="chart">
+                    <canvas id="top-building-transaction-chart"></canvas>
+                </div>
+                <div class="insight">
+                    <button class="show-insight-btn3">Insights</button>
+                    <div class="description3" style="display: none;"></div>
+                </div>
+                <p class="note">Note: Insight akan bisa di klik setelah memilih filter ascending dan descending!</p>
+            </section>
+        </div>
     </main>
     <footer class="footer">
         <p>&copy; 2024 Manhattan Property Sales Dashboard. All rights reserved.</p>
