@@ -49,6 +49,37 @@ function initializeDashboard(data) {
       }
     })
   );
+  var timeout;
+
+//fungsi agar  <button class="dropbtn">Menu</button> bisa di klik
+  document.querySelector(".dropbtn").addEventListener("click", function() {
+    document.querySelector(".dropdown-content").classList.toggle("show");
+  });
+  //Kritik dan Saran to email 
+ (function(){
+   emailjs.init('AktJbbI84hHDSO86e');
+  const btn = document.getElementById('button');
+
+  document.getElementById('form').addEventListener('submit', function(event) {
+      event.preventDefault();
+
+      btn.value = 'Sending...';
+
+      const serviceID = 'capstone_project';
+      const templateID = 'template_o390uu1';
+
+      emailjs.sendForm(serviceID, templateID, this)
+          .then(() => {
+              btn.value = 'Send Email';
+              alert('Email sent successfully!');
+          }, (err) => {
+              btn.value = 'Send Email';
+              alert('Failed to send email. Please try again later.');
+              console.error('Error sending email:', err);
+          });
+  });
+})();
+
 
   // Event listeners untuk show-insight-btn2 dan show-insight-btn3
   document
@@ -235,6 +266,8 @@ function initializeDashboard(data) {
         sortType === "asc" ? ascDescription : descDescription;
     });
   }
+
+  
 
   function sortBuildingChartData(sortType) {
     const chart = Chart.getChart("top-building-transaction-chart");
