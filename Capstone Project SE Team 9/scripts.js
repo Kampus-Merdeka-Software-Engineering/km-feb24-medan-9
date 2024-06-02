@@ -49,12 +49,7 @@ function initializeDashboard(data) {
       }
     })
   );
-  var timeout;
-
-//fungsi agar  <button class="dropbtn">Menu</button> bisa di klik
-  document.querySelector(".dropbtn").addEventListener("click", function() {
-    document.querySelector(".dropdown-content").classList.toggle("show");
-  });
+ 
   //Kritik dan Saran to email 
  (function(){
    emailjs.init('AktJbbI84hHDSO86e');
