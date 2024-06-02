@@ -6,6 +6,13 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function initializeDashboard(data) {
+   // Set min and max dates for the date inputs
+   const minDate = "2016-09-01";
+   const maxDate = "2017-08-31";
+   document.getElementById("start-date").setAttribute("min", minDate);
+   document.getElementById("start-date").setAttribute("max", maxDate);
+   document.getElementById("end-date").setAttribute("min", minDate);
+   document.getElementById("end-date").setAttribute("max", maxDate);
   // Inisialisasi DataTables
   const tableResidential = initializeDataTable(
     "#top-sales-residential",
@@ -302,6 +309,15 @@ function initializeDashboard(data) {
   function applyFilter() {
     const startDate = new Date(document.getElementById("start-date").value);
     const endDate = new Date(document.getElementById("end-date").value);
+
+    const minDate = new Date(document.getElementById("start-date").getAttribute("min"));
+    const maxDate = new Date(document.getElementById("end-date").getAttribute("max"));
+
+    if (startDate < minDate || endDate > maxDate || startDate > endDate) {
+      alert(`Please select dates within the range ${minDate.toLocaleDateString()} to ${maxDate.toLocaleDateString()}.`);
+      return;
+    }
+
     const filteredData = data.filter((property) => {
       const saleDate = new Date(property.SALE_DATE);
       return saleDate >= startDate && saleDate <= endDate;
