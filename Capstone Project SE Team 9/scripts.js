@@ -7,8 +7,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function initializeDashboard(data) {
    // Set min and max dates for the date inputs
-   const minDate = "2016-09-01";
-   const maxDate = "2017-08-31";
+   const minDate = "2016-09";
+   const maxDate = "2017-08";
    document.getElementById("start-date").setAttribute("min", minDate);
    document.getElementById("start-date").setAttribute("max", maxDate);
    document.getElementById("end-date").setAttribute("min", minDate);
@@ -198,8 +198,9 @@ function initializeDashboard(data) {
   function createNeighborhoodSalesChart(neighborhoodTransactions) {
     console.log(neighborhoodTransactions);
     const amounts = Object.values(neighborhoodTransactions);
-    const highestAmount = Math.max(...amounts);
-    const minAmount = Math.min(...amounts);
+    //MAX =1329 MIN = 22
+    const highestAmount = 1329;
+    const minAmount = 22;
     console.log(highestAmount);
     console.log(minAmount);
 
@@ -255,13 +256,7 @@ function initializeDashboard(data) {
     chartNeighborhoodSales.data.datasets[0].data = arrTempSortData.map((element) => element.chartData);
     chartNeighborhoodSales.update();
 
-    // Define descriptions for ascending and descending sort types
-    const ascDescription = `Ascending: Transaksi tiga penjualan paling rendah terdapat pada properti daerah Little Italy sebesar 22 unit, Javits Center sebesar 27 unit dan Harlem-West sebesar 29 unit. 
-                            Harga jual bangunan terendah di Manhattan terdapat di Midtown East dan Civic Center, dimana tipe bangunannya adalah komersil dengan kategori bangunan 21 Office Building dan 45 Condo Hotels.`;
-
-    const descDescription = `Descending: Transaksi tiga penjualan paling tertinggi terdapat pada properti daerah Upper East Side (59-79) sebesar 1.329 unit, Upper East Side (79-96) sebesar 1.206 unit dan Midtown East sebesar 1.009 unit. 
-                            Harga jual bangunan tertinggi di Manhattan terdapat di Midtown CBD dan Financial, dimana tipe bangunannya adalah residential dengan kategori bangunan 10 Coops - Elevator Apartments dan 13 Condos - Elevator Apartments.`;
-
+    
     // Update the description based on the sortType  dibwah button insight
     document.querySelectorAll(".description2").forEach((description) => {
       description.innerHTML =
@@ -292,19 +287,20 @@ function initializeDashboard(data) {
       chart.data.datasets[0].data = sortedData.map((item) => item.value);
       chart.update();
     }
-    // Define descriptions for ascending and descending sort types akan muncul dibawah button insight
-    const ascDescription = `Ascending: Tipe bangunan residential dengan kategori bangunan 10 Coops - Elevator Apartments menjadi pilihan utama dengan nilai total harga jual yang paling tinggi selama 12 bulan sebesar 2.044.235.794,
-                                kemudian disusul dengan kategori bangunan yaitu 13 Condos - Elevator Apartments dengan nilai total harga jual sebesar 918.105.569. Kategori bangunan residential juga manjadi bangunan yang paling sering dibeli di wilayah Manhattan, 
-                                sehingga  merupakan salah satu faktor yang dapat meningkatkan revenue penjualan properti di Manhattan.`;
-    const descDescription = `Descending: Tipe bangunan komersil dengan kategori bangunan 45 Condo Hotels menjadi bangunan dengan nilai total harga jual yang paling rendah selama 12 bulan sebesar 4.850.175, 
-                                kemudian disusul dengan kategori bangunan yaitu 21 Office Building dengan nilai total harga jual sebesar 4.908.197. Kategori bangunan komersil manjadi bangunan yang paling jarang dibeli di wilayah Manhattan.`;
-
-    // Update the description based on the sortType
+    // insight top building transaction
+    let insightText3 = `Data telah diurutkan berdasarkan ${sortType === "asc" ? "terendah" : "tertinggi"}.
+    Data Tertinggi : ${Math.max(...chart.data.datasets[0].data)} Berada di ${chart.data.labels.find((label) => chart.data.datasets[0].data[chart.data.labels.indexOf(label)] === Math.max(...chart.data.datasets[0].data)) }
+    Data Terendah : ${Math.min(...chart.data.datasets[0].data)} Berada di ${chart.data.labels.find((label) => chart.data.datasets[0].data[chart.data.labels.indexOf(label)] === Math.min(...chart.data.datasets[0].data)) }
+    `;
+    // Update the description based on the insight 
     document.querySelectorAll(".description3").forEach((description) => {
-      description.innerHTML =
-        sortType === "asc" ? ascDescription : descDescription;
+      description.innerHTML = insightText3;
     });
+
+    
+
   }
+
 
   function applyFilter() {
     const startDate = new Date(document.getElementById("start-date").value);
@@ -390,82 +386,32 @@ function initializeDashboard(data) {
       calculateDataStatistics(filteredData);
 
     // Generate insight
-    let insightText = `Data yang Difilter dari ${startDate.toDateString()} hingga ${endDate.toDateString()}:
-      Total Transaction: ${filteredData.length}`;
+    let insightText = `Berikut adalah data penjualan properti di Manhattan berdasarkan grafik diatas dengan rentang tanggal ${startDate.toLocaleDateString()} hingga ${endDate.toLocaleDateString()}.
+Total Transactions: ${filteredData.length}.Total Monthly Sales Price: ${filteredData.reduce((acc, property) => acc + parseFloat(property.SALE_PRICE), 0)}.
+Data ini mencakup transaksi properti yang difilter dari tanggal mulai hingga tanggal akhir yang ditentukan. Ini mencakup total jumlah transaksi selama periode tersebut serta total harga jual bulanan dari transaksi-transaksi tersebut.`;
 
-    document.querySelectorAll(".description").forEach((description) => {
-      description.innerHTML = generateInsights(
-        monthlySales,
-        monthlyTransactions
-      );
-    });
+
+      document.querySelectorAll(".description").forEach((description) => {
+        description.innerHTML = insightText;
+      });
   }
+
+   
 
   function updateInsights2(filteredData, min, max) {
     // Hitung statistik berdasarkan data yang difilter
     const { neighborhoodTransactions } = calculateDataStatistics(filteredData);
 
     // Generate insight
-    let insightText = `Data yang Difilter dari ${min} hingga ${max}:
-      Total Transaction: ${filteredData.length}`;
+    let insightText2 = `Data yang Difilter dari ${min} hingga ${max}:
+     Data Tertinggi : ${Math.max(...Object.values(neighborhoodTransactions))} Berada di ${Object.keys(neighborhoodTransactions).find((key) => neighborhoodTransactions[key] === Math.max(...Object.values(neighborhoodTransactions)) )}
+     Data Terendah : ${Math.min(...Object.values(neighborhoodTransactions))} Berada di ${Object.keys(neighborhoodTransactions).find((key) => neighborhoodTransactions[key] === Math.min(...Object.values(neighborhoodTransactions)) )}
+     `;
+      
 
-    document.querySelectorAll(".description2").forEach((description) => {
-      description.innerHTML = generateNeighborhoodInsights(
-        neighborhoodTransactions
-      );
+      document.querySelectorAll(".description2").forEach((description) => {
+        description.innerHTML = insightText2;
     });
-  }
-
-  function generateInsights(monthlySales, monthlyTransactions) {
-    let insights = "";
-
-    // Daftar bulan dalam setahun
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    // Mengurutkan tahun dan bulan
-    const sortedMonths = Object.keys(monthlySales).sort((a, b) => {
-      const [yearA, monthA] = a.split("-");
-      const [yearB, monthB] = b.split("-");
-      return new Date(yearA, monthA - 1) - new Date(yearB, monthB - 1);
-    });
-
-    // Generate insight berdasarkan harga penjualan bulanan
-    insights += `<h3>Total Monthly Sales Price</h3>`;
-    sortedMonths.forEach((month) => {
-      insights += `<p>${month}: $${monthlySales[month]}</p>`;
-    });
-
-    // Generate insight berdasarkan transaksi bulanan
-    insights += `<h3>Total Monthly Transaction</h3>`;
-    sortedMonths.forEach((month) => {
-      insights += `<p>${month}: ${monthlyTransactions[month]} Transaction</p>`;
-    });
-
-    return insights;
-  }
-
-  function generateNeighborhoodInsights(neighborhoodTransactions) {
-    let insights = "<h3>Neighborhood Sales Transaction</h3>";
-
-    // Generate insight berdasarkan transaksi per neighborhood
-    for (let neighborhood in neighborhoodTransactions) {
-      insights += `<p>${neighborhood}: ${neighborhoodTransactions[neighborhood]} Transaction</p>`;
-    }
-
-    return insights;
   }
 
   function createTotalMonthlySalesChart(monthlySales, monthlyTransactions) {
