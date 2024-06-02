@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script src="scripts.js"></script>
 </head>
 <body>
@@ -21,6 +22,16 @@
         </div>
     </header>
     <nav class="navbar">
+
+        <div class="dropdown" id="sidebar">
+            <button class="dropbtn">☰</button>
+            <div class="dropdown-content" id="dropdownContent">
+                <a href="index.html">Home</a>
+                <a href="about.html">About</a>
+                <a href="contact.html">Contact</a>
+            </div>
+        </div>
+        
         <div class="dropdown" id="topProductDropdown">
             <button class="dropbtn">Top Product</button>
             <div class="dropdown-content">
@@ -36,7 +47,11 @@
                 <a href="#growth-chart-3">Top Building Transaction</a>
             </div>
         </div>
+
+
     </nav>
+
+
     <main class="content">
         <div class="card-container">
             <section id="residential-unit" class="card">
@@ -131,6 +146,21 @@
                     <div class="description3" style="display: none;"></div>
                 </div>
                 <p class="note">Note: Insight akan bisa di klik setelah memilih filter ascending dan descending!</p>
+            </section>
+            <section id="Kritik & Saran" class="card">
+                <form id="form">
+                    <h2>Kritik & Saran</h2>
+                    <div class="field">
+                      <label for="from_name">Name:</label>
+                      <input type="text" name="from_name" id="from_name" required>
+                    </div>
+                    <div class="field">
+                      <label for="message">Message:</label>
+                      <textarea name="message" id="message" required></textarea>
+                    </div>
+                    <input type="submit" id="button" value="Send Email">
+                  </form>
+                  <p class="note">Note: Silahkan isi nama dan pesan yang ingin disampaikan!</p>  
             </section>
         </div>
     </main>
