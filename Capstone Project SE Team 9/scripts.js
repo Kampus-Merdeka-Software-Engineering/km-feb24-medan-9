@@ -37,10 +37,6 @@ function initializeDashboard(data) {
   const popup = document.getElementById("popup");
   const overlay = document.getElementById("overlay");
 
-  // Event listeners
-  document
-    .querySelectorAll(".show-insight-btn")
-    .forEach((button) => button.addEventListener("click", toggleDescription));
   overlay.addEventListener("click", togglePopup);
   document
     .querySelectorAll(".sort-btn")
@@ -154,12 +150,6 @@ function initializeDashboard(data) {
     popup.style.display = popup.style.display === "block" ? "none" : "block";
     overlay.style.display =
       overlay.style.display === "block" ? "none" : "block";
-  }
-
-  function toggleDescription(event) {
-    const description = event.target.nextElementSibling;
-    description.style.display =
-      description.style.display === "none" ? "block" : "none";
   }
 
   function toggleDescription2(event) {
@@ -391,9 +381,7 @@ Total Transactions: ${filteredData.length}.Total Monthly Sales Price: ${filtered
 Data ini mencakup transaksi properti yang difilter dari tanggal mulai hingga tanggal akhir yang ditentukan. Ini mencakup total jumlah transaksi selama periode tersebut serta total harga jual bulanan dari transaksi-transaksi tersebut.`;
 
 
-      document.querySelectorAll(".description").forEach((description) => {
-        description.innerHTML = insightText;
-      });
+      document.getElementById("total-monthly-sales-chart-description").innerHTML = insightText;
   }
 
    
@@ -446,6 +434,17 @@ Data ini mencakup transaksi properti yang difilter dari tanggal mulai hingga tan
         ],
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        onResize : function(chart, size) {
+          var showTicks = (size.width < 768) ? false : true;
+          chart.options.scales.y.display = showTicks;
+          chart.options.scales.sales.display = showTicks;
+          chart.options.scales.transactions.display = showTicks;
+          chart.options.scales.x.ticks.minRotation = 90;
+          chart.options.scales.x.ticks.maxRotation = 90;
+          chart.update();
+        },
         scales: {
           y: {
             beginAtZero: true,
@@ -459,6 +458,7 @@ Data ini mencakup transaksi properti yang difilter dari tanggal mulai hingga tan
           },
         },
       },
+      
     });
   }
 
@@ -545,6 +545,10 @@ Data ini mencakup transaksi properti yang difilter dari tanggal mulai hingga tan
     }
   }
 
-  updateInsights(data, new Date(0), new Date());
+  
+  data.sort((a, b) => new Date(a.SALE_DATE) - new Date(b.SALE_DATE));
+  let defaultStartDate = new Date(data[0].SALE_DATE);
+  let defaultEndDate = new Date(data[data.length - 1].SALE_DATE);
+  updateInsights(data, defaultStartDate, defaultEndDate);
   updateInsights2(data, 0, 1000);
 }
