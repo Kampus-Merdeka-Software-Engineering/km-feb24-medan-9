@@ -238,7 +238,6 @@ html {
 }
 
 .insight .description {
-    display: none;
     margin-top: 20px;
     background-color: #f9f9f9;
     padding: 10px;
@@ -508,6 +507,12 @@ html {
     .insight .description {
         padding: 5px;
         font-size: 12px;
+    }
+    .content {
+        padding: 10px;
+    }
+    .card {
+        padding: 30px 10px;
     }
 
     /* Responsif pada tabel */
