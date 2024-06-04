@@ -246,6 +246,7 @@ html {
 /* Kritik dan Saran */
 .field {
     margin-bottom: 10px;
+    
   }
   
   .field label {
@@ -254,12 +255,19 @@ html {
     color: #777;
   }
   
-  .field input {
+  .field input,
+.field textarea {
     display: block;
     min-width: 250px;
     line-height: 1.5;
     font-size: 14px;
-  }
+}
+
+/* Menambah CSS untuk textarea */
+.field textarea {
+    width: 300px; 
+    height: 100px; /* Atur sesuai tinggi yang diinginkan */
+}
   
   input[type="submit"] {
     display: block;
@@ -447,6 +455,9 @@ html {
         padding: 5px;
         font-size: 12px;
     }
+    .field textarea {
+        width: 100%; /* Atur sesuai lebar yang diinginkan */
+    }
 
     /* Responsif pada tabel */
     table {
@@ -514,6 +525,7 @@ html {
     .card {
         padding: 30px 10px;
     }
+    
 
     /* Responsif pada tabel */
     table {
