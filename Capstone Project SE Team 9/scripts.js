@@ -402,7 +402,7 @@ function initializeDashboard(data) {
     // Generate insight
     let insightText = `Berikut adalah data penjualan properti di Manhattan berdasarkan grafik diatas dengan rentang tanggal ${startDate.toLocaleDateString()} hingga ${endDate.toLocaleDateString()}.
 Total Transactions: ${filteredData.length}.Total Monthly Sales Price: ${filteredData.reduce((acc, property) => acc + parseFloat(property.SALE_PRICE), 0)}.
-Dengan demikian , penjualan properti di Manhattan mengalami peningkatan yang signifikan pada bulan ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.max(...Object.values(monthlySales)) )},dan penurunan yang signifikan pada bulan ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.min(...Object.values(monthlySales)) )}.,Hal ini bisa  disebabkan oleh beberapa faktor seperti musim, kebijakan pemerintah, dan lain-lain.,Maka dari itu, perlu dilakukan analisis
+Dengan demikian , penjualan properti di Manhattan mengalami peningkatan yang signifikan pada bulan ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.max(...Object.values(monthlySales)) )},dan penurunan yang signifikan pada bulan ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.min(...Object.values(monthlySales)) )}.,Hal ini bisa  disebabkan oleh beberapa faktor seperti musim, kebijakan pemerintah, dan lain-lain.Maka dari itu, perlu dilakukan analisis
 lebih lanjut untuk mengetahui penyebab dari peningkatan dan penurunan tersebut.`;
 
 
