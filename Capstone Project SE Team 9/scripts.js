@@ -420,7 +420,7 @@ lebih lanjut untuk mengetahui penyebab dari peningkatan dan penurunan tersebut.`
     let insightText2 = `Berdasarkan Data dari grafik diatas, dari  ${min} hingga ${max} transaksi penjualan properti di Manhattan.
      Data Tertinggi adalah ${Math.max(...Object.values(neighborhoodTransactions))} berada di ${Object.keys(neighborhoodTransactions).find((key) => neighborhoodTransactions[key] === Math.max(...Object.values(neighborhoodTransactions)) )}. Sedangkan
      Data Terendah adalah ${Math.min(...Object.values(neighborhoodTransactions))} berada di ${Object.keys(neighborhoodTransactions).find((key) => neighborhoodTransactions[key] === Math.min(...Object.values(neighborhoodTransactions)) )}
-     . Hal ini bisa  disebabkan oleh beberapa faktor seperti musim, kebijakan pemerintah dan lain-lain. Maka dari itu, perlu dilakukan analisis lebih lanjut untuk mengetahui penyebab dari peningkatan dan penurunan tersebut.
+     . Hal ini dapat  disebabkan oleh beberapa faktor seperti musim, kebijakan pemerintah dan lain-lain. Maka dari itu, perlu dilakukan analisis lebih lanjut untuk mengetahui penyebab dari peningkatan dan penurunan tersebut.
       `;
     // Update the description based on the insight
       document.querySelectorAll(".description2").forEach((description) => {
