@@ -401,8 +401,8 @@ function initializeDashboard(data) {
 
     // Generate insight
     let insightText = `Berikut adalah data penjualan properti di Manhattan berdasarkan grafik diatas dengan rentang tanggal ${startDate.toLocaleDateString()} hingga ${endDate.toLocaleDateString()}.
-Total Transactions: ${filteredData.length}.Total Monthly Sales Price: ${filteredData.reduce((acc, property) => acc + parseFloat(property.SALE_PRICE), 0)}.
-Dengan demikian , penjualan properti di Manhattan mengalami peningkatan yang signifikan pada bulan ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.max(...Object.values(monthlySales)) )},dan penurunan yang signifikan pada bulan ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.min(...Object.values(monthlySales)) )}.Hal ini bisa  disebabkan oleh beberapa faktor seperti musim, kebijakan pemerintah, dan lain-lain.Maka dari itu, perlu dilakukan analisis
+Total Transactions : ${filteredData.length}. Total Monthly Sales Price: ${filteredData.reduce((acc, property) => acc + parseFloat(property.SALE_PRICE), 0)}.
+Dengan demikian, penjualan properti di Manhattan mengalami peningkatan yang signifikan pada bulan ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.max(...Object.values(monthlySales)) )},dan penurunan yang signifikan pada bulan ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.min(...Object.values(monthlySales)) )}. Hal ini bisa disebabkan oleh beberapa faktor seperti musim, kebijakan pemerintah dan lain-lain. Maka dari itu, perlu dilakukan analisis
 lebih lanjut untuk mengetahui penyebab dari peningkatan dan penurunan tersebut.`;
 
 
@@ -417,10 +417,10 @@ lebih lanjut untuk mengetahui penyebab dari peningkatan dan penurunan tersebut.`
     const max = 1329;
     const { neighborhoodTransactions } = calculateDataStatistics(filteredData);
     // Generate insight
-    let insightText2 = `Berdasarkan Data dari grafik diatas,dari  ${min} hingga ${max} transaksi penjualan properti di Manhattan.
-     Data Tertinggi adalah ${Math.max(...Object.values(neighborhoodTransactions))} Berada di ${Object.keys(neighborhoodTransactions).find((key) => neighborhoodTransactions[key] === Math.max(...Object.values(neighborhoodTransactions)) )}.Sedangkan
-     Data Terendah adalah ${Math.min(...Object.values(neighborhoodTransactions))} Berada di ${Object.keys(neighborhoodTransactions).find((key) => neighborhoodTransactions[key] === Math.min(...Object.values(neighborhoodTransactions)) )}
-      ,Hal ini bisa  disebabkan oleh beberapa faktor seperti musim, kebijakan pemerintah, dan lain-lain.Maka dari itu, perlu dilakukan analisis lebih lanjut untuk mengetahui penyebab dari peningkatan dan penurunan tersebut.
+    let insightText2 = `Berdasarkan Data dari grafik diatas, dari  ${min} hingga ${max} transaksi penjualan properti di Manhattan.
+     Data Tertinggi adalah ${Math.max(...Object.values(neighborhoodTransactions))} berada di ${Object.keys(neighborhoodTransactions).find((key) => neighborhoodTransactions[key] === Math.max(...Object.values(neighborhoodTransactions)) )}. Sedangkan
+     Data Terendah adalah ${Math.min(...Object.values(neighborhoodTransactions))} berada di ${Object.keys(neighborhoodTransactions).find((key) => neighborhoodTransactions[key] === Math.min(...Object.values(neighborhoodTransactions)) )}
+     . Hal ini bisa  disebabkan oleh beberapa faktor seperti musim, kebijakan pemerintah dan lain-lain. Maka dari itu, perlu dilakukan analisis lebih lanjut untuk mengetahui penyebab dari peningkatan dan penurunan tersebut.
       `;
     // Update the description based on the insight
       document.querySelectorAll(".description2").forEach((description) => {
