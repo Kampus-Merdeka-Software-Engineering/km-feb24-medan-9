@@ -1,3 +1,4 @@
+
 document.addEventListener("DOMContentLoaded", () => {
   fetch("./team-9-medan.json")
     .then((response) => response.json())
@@ -13,6 +14,13 @@ function initializeDashboard(data) {
    document.getElementById("start-date").setAttribute("max", maxDate);
    document.getElementById("end-date").setAttribute("min", minDate);
    document.getElementById("end-date").setAttribute("max", maxDate);
+
+   // Set min and max values for the transaction inputs
+    document.getElementById("min-transaction").setAttribute("min", 22);
+    document.getElementById("min-transaction").setAttribute("max", 1329);
+    document.getElementById("max-transaction").setAttribute("min", 22);
+    document.getElementById("max-transaction").setAttribute("max", 1329);
+
   // Inisialisasi DataTables
   const tableResidential = initializeDataTable(
     "#top-sales-residential",
@@ -197,9 +205,6 @@ function initializeDashboard(data) {
     document.getElementById("min-transaction").max = highestAmount;
     document.getElementById("min-transaction").min = minAmount;
 
-
-    
-
     const ctx = document
       .getElementById("neighborhood-sales-chart")
       .getContext("2d");
@@ -216,6 +221,15 @@ function initializeDashboard(data) {
         ],
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        onResize : function(chart, size) {
+          var showTicks = (size.width < 768) ? false : true;
+          chart.options.scales.y.display = showTicks;
+          chart.options.scales.x.ticks.minRotation = 90;
+          chart.options.scales.x.ticks.maxRotation = 90;
+          chart.update();
+        },
         scales: {
           y: { beginAtZero: true },
         },
@@ -291,11 +305,17 @@ function initializeDashboard(data) {
 
   }
 
-
   function applyFilter() {
-    const startDate = new Date(document.getElementById("start-date").value);
-    const endDate = new Date(document.getElementById("end-date").value);
+    const startDateInput = document.getElementById("start-date").value;
+    const endDateInput = document.getElementById("end-date").value;
 
+    if (!startDateInput || !endDateInput) {
+      alert("Please fill in both the start date and end date.");
+      return;
+    }
+
+    const startDate = new Date(startDateInput);
+    const endDate = new Date(endDateInput);
     const minDate = new Date(document.getElementById("start-date").getAttribute("min"));
     const maxDate = new Date(document.getElementById("end-date").getAttribute("max"));
 
@@ -308,6 +328,7 @@ function initializeDashboard(data) {
       const saleDate = new Date(property.SALE_DATE);
       return saleDate >= startDate && saleDate <= endDate;
     });
+
     updateChartsWithFilteredData(filteredData);
     updateInsights(filteredData, startDate, endDate);
   }
@@ -324,22 +345,33 @@ function initializeDashboard(data) {
     updateNeighborhoodSalesChart(data);
     updateInsights2(data);
   }
-
   function applyTransactionFilter() {
-    const min = parseInt(document.getElementById("min-transaction").value);
-    const max = parseInt(document.getElementById("max-transaction").value);
-
-    // Filter data berdasarkan rentang transaksi
+    const minTransactionInput = document.getElementById("min-transaction");
+    const maxTransactionInput = document.getElementById("max-transaction");
+    
+    const minTransaction = parseInt(minTransactionInput.value);
+    const maxTransaction = parseInt(maxTransactionInput.value);
+  
+    const minTransactionValue = parseInt(minTransactionInput.getAttribute("min"));
+    const maxTransactionValue = parseInt(maxTransactionInput.getAttribute("max"));
+  
+    if (isNaN(minTransaction) || isNaN(maxTransaction)) {
+      alert("Please input both minimum and maximum sales transactions.");
+      return;
+    }
+  
+    if (minTransaction < minTransactionValue || maxTransaction > maxTransactionValue || minTransaction > maxTransaction) {
+      alert(`Please select transactions within the range ${minTransactionValue} to ${maxTransactionValue}.`);
+      return;
+    }
+  
     const filteredData = data.filter((property) => {
       const transaction = neighborhoodTransactions[property.NEIGHBORHOOD] || 0;
-      return transaction >= min && transaction <= max;
+      return transaction >= minTransaction && transaction <= maxTransaction;
     });
-
-    // Perbarui Grafik Penjualan Neighborhood dengan data yang telah difilter
+  
     updateNeighborhoodSalesChart(filteredData);
-
-    // Perbarui insight dengan data yang telah difilter
-    updateInsights2(filteredData, min, max);
+    updateInsights2(filteredData, minTransaction, maxTransaction);
   }
 
   function updateNeighborhoodSalesChart(filteredData) {
@@ -377,8 +409,9 @@ function initializeDashboard(data) {
 
     // Generate insight
     let insightText = `Berikut adalah data penjualan properti di Manhattan berdasarkan grafik diatas dengan rentang tanggal ${startDate.toLocaleDateString()} hingga ${endDate.toLocaleDateString()}.
-Total Transactions: ${filteredData.length}.Total Monthly Sales Price: ${filteredData.reduce((acc, property) => acc + parseFloat(property.SALE_PRICE), 0)}.
-Data ini mencakup transaksi properti yang difilter dari tanggal mulai hingga tanggal akhir yang ditentukan. Ini mencakup total jumlah transaksi selama periode tersebut serta total harga jual bulanan dari transaksi-transaksi tersebut.`;
+Total Transactions : ${filteredData.length}. Total Monthly Sales Price: ${filteredData.reduce((acc, property) => acc + parseFloat(property.SALE_PRICE), 0)}.
+Pada Penjualan properti di Manhattan mengalami peningkatan yang signifikan terjadipada tanggal ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.max(...Object.values(monthlySales)) )},dan penurunan yang signifikan pada 
+terjadi pada tanggal ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.min(...Object.values(monthlySales)) )} dengan  rata-rata penjualan bulanan sebesar ${Object.values(monthlySales).reduce((acc, value) => acc + value, 0) / Object.values(monthlySales).length} dengan  transaksi bulanan sebesar ${Object.values(monthlyTransactions).reduce((acc, value) => acc + value, 0) / Object.values(monthlyTransactions).length} per bulan.`;
 
 
       document.getElementById("total-monthly-sales-chart-description").innerHTML = insightText;
@@ -386,22 +419,30 @@ Data ini mencakup transaksi properti yang difilter dari tanggal mulai hingga tan
 
    
 
-  function updateInsights2(filteredData, min, max) {
-    // Hitung statistik berdasarkan data yang difilter
-    const { neighborhoodTransactions } = calculateDataStatistics(filteredData);
+ //generate insight neighborhood sales transaction dengan min dan max yang telah di set pada initializasi dashboard
+ function updateInsights2(filteredData, min, max) {
+  // Hitung statistik berdasarkan data yang difilter
+  const { neighborhoodTransactions } = calculateDataStatistics(filteredData);
 
-    // Generate insight
-    let insightText2 = `Data yang Difilter dari ${min} hingga ${max}:
-     Data Tertinggi : ${Math.max(...Object.values(neighborhoodTransactions))} Berada di ${Object.keys(neighborhoodTransactions).find((key) => neighborhoodTransactions[key] === Math.max(...Object.values(neighborhoodTransactions)) )}
-     Data Terendah : ${Math.min(...Object.values(neighborhoodTransactions))} Berada di ${Object.keys(neighborhoodTransactions).find((key) => neighborhoodTransactions[key] === Math.min(...Object.values(neighborhoodTransactions)) )}
-     `;
-      
+  // Generate insight
+  let insightText2 = `Berdasarkan yang  dari ${min} hingga ${max} transaksi  di Manhattan, berikut adalah data penjualan properti di Manhattan berdasarkan grafik diatas.
+   Data Tertinggi berada di angka  ${Math.max(...Object.values(neighborhoodTransactions))} Berada di ${Object.keys(neighborhoodTransactions).find((key) => neighborhoodTransactions[key] === Math.max(...Object.values(neighborhoodTransactions)) )}
+   Data Terendah berada di angka ${Math.min(...Object.values(neighborhoodTransactions))} Berada di ${Object.keys(neighborhoodTransactions).find((key) => neighborhoodTransactions[key] === Math.min(...Object.values(neighborhoodTransactions)) )}
+   .Dengan demikian,Selisih antara data tertinggi dan terendah adalah ${Math.max(...Object.values(neighborhoodTransactions)) - Math.min(...Object.values(neighborhoodTransactions))} transaksi per neighborhood.
+  `;
+    
 
-      document.querySelectorAll(".description2").forEach((description) => {
-        description.innerHTML = insightText2;
-    });
-  }
+    document.querySelectorAll(".description2").forEach((description) => {
+      description.innerHTML = insightText2;
+  });
+}
 
+
+
+
+  
+  
+// Fungsi untuk membuat grafik total penjualan bulanan
   function createTotalMonthlySalesChart(monthlySales, monthlyTransactions) {
     const ctx = document
       .getElementById("total-monthly-sales-chart")
@@ -461,7 +502,7 @@ Data ini mencakup transaksi properti yang difilter dari tanggal mulai hingga tan
       
     });
   }
-
+// Fungsi untuk membuat grafik transaksi penjualan kelas bangunan teratas
   function createTopBuildingTransactionChart(data) {
     const dataForTopBuildingTransaction = calculateBuildingTransactions(data);
 
@@ -483,6 +524,15 @@ Data ini mencakup transaksi properti yang difilter dari tanggal mulai hingga tan
         ],
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        onResize : function(chart, size) {
+          var showTicks = (size.width < 768) ? false : true;
+          chart.options.scales.y.display = showTicks;
+          chart.options.scales.x.ticks.minRotation = 90;
+          chart.options.scales.x.ticks.maxRotation = 90;
+          chart.update();
+        },
         scales: {
           y: { beginAtZero: true },
         },
@@ -509,7 +559,7 @@ Data ini mencakup transaksi properti yang difilter dari tanggal mulai hingga tan
       },
     });
   }
-
+// Fungsi untuk menghitung total penjualan untuk setiap kategori kelas bangunan
   function calculateBuildingTransactions(data) {
     const buildingTransactions = {};
 
@@ -550,5 +600,5 @@ Data ini mencakup transaksi properti yang difilter dari tanggal mulai hingga tan
   let defaultStartDate = new Date(data[0].SALE_DATE);
   let defaultEndDate = new Date(data[data.length - 1].SALE_DATE);
   updateInsights(data, defaultStartDate, defaultEndDate);
-  updateInsights2(data, 0, 1000);
+  updateInsights2(data, 22, 1329);
 }
