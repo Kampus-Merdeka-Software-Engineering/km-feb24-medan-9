@@ -14,6 +14,13 @@ function initializeDashboard(data) {
    document.getElementById("start-date").setAttribute("max", maxDate);
    document.getElementById("end-date").setAttribute("min", minDate);
    document.getElementById("end-date").setAttribute("max", maxDate);
+
+   // Set min and max values for the transaction inputs
+    document.getElementById("min-transaction").setAttribute("min", 22);
+    document.getElementById("min-transaction").setAttribute("max", 1329);
+    document.getElementById("max-transaction").setAttribute("min", 22);
+    document.getElementById("max-transaction").setAttribute("max", 1329);
+
   // Inisialisasi DataTables
   const tableResidential = initializeDataTable(
     "#top-sales-residential",
@@ -403,8 +410,8 @@ function initializeDashboard(data) {
     // Generate insight
     let insightText = `Berikut adalah data penjualan properti di Manhattan berdasarkan grafik diatas dengan rentang tanggal ${startDate.toLocaleDateString()} hingga ${endDate.toLocaleDateString()}.
 Total Transactions : ${filteredData.length}. Total Monthly Sales Price: ${filteredData.reduce((acc, property) => acc + parseFloat(property.SALE_PRICE), 0)}.
-Dengan demikian, penjualan properti di Manhattan mengalami peningkatan yang signifikan pada bulan ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.max(...Object.values(monthlySales)) )},dan penurunan yang signifikan pada bulan ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.min(...Object.values(monthlySales)) )}.  Hal ini bisa disebabkan oleh beberapa faktor seperti musim, kebijakan pemerintah dan lain-lain. Maka dari itu, perlu dilakukan analisis
-lebih lanjut untuk mengetahui penyebab dari peningkatan dan penurunan tersebut.`;
+Pada Penjualan properti di Manhattan mengalami peningkatan yang signifikan terjadipada tanggal ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.max(...Object.values(monthlySales)) )},dan penurunan yang signifikan pada 
+terjadi pada tanggal ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.min(...Object.values(monthlySales)) )} dengan  rata-rata penjualan bulanan sebesar ${Object.values(monthlySales).reduce((acc, value) => acc + value, 0) / Object.values(monthlySales).length} dengan  transaksi bulanan sebesar ${Object.values(monthlyTransactions).reduce((acc, value) => acc + value, 0) / Object.values(monthlyTransactions).length} per bulan.`;
 
 
       document.getElementById("total-monthly-sales-chart-description").innerHTML = insightText;
@@ -412,22 +419,29 @@ lebih lanjut untuk mengetahui penyebab dari peningkatan dan penurunan tersebut.`
 
    
 
-  function updateInsights2() {
-    const filteredData = data;
-    const min = 0;
-    const max = 1329;
-    const { neighborhoodTransactions } = calculateDataStatistics(filteredData);
-    // Generate insight
-    let insightText2 = `Berdasarkan Data dari grafik diatas, dari  ${min} hingga ${max} transaksi penjualan properti di Manhattan.
-     Data Tertinggi adalah ${Math.max(...Object.values(neighborhoodTransactions))} berada di ${Object.keys(neighborhoodTransactions).find((key) => neighborhoodTransactions[key] === Math.max(...Object.values(neighborhoodTransactions)) )}. Sedangkan
-     Data Terendah adalah ${Math.min(...Object.values(neighborhoodTransactions))} berada di ${Object.keys(neighborhoodTransactions).find((key) => neighborhoodTransactions[key] === Math.min(...Object.values(neighborhoodTransactions)) )}
-     . Hal ini bisa  disebabkan oleh beberapa faktor seperti musim, kebijakan pemerintah dan lain-lain. Maka dari itu, perlu dilakukan analisis lebih lanjut untuk mengetahui penyebab dari peningkatan dan penurunan tersebut.
-      `;
-    // Update the description based on the insight
-      document.querySelectorAll(".description2").forEach((description) => {
-        description.innerHTML = insightText2;
-    });
-  }
+ //generate insight neighborhood sales transaction dengan min dan max yang telah di set pada initializasi dashboard
+ function updateInsights2(filteredData, min, max) {
+  // Hitung statistik berdasarkan data yang difilter
+  const { neighborhoodTransactions } = calculateDataStatistics(filteredData);
+
+  // Generate insight
+  let insightText2 = `Berdasarkan yang  dari ${min} hingga ${max} transaksi  di Manhattan, berikut adalah data penjualan properti di Manhattan berdasarkan grafik diatas.
+   Data Tertinggi berada di angka  ${Math.max(...Object.values(neighborhoodTransactions))} Berada di ${Object.keys(neighborhoodTransactions).find((key) => neighborhoodTransactions[key] === Math.max(...Object.values(neighborhoodTransactions)) )}
+   Data Terendah berada di angka ${Math.min(...Object.values(neighborhoodTransactions))} Berada di ${Object.keys(neighborhoodTransactions).find((key) => neighborhoodTransactions[key] === Math.min(...Object.values(neighborhoodTransactions)) )}
+   .Dengan demikian,Selisih antara data tertinggi dan terendah adalah ${Math.max(...Object.values(neighborhoodTransactions)) - Math.min(...Object.values(neighborhoodTransactions))} transaksi per neighborhood.
+  `;
+    
+
+    document.querySelectorAll(".description2").forEach((description) => {
+      description.innerHTML = insightText2;
+  });
+}
+
+
+
+
+  
+  
 // Fungsi untuk membuat grafik total penjualan bulanan
   function createTotalMonthlySalesChart(monthlySales, monthlyTransactions) {
     const ctx = document
@@ -586,5 +600,5 @@ lebih lanjut untuk mengetahui penyebab dari peningkatan dan penurunan tersebut.`
   let defaultStartDate = new Date(data[0].SALE_DATE);
   let defaultEndDate = new Date(data[data.length - 1].SALE_DATE);
   updateInsights(data, defaultStartDate, defaultEndDate);
-  updateInsights2(data, 0, 1000);
+  updateInsights2(data, 22, 1329);
 }
