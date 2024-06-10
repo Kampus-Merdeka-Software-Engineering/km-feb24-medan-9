@@ -292,9 +292,9 @@ function initializeDashboard(data) {
       chart.update();
     }
     // insight top building transaction
-    let insightText3 = `Data telah diurutkan berdasarkan ${sortType === "asc" ? "terendah" : "tertinggi"}.
+    let insightText3 = `Data telah diurutkan berdasarkan ${sortType === "asc" ? "Terendah" : "Tertinggi"}.
     Data dengan profit Tertinggi adalah sebesar $${Math.max(...chart.data.datasets[0].data)} Berada di ${chart.data.labels.find((label) => chart.data.datasets[0].data[chart.data.labels.indexOf(label)] === Math.max(...chart.data.datasets[0].data)) }
-    Sedangkan Data dengan profit Terendah : ${Math.min(...chart.data.datasets[0].data)} Berada di ${chart.data.labels.find((label) => chart.data.datasets[0].data[chart.data.labels.indexOf(label)] === Math.min(...chart.data.datasets[0].data)) },sehingga selisih antara data tertinggi dan terendah adalah ${Math.max(...chart.data.datasets[0].data) - Math.min(...chart.data.datasets[0].data)}.
+    Sedangkan Data dengan profit Terendah sebesar $${Math.min(...chart.data.datasets[0].data)} Berada di ${chart.data.labels.find((label) => chart.data.datasets[0].data[chart.data.labels.indexOf(label)] === Math.min(...chart.data.datasets[0].data)) },sehingga selisih antara data tertinggi dan terendah adalah $${Math.max(...chart.data.datasets[0].data) - Math.min(...chart.data.datasets[0].data)} per building.
     `;
     // Update the description based on the insight 
     document.querySelectorAll(".description3").forEach((description) => {
