@@ -410,9 +410,8 @@ function initializeDashboard(data) {
     // Generate insight
     let insightText = `Berikut adalah data penjualan properti di Manhattan berdasarkan grafik diatas dengan rentang tanggal ${startDate.toLocaleDateString()} hingga ${endDate.toLocaleDateString()}.
 Total Transactions : ${filteredData.length}. Total Monthly Sales Price: ${filteredData.reduce((acc, property) => acc + parseFloat(property.SALE_PRICE), 0)}.
-Pada Penjualan properti di Manhattan mengalami peningkatan yang signifikan terjadipada tanggal ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.max(...Object.values(monthlySales)) )},dan penurunan yang signifikan pada 
-terjadi pada tanggal ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.min(...Object.values(monthlySales)) )} dengan  rata-rata penjualan bulanan sebesar ${Object.values(monthlySales).reduce((acc, value) => acc + value, 0) / Object.values(monthlySales).length} dengan  transaksi bulanan sebesar ${Object.values(monthlyTransactions).reduce((acc, value) => acc + value, 0) / Object.values(monthlyTransactions).length} per bulan.`;
-
+Pada grafik Penjualan properti di Manhattan dibawah ini menunjukan peningkatan yang signifikan terjadi pada tanggal ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.max(...Object.values(monthlySales)) )} sebesar ${Math.max(...Object.values(monthlySales))} dan penurunan yang signifikan
+terjadi pada tanggal ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.min(...Object.values(monthlySales)) )} sebesar ${Math.min(...Object.values(monthlySales))}. Dengan demikian,rata-rata penjualan bulanan adalah ${filteredData.reduce((acc, property) => acc + parseFloat(property.SALE_PRICE), 0) / Object.keys(monthlySales).length},dan rata-rata transaksi bulanan adalah ${filteredData.length / Object.keys(monthlyTransactions).length} per bulan.`;
 
       document.getElementById("total-monthly-sales-chart-description").innerHTML = insightText;
   }
