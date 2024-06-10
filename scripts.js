@@ -410,9 +410,8 @@ function initializeDashboard(data) {
     // Generate insight
     let insightText = `Berikut adalah data penjualan properti di Manhattan berdasarkan grafik diatas dengan rentang tanggal ${startDate.toLocaleDateString()} hingga ${endDate.toLocaleDateString()}.
 Total Transactions : ${filteredData.length}. Total Monthly Sales Price: ${filteredData.reduce((acc, property) => acc + parseFloat(property.SALE_PRICE), 0)}.
-Pada Penjualan properti di Manhattan mengalami peningkatan yang signifikan terjadipada tanggal ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.max(...Object.values(monthlySales)) )},dan penurunan yang signifikan pada 
-terjadi pada tanggal ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.min(...Object.values(monthlySales)) )} dengan  rata-rata penjualan bulanan sebesar ${Object.values(monthlySales).reduce((acc, value) => acc + value, 0) / Object.values(monthlySales).length} dengan  transaksi bulanan sebesar ${Object.values(monthlyTransactions).reduce((acc, value) => acc + value, 0) / Object.values(monthlyTransactions).length} per bulan.`;
-
+Pada grafik Penjualan properti di Manhattan dibawah ini menunjukan peningkatan yang signifikan terjadi pada tanggal ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.max(...Object.values(monthlySales)) )} sebesar ${Math.max(...Object.values(monthlySales))} dan penurunan yang signifikan
+terjadi pada tanggal ${Object.keys(monthlySales).find((key) => monthlySales[key] === Math.min(...Object.values(monthlySales)) )} sebesar ${Math.min(...Object.values(monthlySales))}. Dengan demikian,rata-rata penjualan bulanan adalah ${filteredData.reduce((acc, property) => acc + parseFloat(property.SALE_PRICE), 0) / Object.keys(monthlySales).length},dan rata-rata transaksi bulanan adalah ${filteredData.length / Object.keys(monthlyTransactions).length} per bulan.`;
 
       document.getElementById("total-monthly-sales-chart-description").innerHTML = insightText;
   }
@@ -437,73 +436,76 @@ terjadi pada tanggal ${Object.keys(monthlySales).find((key) => monthlySales[key]
   });
 }
 
+function createTotalMonthlySalesChart(monthlySales, monthlyTransactions) {
+  const ctx = document
+    .getElementById("total-monthly-sales-chart")
+    .getContext("2d");
+  const labels = Object.keys(monthlySales).sort();
 
-
-
-  
-  
-// Fungsi untuk membuat grafik total penjualan bulanan
-  function createTotalMonthlySalesChart(monthlySales, monthlyTransactions) {
-    const ctx = document
-      .getElementById("total-monthly-sales-chart")
-      .getContext("2d");
-    const labels = Object.keys(monthlySales).sort();
-
-    return new Chart(ctx, {
-      type: "line",
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: "Total Sales Price",
-            data: labels.map((label) => monthlySales[label]),
-            borderColor: "rgba(75, 192, 192, 1)",
-            backgroundColor: "rgba(75, 192, 192, 0.2)",
-            borderWidth: 1,
-            fill: false,
-            yAxisID: "sales", // Penjualan menggunakan sumbu Y utama
-          },
-          {
-            label: "Total Transaction",
-            data: labels.map((label) => monthlyTransactions[label]),
-            borderColor: "rgba(153, 102, 255, 1)",
-            backgroundColor: "rgba(153, 102, 255, 0.2)",
-            borderWidth: 1,
-            fill: false,
-            yAxisID: "transactions", // Transaksi menggunakan sumbu Y utama
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        onResize : function(chart, size) {
-          var showTicks = (size.width < 768) ? false : true;
-          chart.options.scales.y.display = showTicks;
-          chart.options.scales.sales.display = showTicks;
-          chart.options.scales.transactions.display = showTicks;
-          chart.options.scales.x.ticks.minRotation = 90;
-          chart.options.scales.x.ticks.maxRotation = 90;
-          chart.update();
+  return new Chart(ctx, {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: "Total Sales Price",
+          data: labels.map((label) => monthlySales[label]),
+          borderColor: "rgba(75, 192, 192, 1)",
+          backgroundColor: "rgba(75, 192, 192, 0.2)",
+          borderWidth: 1,
+          fill: false,
+          yAxisID: "sales",
         },
-        scales: {
-          y: {
-            beginAtZero: true,
-            title: {
-              display: true,
-              text: "Total",
-              font: {
-                weight: "bold",
-              },
-            },
+        {
+          label: "Total Transaction",
+          data: labels.map((label) => monthlyTransactions[label]),
+          borderColor: "rgba(153, 102, 255, 1)",
+          backgroundColor: "rgba(153, 102, 255, 0.2)",
+          borderWidth: 1,
+          fill: false,
+          yAxisID: "transactions",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      onResize: function(chart, size) {
+        var showTicks = (size.width < 768) ? false : true;
+        chart.options.scales.sales.display = showTicks;
+        chart.options.scales.transactions.display = showTicks;
+        chart.options.scales.x.ticks.minRotation = 90;
+        chart.options.scales.x.ticks.maxRotation = 90;
+        chart.update();
+      },
+      scales: {
+        y: {
+          beginAtZero: true,
+          display: false, // Hide the primary y-axis
+        },
+        sales: {
+          type: 'linear',
+          position: 'left',
+          beginAtZero: true,
+          title: {
+            display: false,
+          },
+          grid: {
+            display: false,
           },
         },
+        transactions: {
+          type: 'linear',
+          position: 'left',
+          beginAtZero: true,
+          display: false, // Hide the secondary y-axis
+        },
       },
-      
-    });
-  }
+    },
+  });
+}
 // Fungsi untuk membuat grafik transaksi penjualan kelas bangunan teratas
-function createTopBuildingTransactionChart(data) {
+ function createTopBuildingTransactionChart(data) {
   const dataForTopBuildingTransaction = calculateBuildingTransactions(data);
 
   const ctx = document
