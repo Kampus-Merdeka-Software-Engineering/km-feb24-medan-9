@@ -129,26 +129,25 @@ html {
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
-    width: 98,5%; /* Adjusted width for better responsiveness */
+    width: 98.5%; /* Adjusted width for better responsiveness */
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     font-size: 24px;
     color: #333;
 }
+
 .growth-chart-title {
     text-align: center;
     margin-top: 2px;
     margin-bottom: 2px;
-    width: 98,5%; /* Adjusted width for better responsiveness */
+    width: 98.5%; /* Adjusted width for better responsiveness */
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     font-size: 24px;
     color: #333;
-
 }
-
 
 /* Content styles */
 .content {
@@ -166,7 +165,6 @@ html {
     border-radius: 10px;
     padding: 40px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    
 }
 
 .card h2 {
@@ -189,7 +187,7 @@ html {
     color: #333;
 }
 
-.filter-date input[type="text"], .filter-sales input[type="number"] {
+.filter-date input[type="month"], .filter-sales input[type="number"] {
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -243,19 +241,19 @@ html {
     padding: 10px;
     border-radius: 4px;
 }
+
 /* Kritik dan Saran */
 .field {
     margin-bottom: 10px;
-    
-  }
-  
-  .field label {
+}
+
+.field label {
     display: block;
     font-size: 12px;
     color: #777;
-  }
-  
-  .field input,
+}
+
+.field input,
 .field textarea {
     display: block;
     min-width: 250px;
@@ -265,19 +263,18 @@ html {
 
 /* Menambah CSS untuk textarea */
 .field textarea {
-    width: 300px; 
+    width: 300px;
     height: 100px; /* Atur sesuai tinggi yang diinginkan */
 }
-  
-  input[type="submit"] {
+
+input[type="submit"] {
     display: block;
     padding: 6px 30px;
     font-size: 14px;
     background-color: #d4a252;
     color: #fff;
-    border: none
-  }
-
+    border: none;
+}
 
 .footer {
     background-color: #8CB9BD;
@@ -285,7 +282,6 @@ html {
     text-align: center;
     padding: 10px;
 }
-   
 
 .overlay {
     display: none;
@@ -394,7 +390,7 @@ html {
 
 /* media queries */
 
-/* Untuk perangkat berukuran kecil hingga sedang */
+/* For small to medium devices */
 @media only screen and (max-width: 768px) {
     .header, .navbar, .filter-date, .sort-options, .filter-sales, .insight {
         flex-direction: column;
@@ -409,6 +405,7 @@ html {
     .top-product-title {
         font-size: 20px;
     }
+
     .growth-chart-title {
         font-size: 20px;
     }
@@ -430,7 +427,7 @@ html {
         margin-bottom: 5px;
     }
 
-    .filter-date input[type="text"], .filter-sales input[type="number"] {
+    .filter-date input[type="month"], .filter-sales input[type="number"] {
         width: 100%;
         padding: 4px;
         font-size: 12px;
@@ -455,11 +452,12 @@ html {
         padding: 5px;
         font-size: 12px;
     }
+
     .field textarea {
-        width: 100%; /* Atur sesuai lebar yang diinginkan */
+        width: 100%; /* Adjust as needed */
     }
 
-    /* Responsif pada tabel */
+    /* Responsive table */
     table {
         max-width: 100%;
         overflow-x: auto;
@@ -470,7 +468,7 @@ html {
     }
 }
 
-/* Untuk perangkat berukuran kecil (smartphones) */
+/* For small devices (smartphones) */
 @media only screen and (max-width: 480px) {
     .header .logo img {
         height: 60px;
@@ -482,10 +480,12 @@ html {
 
     .top-product-title {
         font-size: 18px;
+        width: 89%;
     }
     
     .growth-chart-title {
         font-size: 18px;
+        width: 89%;
     }
 
     .navbar .dropdown {
@@ -497,7 +497,7 @@ html {
         font-size: 12px;
     }
 
-    .filter-date input[type="text"], .filter-sales input[type="number"] {
+    .filter-date input[type="month"], .filter-sales input[type="number"] {
         padding: 4px;
         font-size: 12px;
     }
@@ -519,15 +519,16 @@ html {
         padding: 5px;
         font-size: 12px;
     }
+
     .content {
         padding: 10px;
     }
+
     .card {
         padding: 30px 10px;
     }
-    
 
-    /* Responsif pada tabel */
+    /* Responsive table */
     table {
         max-width: 100%;
         overflow-x: auto;
@@ -538,11 +539,32 @@ html {
     }
 }
 
-/* Untuk perangkat berukuran besar */
+@media (min-width: 480px) {
+    .filters label,
+    .filters input {
+        flex: 1 1 calc(50% - 10px);
+    }
+
+    .filters button {
+        flex: 1 1 calc(50% - 10px);
+    }
+}
+
+@media (min-width: 768px) {
+    .filters label,
+    .filters input {
+        flex: 1 1 calc(25% - 10px);
+    }
+
+    .filters button {
+        flex: 1 1 calc(50% - 10px);
+    }
+}
+
+/* For large devices */
 @media only screen and (min-width: 769px) {
-    /* Atur lebar tabel agar tidak terlalu lebar pada layar besar */
+    /* Set table width to 100% on large screens */
     table {
         width: 100%;
     }
 }
-
