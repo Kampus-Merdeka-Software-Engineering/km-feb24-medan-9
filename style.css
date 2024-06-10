@@ -187,7 +187,7 @@ html {
 
 /* Content styles */
 .content {
-    padding: 20px;
+    padding: 15px;
 }
 
 .card-container {
@@ -199,7 +199,7 @@ html {
 .card {
     background-color: #FFF;
     border-radius: 10px;
-    padding: 40px;
+    padding: 10px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -582,7 +582,7 @@ input[type="submit"] {
     .card {
         padding: 30px 10px;
     }
-    ..description-box {
+    .description-box {
         padding: 5px; /* Adjust the padding as needed */
     }
     .box-title {
@@ -601,6 +601,7 @@ input[type="submit"] {
     .description3 {
         font-size: 14px; /* Adjust the font size as needed */
     }
+
     
 
     /* Responsive table */
