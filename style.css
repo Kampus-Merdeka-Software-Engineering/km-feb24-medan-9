@@ -492,6 +492,25 @@ input[type="submit"] {
     .field textarea {
         width: 100%; /* Adjust as needed */
     }
+    ..description-box {
+        padding: 5px; /* Adjust the padding as needed */
+    }
+    .box-title {
+        font-size: 16px; /* Adjust the font size as needed */
+        margin-bottom: 5px; /* Adjust the margin as needed */
+    }
+    .description {
+        font-size: 14px; /* Adjust the font size as needed */
+    }
+    #total-monthly-sales-chart-description {
+        font-size: 14px; /* Adjust the font size as needed */
+    }
+    .description2 {
+        font-size: 14px; /* Adjust the font size as needed */
+    }
+    .description3 {
+        font-size: 14px; /* Adjust the font size as needed */
+    }
 
     /* Responsive table */
     table {
@@ -563,6 +582,26 @@ input[type="submit"] {
     .card {
         padding: 30px 10px;
     }
+    ..description-box {
+        padding: 5px; /* Adjust the padding as needed */
+    }
+    .box-title {
+        font-size: 16px; /* Adjust the font size as needed */
+        margin-bottom: 5px; /* Adjust the margin as needed */
+    }
+    .description {
+        font-size: 14px; /* Adjust the font size as needed */
+    }
+    #total-monthly-sales-chart-description {
+        font-size: 14px; /* Adjust the font size as needed */
+    }
+    .description2 {
+        font-size: 14px; /* Adjust the font size as needed */
+    }
+    .description3 {
+        font-size: 14px; /* Adjust the font size as needed */
+    }
+    
 
     /* Responsive table */
     table {
