@@ -517,7 +517,7 @@ terjadi pada tanggal ${Object.keys(monthlySales).find((key) => monthlySales[key]
         ),
         datasets: [
           {
-            label: "Top Building Transactions",
+            label: "10 Most Profitable Building",
             data: dataForTopBuildingTransaction.map((item) => item.SALE_PRICE),
             borderWidth: 1,
           },
