@@ -90,6 +90,42 @@ html {
     display: block;
     opacity: 1;
 }
+
+.description-box {
+    border: 2px solid #000; /* Adjust the color and width of the border as needed */
+    padding: 10px; /* Adds space inside the box around the text */
+    border-radius: 5px; /* Rounds the corners of the box */
+    background-color: #f9f9f9; /* Optional: Adds a background color */
+    text-align: center; /* Centers the title and description text */
+}
+
+.box-title {
+    font-size: 18px; /* Adjust the font size as needed */
+    font-weight: bold; /* Makes the title bold */
+    margin-bottom: 10px; /* Adds space between the title and the description */
+}
+.description {
+    font-size: 16px; /* Adjust the font size as needed */
+    color: #333; /* Adjust the text color as needed */
+    text-align: justify; /* Justifies the description text */
+}
+
+#total-monthly-sales-chart-description {
+    font-size: 16px; /* Adjust the font size as needed */
+    color: #333; /* Adjust the text color as needed */
+    text-align: justify; /* Justifies the description text */
+}
+.description2 {
+    font-size: 16px; /* Adjust the font size as needed */
+    color: #333; /* Adjust the text color as needed */
+    text-align: justify; /* Justifies the description text */
+}
+.description3 {
+    font-size: 16px; /* Adjust the font size as needed */
+    color: #333; /* Adjust the text color as needed */
+    text-align: justify; /* Justifies the description text */
+}
+
 /* Default style for the button */
 .dropbtn {
     background-color: #3498db;
