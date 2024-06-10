@@ -506,62 +506,70 @@ function createTotalMonthlySalesChart(monthlySales, monthlyTransactions) {
   });
 }
 // Fungsi untuk membuat grafik transaksi penjualan kelas bangunan teratas
-  function createTopBuildingTransactionChart(data) {
-    const dataForTopBuildingTransaction = calculateBuildingTransactions(data);
+ function createTopBuildingTransactionChart(data) {
+  const dataForTopBuildingTransaction = calculateBuildingTransactions(data);
 
-    const ctx = document
-      .getElementById("top-building-transaction-chart")
-      .getContext("2d");
-    return new Chart(ctx, {
-      type: "bar",
-      data: {
-        labels: dataForTopBuildingTransaction.map(
-          (item) => item.BUILDING_CLASS_CATEGORY
-        ),
-        datasets: [
-          {
-            label: "10 Most Profitable Building",
-            data: dataForTopBuildingTransaction.map((item) => item.SALE_PRICE),
-            borderWidth: 1,
-          },
-        ],
+  const ctx = document
+    .getElementById("top-building-transaction-chart")
+    .getContext("2d");
+  return new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: dataForTopBuildingTransaction.map(
+        (item) => item.BUILDING_CLASS_CATEGORY
+      ),
+      datasets: [
+        {
+          label: "10 Most Profitable Building",
+          data: dataForTopBuildingTransaction.map((item) => item.SALE_PRICE),
+          borderWidth: 1,
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      onResize: function (chart, size) {
+        var showTicks = size.width < 768 ? false : true;
+        chart.options.scales.y.display = showTicks;
+        chart.options.scales.x.ticks.minRotation = 90;
+        chart.options.scales.x.ticks.maxRotation = 90;
+        chart.update();
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        onResize : function(chart, size) {
-          var showTicks = (size.width < 768) ? false : true;
-          chart.options.scales.y.display = showTicks;
-          chart.options.scales.x.ticks.minRotation = 90;
-          chart.options.scales.x.ticks.maxRotation = 90;
-          chart.update();
-        },
-        scales: {
-          y: { beginAtZero: true },
-        },
-        plugins: {
-          tooltip: {
-            callbacks: {
-              label: function (context) {
-                let label = context.dataset.label || "";
-
-                if (label) {
-                  label += ": ";
-                }
-                if (context.parsed.y !== null) {
-                  label += new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "USD",
-                  }).format(context.parsed.y);
-                }
-                return label;
-              },
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            callback: function (value) {
+              return '$' + value.toLocaleString(); // Format the value with dollar sign and commas
             },
           },
         },
       },
-    });
-  }
+      plugins: {
+        tooltip: {
+          callbacks: {
+            label: function (context) {
+              let label = context.dataset.label || "";
+
+              if (label) {
+                label += ": ";
+              }
+              if (context.parsed.y !== null) {
+                label += new Intl.NumberFormat("en-US", {
+                  style: "currency",
+                  currency: "USD",
+                }).format(context.parsed.y);
+              }
+              return label;
+            },
+          },
+        },
+      },
+    },
+  });
+}
+
 // Fungsi untuk menghitung total penjualan untuk setiap kategori kelas bangunan
   function calculateBuildingTransactions(data) {
     const buildingTransactions = {};
