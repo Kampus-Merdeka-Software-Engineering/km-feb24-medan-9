@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manhattan Property Sales Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.7/css/dataTables.dataTables.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.datatables.net/2.0.7/js/dataTables.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script src="scripts.js"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">
+            <img src="Logo - Company - Manhattan.png" alt="Logo">
+        </div>
+        <div class="title">
+            <h1>Manhattan Property Sales Dashboard</h1>
+        </div>
+    </header>
+    <nav class="navbar">
+        <div class="dropdown" id="topProductDropdown">
+            <button class="dropbtn" id="topProductButton">Top Product</button>
+            <div class="dropdown-content">
+                <a href="#residential-unit">Residential Unit</a>
+                <a href="#commercial-unit">Commercial Unit</a>
+            </div>
+        </div>
+        <div class="dropdown" id="growthChartDropdown">
+            <button class="dropbtn">Growth Chart</button>
+            <div class="dropdown-content">
+                <a href="#growth-chart-1">Total Monthly Sales Price</a>
+                <a href="#growth-chart-2">Neighborhood Sales Transaction</a>
+                <a href="#growth-chart-3">Top Building Transaction</a>
+            </div>
+        </div>
+        <div class="dropdown" id="kritikSaranDropdown">
+            <a href="#Kritik&Saran" class="dropbtn">Criticism & Suggestions</a>
+        </div>
+    </nav>
+    <main class="content">
+        <h1 class="top-product-title">Top Product</h1>
+        <div class="card-container">
+            <section id="residential-unit" class="card">
+                <h2>Residential Unit</h2>
+                <div class="products">
+                    <table id="top-sales-residential">
+                        <thead>
+                            <tr>
+                                <th>Neighborhood</th>
+                                <th>Building Class</th>
+                                <th>Total Units</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </section>
+            <section id="commercial-unit" class="card">
+                <h2>Commercial Unit</h2>
+                <div class="products">
+                    <table id="top-sales-commercial">
+                        <thead>
+                            <tr>
+                                <th>Neighborhood</th>
+                                <th>Building Class</th>
+                                <th>Total Units</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </section>
+            <h1 class="growth-chart-title">Growth Chart</h1>
+            <section id="growth-chart-1" class="card">
+                <h2>Total Monthly Sales Price & Transaction</h2>
+                <div class="filter-date">
+                    <div class="filters">
+                        <label for="start-date">Start Date:</label>
+                        <input type="month" id="start-date" />
+                        <label for="end-date">End Date:</label>
+                        <input type="month" id="end-date" />                    
+                        <button class="apply-filter-btn">Apply Filter</button>
+                        <button class="clear-filter-btn">Clear Filter</button>
+                    </div>             
+                </div>
+                <p class="note">Note: Enter the date to see the desired insights !</p>
+                <div class="chart">
+                    <canvas id="total-monthly-sales-chart"></canvas>
+                </div>
+                <div class="insight">
+                    <div id="total-monthly-sales-chart-description"></div>                
+                </div>
+            </section>
+            <section id="growth-chart-2" class="card">
+                <h2>Neighborhood Sales Transaction</h2>
+                <div class="sort-options">
+                    <button class="sort-option" data-sort-type="asc" data-chart-type="neighborhood">Ascending</button>
+                    <button class="sort-option" data-sort-type="desc" data-chart-type="neighborhood">Descending</button>
+                </div>
+                <div class="filter-sales">
+                    <label for="min-transaction">Minimum Sales Transactions:</label>
+                    <input type="number" id="min-transaction" min="22" max="1329">
+                    <label for="max-transaction">Maximum Sales Transactions:</label>
+                    <input type="number" id="max-transaction" min="22" max="1329">
+                    <button id="apply-transaction-filter">Apply Transaction Filter</button>
+                    <button id="clear-transaction-filter">Clear Transaction Filter</button>
+                </div>
+                <div class="chart">
+                    <canvas id="neighborhood-sales-chart"></canvas>
+                </div>
+                <div class="insight">
+                    <div class="description2"></div>
+                </div>
+            </section>
+            <section id="growth-chart-3" class="card">
+                <h2>Top Building Transaction</h2>
+                <div class="sort-options">
+                    <button class="sort-option" data-sort-type="asc" data-chart-type="building">Ascending</button>
+                    <button class="sort-option" data-sort-type="desc" data-chart-type="building">Descending</button>
+                </div>
+                <div class="chart">
+                    <canvas id="top-building-transaction-chart"></canvas>
+                </div>
+                <div class="insight">
+                    <div class="description3"></div>
+                </div>
+            </section>
+            <section id="Kritik&Saran" class="card">
+                <form id="form">
+                    <h2>Criticism & Suggestions</h2>
+                    <div class="field">
+                      <label for="from_name">Name:</label>
+                      <input type="text" name="from_name" id="from_name" required>
+                    </div>
+                    <div class="field">
+                      <label for="message">Message:</label>
+                      <textarea name="message" id="message" required></textarea>
+                    </div>
+                    <input type="submit" id="button" value="Send Email">
+                  </form>
+                  <p class="note">Note: Please enter your name and the message you want to send !</p>  
+            </section>
+        </div>
+    </main>
+    <footer class="footer">
+        <p>&copy; 2024 Manhattan Property Sales Dashboard. All rights reserved.</p>
+    </footer>
+    <div class="overlay" id="overlay"></div>
+    <div class="popup" id="popup">
+        <div class="popup-content" id="popup-content"></div>
+    </div>
+</body>
+</html>
+
