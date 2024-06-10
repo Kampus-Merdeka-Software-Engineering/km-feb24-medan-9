@@ -492,7 +492,7 @@ input[type="submit"] {
     .field textarea {
         width: 100%; /* Adjust as needed */
     }
-    ..description-box {
+    .description-box {
         padding: 5px; /* Adjust the padding as needed */
     }
     .box-title {
